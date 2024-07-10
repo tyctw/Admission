@@ -377,5 +377,29 @@
 
   gtag('config', 'G-NJWFN7S6LZ');
 </script>
+    <script>
+    // 防止右鍵菜單
+    window.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // 防止文字選擇和複製
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 65 || e.keyCode === 88 || e.keyCode === 86 || e.keyCode === 83)) {
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('keyup', function (e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 65 || e.keyCode === 88 || e.keyCode === 86 || e.keyCode === 83)) {
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('selectstart', function (e) {
+        e.preventDefault();
+    });
+</script>
+
 </body>
 </html>
