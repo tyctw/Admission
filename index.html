@@ -6,16 +6,8 @@
     <title>學校入學條件</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            padding-top: 50px;
-        }
         .hidden-content {
             display: none;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            padding: 20px;
-            margin-top: 20px;
         }
         .form-label {
             font-size: 1.2rem;
@@ -28,24 +20,15 @@
         .btn-primary {
             font-size: 1.2rem;
             padding: 10px 20px;
-            border-radius: 8px;
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff;
-            border: 1px solid #ced4da;
         }
         th, td {
             border: 1px solid #ced4da;
-            padding: 10px;
+            padding: 8px;
             text-align: left;
             font-size: 1.1rem;
         }
@@ -59,17 +42,15 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">學校入學條件</h1>
-        <div class="mb-3 text-center">
+        <h1>學校入學條件</h1>
+        <div class="mb-3">
             <label for="inviteCode" class="form-label">輸入邀請碼</label>
             <input type="text" id="inviteCode" class="form-control">
         </div>
-        <div class="text-center">
-            <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
-        </div>
+        <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
 
         <div id="schoolList">
-            <table class="mt-5">
+            <table id="schoolTable" class="mt-5">
                 <thead>
                     <tr>
                         <th>學校</th>
@@ -83,20 +64,274 @@
                         <td>普通科</td>
                         <td>5A7+</td>
                     </tr>
-                    <!-- 其他學校和條件 -->
+                    <tr>
+                        <td>中壢高中</td>
+                        <td>普通科</td>
+                        <td>4A1B5+</td>
+                    </tr>
+                    <tr>
+                        <td>桃園高中</td>
+                        <td>普通科</td>
+                        <td>3A2B6+</td>
+                    </tr>
+                    <tr>
+                        <td>內壢高中</td>
+                        <td>普通科</td>
+                        <td>3A2B3+</td>
+                    </tr>
+                    <tr>
+                        <td>平鎮高中</td>
+                        <td>普通科</td>
+                        <td>2A3B2+</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
         <div id="hiddenContent" class="hidden-content">
-            <table>
+            <table id="hiddenTable">
                 <tbody>
                     <tr>
                         <td>南崁高中</td>
                         <td>普通科</td>
                         <td>5B8+</td>
                     </tr>
-                    <!-- 其他學校和條件 -->
+                    <tr>
+                        <td>永豐高中</td>
+                        <td>普通科</td>
+                        <td>1A4B8+</td>
+                    </tr>
+                    <tr>
+                        <td>大園高中</td>
+                        <td>普通科</td>
+                        <td>1A4B6+</td>
+                    </tr>
+                    <tr>
+                        <td>陽明高中</td>
+                        <td>普通科</td>
+                        <td>2A 3B4+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>普通科</td>
+                        <td>1A4B2+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>廣告設計科</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>應用英語科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>國際貿易科</td>
+                        <td>5B6+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>資料處理</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>國際貿易</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>綜合科</td>
+                        <td>1A4B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>商業經營</td>
+                        <td>1A4B5+ 作文3級</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>流行服飾</td>
+                        <td>5B2+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>商業經營</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>資料處理</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>家政科</td>
+                        <td>5B2+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>應用英語</td>
+                        <td>1A4B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>電機科</td>
+                        <td>1A4B6+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>動力機械</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>汽車科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>模具科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>生物產業電機科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>電子科</td>
+                        <td>1A4B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>農業經營</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>園藝科</td>
+                        <td>5B7+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>畜產保健科</td>
+                        <td>5B7+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>普通科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>園藝科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>造園科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>機械科</td>
+                        <td>4B1C2+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>畜產保健</td>
+                        <td>4B1C5+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>電子科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>普通科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>電子科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>資訊科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>新屋高中</td>
+                        <td>普通科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>觀音高中</td>
+                        <td>普通科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>大溪高中</td>
+                        <td>普通科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>電子商務</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>多媒體設計</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>觀光事業科</td>
+                        <td>4B1C3+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>商業經營科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>資訊科</td>
+                        <td>5B1+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>應用英語科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>普通科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>園藝科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>畜產保健科</td>
+                        <td>3B2C</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>家政科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                    <!-- 在此之後添加更多學校及其條件 -->
                 </tbody>
             </table>
         </div>
