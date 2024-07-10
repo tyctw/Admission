@@ -61,6 +61,10 @@
         .btn-copy:hover {
             background-color: #0056b3;
         }
+        .instructions {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +82,14 @@
                 <div class="mb-4">
                     <label for="countdownDisplay" class="form-label">邀請碼倒數時間</label>
                     <div id="countdownDisplay" class="countdown"></div>
+                </div>
+                <div class="instructions">
+                    <p>使用說明：</p>
+                    <ul>
+                        <li>當前邀請碼會自動更新，每小時更新一次。</li>
+                        <li>若邀請碼已過期，會自動生成新的邀請碼。</li>
+                        <li>點擊「複製邀請碼」按鈕，將邀請碼複製到剪貼簿。</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -112,10 +124,6 @@
             const inviteCode = refreshInviteCode();
             document.getElementById('inviteCodeDisplay').innerText = inviteCode;
         }
-function goToMainFunction() {
-    alert('進入主要功能頁面！');
-    window.location.href = 'main_index.html'; // 替換成您希望跳轉的頁面URL
-}
 
         function updateCountdownDisplay() {
             const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
