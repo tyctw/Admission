@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>邀請碼生成</title>
+    <title>邀請碼生成器</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -46,20 +46,27 @@
             border-radius: 10px;
             text-align: center;
             margin-bottom: 10px;
+            cursor: pointer; /* 添加游標顯示為指示可點擊 */
         }
-        .btn-copy {
+        .invite-code:hover {
+            background-color: #d1d8ff; /* 滑鼠懸停時的背景色 */
+        }
+        .btn-main {
             font-size: 1rem;
             font-weight: bold;
             padding: 10px 20px;
             color: white;
-            background-color: #007bff;
+            background-color: #6d5dfc;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
         }
-        .btn-copy:hover {
-            background-color: #0056b3;
+        .btn-main:hover {
+            background-color: #c477fc;
         }
     </style>
 </head>
@@ -72,13 +79,13 @@
             <div class="card-body">
                 <div class="mb-4">
                     <label for="inviteCodeDisplay" class="form-label">當前邀請碼</label>
-                    <div id="inviteCodeDisplay" class="invite-code"></div>
-                    <button id="copyButton" class="btn-copy">複製邀請碼</button>
+                    <div id="inviteCodeDisplay" class="invite-code" onclick="copyInviteCode()">Loading...</div>
                 </div>
                 <div class="mb-4">
                     <label for="countdownDisplay" class="form-label">邀請碼倒數時間</label>
                     <div id="countdownDisplay" class="countdown"></div>
                 </div>
+                <button id="mainButton" class="btn-main" onclick="goToMainFunction()">進入主要功能頁面</button>
             </div>
         </div>
     </div>
@@ -112,10 +119,6 @@
             const inviteCode = refreshInviteCode();
             document.getElementById('inviteCodeDisplay').innerText = inviteCode;
         }
-function goToMainFunction() {
-    alert('進入主要功能頁面！');
-    window.location.href = 'main_index.html'; // 替換成您希望跳轉的頁面URL
-}
 
         function updateCountdownDisplay() {
             const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
@@ -142,11 +145,15 @@ function goToMainFunction() {
             });
         }
 
+        function goToMainFunction() {
+            alert('跳轉錄取分數頁面！');
+            window.location.href = 'index.html'; // 替換成您希望跳轉的頁面URL
+        }
+
         window.onload = function() {
             updateInviteCodeDisplay();
             setInterval(updateInviteCodeDisplay, 3600000); // 每小時檢查一次
             setInterval(updateCountdownDisplay, 1000); // 每秒更新倒數計時
-            document.getElementById('copyButton').addEventListener('click', copyInviteCode);
         }
     </script>
 </body>
