@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學校入學條件</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 50px;
+        }
+        .hidden-content {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .form-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .form-control {
+            font-size: 1.2rem;
+            width: 300px;
+        }
+        .btn-primary {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+        }
+        th, td {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .school-item {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">學校入學條件</h1>
+        <div class="mb-3 text-center">
+            <label for="inviteCode" class="form-label">輸入邀請碼</label>
+            <input type="text" id="inviteCode" class="form-control">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
+        </div>
+
+        <div id="schoolList">
+            <table class="mt-5">
+                <thead>
+                    <tr>
+                        <th>學校</th>
+                        <th>科目</th>
+                        <th>成績要求</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>武陵高中</td>
+                        <td>普通科</td>
+                        <td>5A7+</td>
+                    </tr>
+                    <!-- 其他學校和條件 -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="hiddenContent" class="hidden-content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>南崁高中</td>
+                        <td>普通科</td>
+                        <td>5B8+</td>
+                    </tr>
+                    <!-- 其他學校和條件 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 檢查邀請碼並顯示隱藏內容
+        function checkInviteCode() {
+            const userCode = document.getElementById('inviteCode').value;
+            const storedCode = localStorage.getItem('inviteCode');
+            if (userCode === storedCode) {
+                document.getElementById('hiddenContent').style.display = 'block';
+                alert('邀請碼正確');
+                setInviteCode(); // 使用後自動更新邀請碼
+            } else {
+                alert('邀請碼錯誤');
+            }
+        }
+
+        function setInviteCode() {
+            const inviteCode = generateInviteCode();
+            localStorage.setItem('inviteCode', inviteCode);
+            localStorage.setItem('inviteCodeTimestamp', Date.now());
+            console.log(`New invite code generated: ${inviteCode}`);
+        }
+
+        function generateInviteCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let inviteCode = '';
+            for (let i = 0; i < 8; i++) {
+                inviteCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return inviteCode;
+        }
+    </script>
+</body>
+</html>
