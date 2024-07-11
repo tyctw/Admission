@@ -41,6 +41,23 @@
         .school-item {
             display: none;
         }
+        .btn-main {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            color: white;
+            background-color: #6d5dfc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+        .btn-main:hover {
+            background-color: #c477fc;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +69,8 @@
             <input type="text" id="inviteCode" class="form-control">
         </div>
         <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
+        <button id="mainButton" class="btn-main" onclick="goToMainFunction()">進入主網頁</button>
+
         <div id="schoolList">
             <table id="schoolTable" class="mt-5">
                 <thead>
@@ -342,6 +361,7 @@
     <footer class="footer mt-auto py-3">
         <div class="container text-center">
             <span class="text-muted">Copyright &copy; 2024 桃聯區會考高中參考錄取分數</span>
+
         </div>
     </footer>
     <script>
@@ -396,6 +416,11 @@
     document.addEventListener('selectstart', function (e) {
         e.preventDefault();
     });
+function goToMainFunction() {
+  alert('跳轉主網頁');
+  window.location.href = 'https://sites.google.com/view/tyctw/'; // 替換成您希望跳轉的頁面URL
+}
+
 </script>
 
 </body>
