@@ -166,6 +166,11 @@
             updateInviteCodeDisplay();
             setInterval(updateInviteCodeDisplay, 3600000); // 每小時檢查一次
             setInterval(updateCountdownDisplay, 1000); // 每秒更新倒數計時
+
+            // 防止按右鍵
+            document.addEventListener('contextmenu', function(event) {
+                event.preventDefault();
+            });
         }
     </script>
 </body>
