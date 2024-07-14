@@ -9,15 +9,18 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
         .container {
             margin-top: 50px;
             max-width: 600px;
+            animation: fadeIn 1s ease-in-out;
         }
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideInUp 0.5s ease-out;
         }
         .card-header {
             background: linear-gradient(135deg, #6d5dfc, #c477fc);
@@ -46,10 +49,12 @@
             border-radius: 10px;
             text-align: center;
             margin-bottom: 10px;
-            cursor: pointer; /* 添加游標顯示為指示可點擊 */
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
         }
         .invite-code:hover {
-            background-color: #d1d8ff; /* 滑鼠懸停時的背景色 */
+            background-color: #d1d8ff;
+            transform: scale(1.05);
         }
         .btn-main {
             font-size: 1rem;
@@ -60,13 +65,14 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             margin-top: 10px;
             display: block;
             width: 100%;
         }
         .btn-main:hover {
             background-color: #c477fc;
+            transform: translateY(-3px);
         }
         .footer {
             text-align: center;
@@ -76,6 +82,33 @@
             border-top: 1px solid #ccc;
             font-size: 0.9rem;
             color: #6c757d;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
