@@ -3,7 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>重定向邀請碼頁面</title>
+    <title>重定向範例</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .redirect-link {
+            display: block;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .redirect-link:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); }
+            to { transform: translateY(0); }
+        }
+    </style>
     <script>
         // 當文檔載入完成後立即重定向
         window.onload = function() {
@@ -12,7 +88,11 @@
     </script>
 </head>
 <body>
-    <!-- 可以添加一些頁面內容，這些內容將在重定向前顯示 -->
-    <h1>正在為您跳轉邀請碼顯示頁面...</h1>
+    <div class="container">
+        <h1>正在為您重定向...</h1>
+        <p>請稍候，您即將前往指定的頁面。</p>
+        <a href="https://tyctw.github.io/Admission/indsvqvite" class="redirect-link">如果未自動重定向，請點擊這裡。</a>
+        <footer>&copy; 2024 桃聯區會考落點分析系統. All rights reserved.</footer>
+    </div>
 </body>
 </html>
