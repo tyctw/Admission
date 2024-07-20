@@ -594,6 +594,19 @@ body.dark-mode .note {
 <button id="darkModeToggle">切換暗黑模式</button>
 
 <script>
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'i' || e.key === 's')) {
+        e.preventDefault();
+    }
+    if (e.key === 'F12') {
+        e.preventDefault();
+    }
+});
+
 document.getElementById('inviteForm').addEventListener('submit', function(e) {
   e.preventDefault();
   var code = document.getElementById('inviteCode').value;
