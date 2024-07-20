@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="桃聯區會考落點分析，幫助使用者分析會考成績，提供學校落點參考。">
-  <meta name="keywords" content="桃聯區, 會考, 落點分析, 教育, 學校,武陵高中,中壢高中,內壢高中,平鎮高中,大園高中,永豐高中,南崁高中,振聲高中,楊梅高中,治平高中,新興高中,關西高中,大溪高中">
-  <meta name="author" content="桃聯區教育局">
-    <title>桃聯區會考高中參考錄取分數</title>
+    <meta name="description" content="桃聯區會考高中參考錄取分數，提供最新高中錄取分數資料">
+    <meta name="keywords" content="桃聯區, 會考,桃園, 落點分析, 教育, 學校, 高中, 武陵高中, 中壢高中, 內壢高中, 大園高中, 壽山高中">
+    <meta name="author" content="桃園教育局">
+    <title>桃聯區會考高中錄取分數</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .hidden-content {
@@ -41,17 +41,36 @@
         .school-item {
             display: none;
         }
+        .btn-main {
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            color: white;
+            background-color: #6d5dfc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+        .btn-main:hover {
+            background-color: #c477fc;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <h1>桃聯區會考高中參考錄取分數</h1>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScNglq4K_T6mTk35DQokBYhDEYgxUiB7Nq8aY4vlZeiX7_qpw/viewform?usp=sf_link" target="_blank">如需查看更多各校錄取分數請幫我們填寫表單</a>
+                        <a href="https://forms.gle/GQatqQ5NDEbNz7NS8">如需查看更多各校錄取分數請幫我們填寫表單</a>
         <div class="mb-3">
             <label for="inviteCode" class="form-label">輸入邀請碼</label>
             <input type="text" id="inviteCode" class="form-control">
         </div>
         <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
+        <button id="mainButton" class="btn-main" onclick="goToMainFunction()">進入主網頁</button>
+
         <div id="schoolList">
             <table id="schoolTable" class="mt-5">
                 <thead>
@@ -342,6 +361,7 @@
     <footer class="footer mt-auto py-3">
         <div class="container text-center">
             <span class="text-muted">Copyright &copy; 2024 桃聯區會考高中參考錄取分數</span>
+
         </div>
     </footer>
     <script>
@@ -396,6 +416,11 @@
     document.addEventListener('selectstart', function (e) {
         e.preventDefault();
     });
+function goToMainFunction() {
+  alert('跳轉主網頁');
+  window.location.href = 'https://sites.google.com/view/tyctw/'; // 替換成您希望跳轉的頁面URL
+}
+
 </script>
 
 </body>
