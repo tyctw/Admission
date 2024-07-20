@@ -1,115 +1,83 @@
-<html><head><title>桃聯區會考高中參考錄取分數 - 邀請碼</title>
+<html><head><title>桃聯區會考高中錄取分數 - 邀請碼</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
 
 :root {
-    --primary-color: #4a90e2;
-    --secondary-color: #34c759;
-    --background-color: #f0f5ff;
-    --text-color: #333333;
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #ecf0f1;
+    --text-color: #2c3e50;
     --container-bg: #ffffff;
-    --accent-color: #ff9500;
+    --accent-color: #e74c3c;
 }
 
 body {
     font-family: 'Noto Sans TC', sans-serif;
-    background: linear-gradient(135deg, var(--background-color), #e0e8f0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background: linear-gradient(135deg, var(--background-color), #bdc3c7);
     margin: 0;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .invite-code-container {
     background-color: var(--container-bg);
-    padding: 40px;
-    border-radius: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     text-align: center;
-    max-width: 500px;
-    width: 100%;
     position: relative;
     overflow: hidden;
-}
-
-.invite-code-container::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(74,144,226,0.1) 0%, rgba(255,255,255,0) 70%);
-    animation: rotate 20s infinite linear;
-    z-index: -1;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    flex-grow: 1;
 }
 
 h1 {
     color: var(--text-color);
-    margin-bottom: 30px;
-    font-size: 28px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .invite-code {
-    font-size: 42px;
     font-weight: bold;
     color: var(--primary-color);
-    letter-spacing: 8px;
-    margin: 30px 0;
-    padding: 20px;
-    background-color: rgba(240,245,255,0.8);
+    background-color: rgba(236,240,241,0.8);
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     position: relative;
+    transition: all 0.3s ease;
+}
+
+.invite-code:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .invite-code::before {
     content: '\f023';
     font-family: 'Font Awesome 6 Free';
     position: absolute;
-    top: -15px;
-    left: -15px;
-    font-size: 30px;
     color: var(--accent-color);
     background-color: white;
-    padding: 10px;
     border-radius: 50%;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .timer {
-    font-size: 20px;
-    color: #7f8c8d;
-    margin-bottom: 25px;
+    color: var(--text-color);
     font-weight: 500;
 }
 
 .note {
-    font-size: 16px;
-    color: #95a5a6;
-    margin-top: 25px;
+    color: #7f8c8d;
     line-height: 1.6;
-    padding: 15px;
-    background-color: rgba(240,245,255,0.5);
+    background-color: rgba(236,240,241,0.5);
     border-radius: 10px;
 }
 
 .button {
     display: inline-block;
-    margin-top: 25px;
-    padding: 12px 25px;
     color: white;
     text-decoration: none;
     border-radius: 25px;
@@ -123,27 +91,26 @@ h1 {
 }
 
 .return-link:hover {
-    background-color: #3a7bc8;
+    background-color: #2980b9;
     transform: translateY(-2px);
-    box-shadow: 0 7px 20px rgba(74,144,226,0.4);
+    box-shadow: 0 7px 20px rgba(52,152,219,0.4);
 }
 
 .copy-button {
     background-color: var(--secondary-color);
     border: none;
     cursor: pointer;
-    font-size: 16px;
 }
 
 .copy-button:hover {
-    background-color: #2db84d;
+    background-color: #27ae60;
     transform: translateY(-2px);
-    box-shadow: 0 7px 20px rgba(52,199,89,0.4);
+    box-shadow: 0 7px 20px rgba(46,204,113,0.4);
 }
 
 @keyframes pulse {
     0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.03); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 0.8; }
     100% { transform: scale(1); opacity: 1; }
 }
 
@@ -167,11 +134,11 @@ h1 {
 
 .particle {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(74,144,226,0.2);
+    width: 8px;
+    height: 8px;
+    background-color: rgba(52,152,219,0.2);
     border-radius: 50%;
-    animation: float 15s infinite linear;
+    animation: float 20s infinite linear;
 }
 
 @keyframes float {
@@ -181,106 +148,147 @@ h1 {
     100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
 }
 
+.footer {
+    background-color: var(--text-color);
+    color: var(--container-bg);
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
 /* 手機版樣式 */
 @media screen and (max-width: 600px) {
     .invite-code-container {
-        padding: 20px;
-        border-radius: 20px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 0;
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 26px;
+        margin-bottom: 20px;
     }
 
     .invite-code {
-        font-size: 32px;
+        font-size: 34px;
         letter-spacing: 6px;
-        padding: 15px;
+        padding: 18px;
+        margin: 20px 0;
     }
 
     .invite-code::before {
-        font-size: 24px;
-        top: -10px;
-        left: -10px;
+        font-size: 26px;
+        top: -12px;
+        left: -12px;
+        padding: 10px;
     }
 
     .timer {
-        font-size: 18px;
+        font-size: 20px;
+        margin-bottom: 18px;
     }
 
     .note {
-        font-size: 14px;
+        font-size: 15px;
+        padding: 12px;
+        margin-top: 18px;
     }
 
     .button {
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 14px 22px;
+        font-size: 17px;
+        margin-top: 18px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .copy-button {
+        margin-bottom: 12px;
     }
 }
 
 /* 電腦版樣式 */
 @media screen and (min-width: 601px) {
     .invite-code-container {
-        padding: 50px;
-        border-radius: 40px;
+        padding: 60px;
+        border-radius: 30px;
+        max-width: 550px;
+        width: 100%;
+        margin: 40px auto;
     }
 
     h1 {
-        font-size: 32px;
+        font-size: 34px;
+        margin-bottom: 35px;
     }
 
     .invite-code {
-        font-size: 48px;
-        letter-spacing: 10px;
-        padding: 25px;
+        font-size: 52px;
+        letter-spacing: 12px;
+        padding: 30px;
+        margin: 35px 0;
     }
 
     .invite-code::before {
-        font-size: 36px;
-        top: -20px;
-        left: -20px;
+        font-size: 40px;
+        top: -22px;
+        left: -22px;
+        padding: 14px;
     }
 
     .timer {
-        font-size: 22px;
+        font-size: 24px;
+        margin-bottom: 30px;
     }
 
     .note {
-        font-size: 18px;
+        font-size: 19px;
+        padding: 18px;
+        margin-top: 30px;
     }
 
     .button {
-        padding: 15px 30px;
-        font-size: 18px;
+        padding: 16px 32px;
+        font-size: 20px;
+        margin-top: 30px;
     }
 }
 </style>
 </head>
 <body>
 <div class="particles">
-    <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
-    <div class="particle" style="left: 40%; animation-delay: 2s;"></div>
-    <div class="particle" style="left: 60%; animation-delay: 4s;"></div>
-    <div class="particle" style="left: 80%; animation-delay: 6s;"></div>
-    <div class="particle" style="left: 10%; animation-delay: 8s;"></div>
-    <div class="particle" style="left: 30%; animation-delay: 10s;"></div>
-    <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
-    <div class="particle" style="left: 90%; animation-delay: 14s;"></div>
+    <div class="particle" style="left: 15%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 35%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 55%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 75%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 5%; animation-delay: 8s;"></div>
+    <div class="particle" style="left: 25%; animation-delay: 10s;"></div>
+    <div class="particle" style="left: 65%; animation-delay: 12s;"></div>
+    <div class="particle" style="left: 85%; animation-delay: 14s;"></div>
+    <div class="particle" style="left: 45%; animation-delay: 16s;"></div>
+    <div class="particle" style="left: 95%; animation-delay: 18s;"></div>
 </div>
 
 <div class="invite-code-container">
     <h1><i class="fas fa-graduation-cap icon"></i>桃聯區會考高中錄取分數邀請碼</h1>
     <p>您的專屬邀請碼是：</p>
     <div class="invite-code" id="inviteCodeDisplay">KJ9X2M</div>
+    <div class="timer" id="timer"><i class="far fa-clock icon"></i>有效時間：59分59秒</div>
+    <p class="note"><i class="fas fa-exclamation-circle icon"></i>請注意：此邀請碼將在1小時後失效，請儘快使用。<br>邀請碼用於查看完整的高中錄取分數資訊。</p>
     <button class="button copy-button" onclick="copyInviteCode()">
         <i class="far fa-copy icon"></i>複製邀請碼
     </button>
-    <div class="timer" id="timer"><i class="far fa-clock icon"></i>有效時間：59分59秒</div>
-    <p class="note"><i class="fas fa-exclamation-circle icon"></i>請注意：此邀請碼將在1小時後失效，請儘快使用。<br>邀請碼用於查看完整的高中錄取分數資訊。</p>
     <a href="https://tyctw.github.io/Admission/" class="button return-link">
         <i class="fas fa-home icon"></i>返回主頁
     </a>
 </div>
+
+<footer class="footer">
+    <p>&copy; 2024 桃聯區會考高中參考錄取分數. All rights reserved.</p>
+    <p>本站內容僅供參考，實際錄取分數以各校公告為準。</p>
+</footer>
 
 <script>
 function generateInviteCode() {
