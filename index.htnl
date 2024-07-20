@@ -1,0 +1,628 @@
+<html><head></head><body><!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="桃聯區會考高中參考錄取分數，提供最新高中錄取分數資料">
+    <meta name="keywords" content="桃聯區, 會考,桃園, 落點分析, 教育, 學校, 高中, 武陵高中, 中壢高中, 內壢高中, 大園高中, 壽山高中">
+    <meta name="author" content="桃園教育局">
+    <title>桃聯區會考高中錄取分數</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        table {
+            border-collapse: separate;
+            border-spacing: 0 0.5rem;
+        }
+        
+        tr {
+            transition: all 0.3s ease;
+        }
+        
+        tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .custom-shape-divider-bottom-1623679568 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .custom-shape-divider-bottom-1623679568 svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+
+        .custom-shape-divider-bottom-1623679568 .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rotate-on-hover:hover {
+            animation: rotate 0.5s ease-in-out;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(0, 15px); }
+            100%   { transform: translate(0, -0px); }   
+        }
+
+        /* 手機版樣式 */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem !important;
+            }
+
+            .card {
+                padding: 1.5rem !important;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.5rem !important;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .title-container {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+        }
+
+        .title-text {
+            position: relative;
+            z-index: 1;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .title-background {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .title-icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 新增的樣式 */
+        .page-wrapper {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .school-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .school-name {
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .school-subject {
+            color: #718096;
+        }
+
+        .school-score {
+            color: #4299e1;
+            font-weight: 700;
+        }
+
+        .footer-wrapper {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="page-wrapper">
+    <header class="gradient-bg text-white py-20 relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="title-container mb-8 animate-fade-in">
+                <div class="title-background"></div>
+                <h1 class="title-text text-center">
+                    <span class="title-icon"><i class="fas fa-graduation-cap"></i></span>
+                    桃聯區會考高中錄取分數
+                </h1>
+            </div>
+            <p class="text-xl sm:text-2xl text-center animate-fade-in glass-effect p-4 sm:p-6 mx-auto max-w-3xl rounded-lg">為您提供高中錄取分數資訊</p>
+        </div>
+        <div class="custom-shape-divider-bottom-1623679568">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 sm:py-20">
+        <div class="content-wrapper p-6 sm:p-12 mb-12 sm:mb-20 animate-fade-in">
+            <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="block text-center text-indigo-600 hover:text-indigo-800 mb-6 sm:mb-10 text-xl sm:text-2xl transition-all duration-300 hover:scale-105">
+                <i class="fas fa-clipboard-list mr-2"></i>填寫表單以查看更多各校錄取分數
+            </a>
+            
+            <div class="mb-6 sm:mb-10">
+                <label for="inviteCode" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
+                    <i class="fas fa-key mr-2 text-purple-500"></i>邀請碼
+                </label>
+                <input type="text" id="inviteCode" class="w-full px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg sm:text-2xl transition-all duration-300" placeholder="請輸入邀請碼">
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+                <button onclick="checkInviteCode()" class="btn bg-indigo-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-indigo-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
+                    <i class="fas fa-check mr-2"></i>確認邀請碼
+                </button>
+                <button id="mainButton" onclick="goToMainFunction()" class="btn bg-purple-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-purple-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
+                    <i class="fas fa-home mr-2"></i>進入主網頁
+                </button>
+            </div>
+        </div>
+
+        <div id="schoolList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 animate-fade-in">
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">武陵高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">5A7+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">4A1B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">桃園高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">3A2B6+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">內壢高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">3A2B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">平鎮高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">2A3B2+</p>
+            </div>
+        </div>
+
+        <div id="hiddenContent" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-20 animate-fade-in" style="display: none;">
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">永豐高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">1A4B8+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">大園高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">1A4B6+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">陽明高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">2A3B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">壽山高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">1A4B2+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">壽山高中</h3>
+                <p class="school-subject mb-2">廣告設計科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">壽山高中</h3>
+                <p class="school-subject mb-2">應用英語科</p>
+                <p class="school-score text-3xl">5B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">壽山高中</h3>
+                <p class="school-subject mb-2">國際貿易科</p>
+                <p class="school-score text-3xl">5B6+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢高商</h3>
+                <p class="school-subject mb-2">資料處理科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢高商</h3>
+                <p class="school-subject mb-2">國際貿易科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢高商</h3>
+                <p class="school-subject mb-2">綜合科</p>
+                <p class="school-score text-3xl">1A4B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢高商</h3>
+                <p class="school-subject mb-2">商業經營科</p>
+                <p class="school-score text-3xl">1A4B5+ (作文3級)</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢家商</h3>
+                <p class="school-subject mb-2">流行服飾科</p>
+                <p class="school-score text-3xl">5B2+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢家商</h3>
+                <p class="school-subject mb-2">商業經營科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢家商</h3>
+                <p class="school-subject mb-2">資料處理科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢家商</h3>
+                <p class="school-subject mb-2">家政科</p>
+                <p class="school-score text-3xl">5B2+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">中壢家商</h3>
+                <p class="school-subject mb-2">應用英語科</p>
+                <p class="school-score text-3xl">1A4B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">電機科</p>
+                <p class="school-score text-3xl">1A4B6+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">動力機械科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">汽車科</p>
+                <p class="school-score text-3xl">5B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">模具科</p>
+                <p class="school-score text-3xl">5B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">生物產業電機科</p>
+                <p class="school-score text-3xl">5B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">電子科</p>
+                <p class="school-score text-3xl">1A4B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">農業經營科</p>
+                <p class="school-score text-3xl">5B4+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">園藝科</p>
+                <p class="school-score text-3xl">5B7+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">北科附工</h3>
+                <p class="school-subject mb-2">畜產保健科</p>
+                <p class="school-score text-3xl">5B7+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">5B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">園藝科</p>
+                <p class="school-score text-3xl">4B1C1+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">造園科</p>
+                <p class="school-score text-3xl">4B1C1+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">機械科</p>
+                <p class="school-score text-3xl">4B1C2+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">畜產保健科</p>
+                <p class="school-score text-3xl">4B1C5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">龍潭高中</h3>
+                <p class="school-subject mb-2">電子科</p>
+                <p class="school-score text-3xl">5B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">楊梅高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">5B5+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">楊梅高中</h3>
+                <p class="school-subject mb-2">電子科</p>
+                <p class="school-score text-3xl">5B0+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">楊梅高中</h3>
+                <p class="school-subject mb-2">資訊科</p>
+                <p class="school-score text-3xl">5B0+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">新屋高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">4B1C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">觀音高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">4B1C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">大溪高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">5B0+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">電子商務科</p>
+                <p class="school-score text-3xl">4B1C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">多媒體設計科</p>
+                <p class="school-score text-3xl">4B1C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">觀光事業科</p>
+                <p class="school-score text-3xl">4B1C3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">商業經營科</p>
+                <p class="school-score text-3xl">5B0+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">資訊科</p>
+                <p class="school-score text-3xl">5B1+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">應用英語科</p>
+                <p class="school-score text-3xl">5B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">振聲高中</h3>
+                <p class="school-subject mb-2">普通科</p>
+                <p class="school-score text-3xl">5B3+</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">關西高中</h3>
+                <p class="school-subject mb-2">園藝科</p>
+                <p class="school-score text-3xl">4B1C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">關西高中</h3>
+                <p class="school-subject mb-2">畜產保健科</p>
+                <p class="school-score text-3xl">3B2C</p>
+            </div>
+            <div class="school-card p-6">
+                <h3 class="school-name text-2xl mb-2">關西高中</h3>
+                <p class="school-subject mb-2">家政科</p>
+                <p class="school-score text-3xl">4B1C1+</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer-wrapper text-white py-12 sm:py-16 mt-12 sm:mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-xl sm:text-2xl mb-4 sm:mb-6"><i class="far fa-copyright mr-2"></i>2024 桃聯區會考高中參考錄取分數</p>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function checkInviteCode() {
+            const userCode = document.getElementById('inviteCode').value;
+            const storedCode = localStorage.getItem('inviteCode');
+            if (userCode === storedCode) {
+                document.getElementById('hiddenContent').style.display = 'grid';
+                alert('邀請碼正確');
+                setInviteCode();
+            } else {
+                alert('邀請碼錯誤');
+            }
+        }
+
+        function setInviteCode() {
+            const inviteCode = generateInviteCode();
+            localStorage.setItem('inviteCode', inviteCode);
+            localStorage.setItem('inviteCodeTimestamp', Date.now());
+            console.log(`New invite code generated: ${inviteCode}`);
+        }
+
+        function generateInviteCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let inviteCode = '';
+            for (let i = 0; i < 8; i++) {
+                inviteCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return inviteCode;
+        }
+
+        function goToMainFunction() {
+            alert('跳轉主網頁');
+            window.location.href = 'https://sites.google.com/view/tyctw/';
+        }
+
+        // 防止右鍵菜單
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NJWFN7S6LZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-NJWFN7S6LZ');
+    </script>
+</body>
+</html></body></html>
