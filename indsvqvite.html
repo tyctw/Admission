@@ -1,363 +1,443 @@
-<html><head</head><body>
+<html><head></head><body>
 
-    <!DOCTYPE html>
-    <html lang="zh-Hant">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>桃聯區參考錄取分數邀請碼生成器</title>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <style>
-            :root {
-                --primary-color: #4a6fa5;
-                --secondary-color: #166088;
-                --accent-color: #4dc0b5;
-                --background-color: #f0f4f8;
-                --text-color: #2d3748;
-                --card-bg: #ffffff;
-                --success-color: #38a169;
-                --error-color: #e53e3e;
-            }
-            body {
-                font-family: 'Noto Sans TC', 'Roboto', sans-serif;
-                background-color: var(--background-color);
-                color: var(--text-color);
-                margin: 0;
-                padding: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                background-image: 
-                    linear-gradient(135deg, rgba(74, 111, 165, 0.1) 0%, rgba(22, 96, 136, 0.1) 100%),
-                    url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%234a6fa5" fill-opacity="0.05" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E');
-            }
-            .container {
-                width: 90%;
-                max-width: 480px;
-                padding: 20px;
-            }
-            .card {
-                background-color: var(--card-bg);
-                border-radius: 24px;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
-                overflow: hidden;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 25px rgba(0, 0, 0, 0.07);
-            }
-            .card-header {
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                padding: 35px 20px;
-                font-size: 1.8rem;
-                font-weight: 700;
-                text-align: center;
-                letter-spacing: 1.5px;
-                position: relative;
-                overflow: hidden;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            }
-            .card-header::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: linear-gradient(
-                    to bottom right,
-                    rgba(255, 255, 255, 0.3) 0%,
-                    rgba(255, 255, 255, 0.05) 50%,
-                    transparent 100%
-                );
-                transform: rotate(45deg);
-                pointer-events: none;
-            }
-            .card-body {
-                padding: 40px 30px;
-            }
-            .form-group {
-                margin-bottom: 35px;
-            }
-            .form-label {
-                display: block;
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-                color: var(--text-color);
-                font-weight: 600;
-                letter-spacing: 0.5px;
-            }
-            .invite-code-container {
-                display: flex;
-                align-items: stretch;
-                background-color: #f7f9fc;
-                border: 2px solid #e2e8f0;
-                border-radius: 14px;
-                overflow: hidden;
-                transition: all 0.3s ease;
-            }
-            .invite-code-container:focus-within {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
-            }
-            .invite-code {
-                flex-grow: 1;
-                padding: 18px;
-                font-size: 1.6rem;
-                font-weight: 700;
-                text-align: center;
-                color: var(--primary-color);
-                border: none;
-                background: transparent;
-                letter-spacing: 3px;
-                font-family: 'Roboto', monospace;
-            }
-            .copy-btn {
-                background-color: var(--primary-color);
-                color: white;
-                border: none;
-                padding: 15px 25px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                font-size: 1.2rem;
-            }
-            .copy-btn:hover {
-                background-color: var(--secondary-color);
-            }
-            .copy-btn:active {
-                transform: scale(0.95);
-            }
-            .countdown {
-                background-color: #f7f9fc;
-                border: 2px solid #e2e8f0;
-                border-radius: 14px;
-                padding: 18px;
-                font-size: 1.8rem;
-                font-weight: 700;
-                text-align: center;
-                color: var(--primary-color);
-                transition: all 0.3s ease;
-                font-family: 'Roboto', monospace;
-                letter-spacing: 2px;
-                position: relative;
-                overflow: hidden;
-            }
-            .countdown::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(135deg, rgba(74, 111, 165, 0.1), rgba(22, 96, 136, 0.1));
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃聯區參考錄取分數邀請碼生成器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #5c6bc0;
+            --accent-color: #ff6b6b;
+            --background-color: #f7f9fc;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+        }
+        body {
+            font-family: 'Noto Sans TC', 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at top left, rgba(74, 144, 226, 0.1), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(92, 107, 192, 0.1), transparent 30%),
+                linear-gradient(135deg, #f7f9fc 0%, #e8eef5 100%);
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .card-header::before, .card-header::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .card-header::before {
+            top: -75px;
+            left: -75px;
+        }
+        .card-header::after {
+            bottom: -75px;
+            right: -75px;
+        }
+        .card-body {
+            padding: 40px 30px;
+        }
+        .form-group {
+            margin-bottom: 30px;
+        }
+        .form-label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .invite-code-container {
+            display: flex;
+            align-items: stretch;
+            background-color: #f1f3f5;
+            border: 2px solid #e0e4e8;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .invite-code-container:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .invite-code {
+            flex-grow: 1;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary-color);
+            border: none;
+            background: transparent;
+            letter-spacing: 3px;
+            font-family: 'Roboto', monospace;
+        }
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        .copy-btn:active {
+            transform: scale(0.98);
+        }
+        .countdown {
+            background: linear-gradient(135deg, #f1f3f5, #e8eef5);
+            border: 2px solid #e0e4e8;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            font-family: 'Roboto', monospace;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .countdown::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        .countdown:hover::before {
+            top: -100%;
+            left: -100%;
+        }
+        .btn-main {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            transition: all 0.7s ease;
+        }
+        .btn-main:hover::before {
+            top: -100%;
+            left: -100%;
+        }
+        .btn-main:hover {
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateY(-20px);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+        .toast i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .show-toast {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(74, 144, 226, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(74, 144, 226, 0); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes fadeInUp {
+            from {
                 opacity: 0;
-                transition: opacity 0.3s ease;
+                transform: translateY(20px);
             }
-            .countdown:hover::before {
-                opacity: 1;
-            }
-            .btn-main {
-                display: block;
-                width: 100%;
-                padding: 20px;
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                color: white;
-                border: none;
-                border-radius: 14px;
-                font-size: 1.3rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                position: relative;
-                overflow: hidden;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            }
-            .btn-main::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: linear-gradient(
-                    to bottom right,
-                    rgba(255, 255, 255, 0.3) 0%,
-                    rgba(255, 255, 255, 0.05) 50%,
-                    transparent 100%
-                );
-                transform: rotate(45deg);
-                transition: all 0.5s ease;
-            }
-            .btn-main:hover::before {
-                top: -100%;
-                left: -100%;
-            }
-            .btn-main:hover {
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                transform: translateY(-2px);
-            }
-            .footer {
-                text-align: center;
-                margin-top: 35px;
-                color: #718096;
-                font-size: 0.95rem;
-                letter-spacing: 0.5px;
-            }
-            .toast {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background-color: var(--success-color);
-                color: white;
-                padding: 15px 30px;
-                border-radius: 10px;
-                opacity: 0;
-                transition: all 0.5s ease;
-                transform: translateY(-20px);
-                font-weight: 600;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-                display: flex;
-                align-items: center;
-                z-index: 1000;
-            }
-            .toast i {
-                margin-right: 10px;
-                font-size: 1.2em;
-            }
-            .show-toast {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.02); }
-                100% { transform: scale(1); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .icon-spin {
+            animation: spin 15s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 手機版響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px;
             }
-            .pulse {
-                animation: pulse 2s infinite;
+            .card-header {
+                font-size: 1.5rem;
+                padding: 25px 15px;
             }
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            .card-body {
+                padding: 25px 20px;
             }
-            .fade-in-up {
-                animation: fadeInUp 0.8s ease forwards;
+            .form-label {
+                font-size: 1rem;
             }
-        </style>
-    </head>
-    <body>
-        <div class="container fade-in-up">
-            <div class="card">
-                <div class="card-header">
-                    桃聯區參考錄取分數邀請碼生成器
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="inviteCodeDisplay" class="form-label">您的專屬邀請碼</label>
-                        <div class="invite-code-container">
-                            <input type="text" id="inviteCodeDisplay" class="invite-code" readonly>
-                            <button class="copy-btn" onclick="copyInviteCode()" title="複製邀請碼">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="countdownDisplay" class="form-label">邀請碼有效時間</label>
-                        <div id="countdownDisplay" class="countdown pulse"></div>
-                    </div>
-                    <button id="mainButton" class="btn-main" onclick="goToMainFunction()">
-                        <i class="fas fa-chart-line"></i> 查看錄取分數
-                    </button>
-                </div>
+            .invite-code {
+                font-size: 1.3rem;
+                padding: 12px;
+            }
+            .copy-btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            .countdown {
+                font-size: 1.5rem;
+                padding: 12px;
+            }
+            .btn-main {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            .footer {
+                font-size: 0.8rem;
+            }
+            .toast {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 平板版響應式設計 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                width: 80%;
+            }
+            .card-header {
+                font-size: 1.7rem;
+            }
+            .invite-code {
+                font-size: 1.4rem;
+            }
+            .btn-main {
+                padding: 16px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in-up">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-graduation-cap icon-spin" style="position: absolute; top: 10px; left: 10px; font-size: 1.3rem;"></i>
+                桃聯區參考錄取分數邀請碼生成器
+                <i class="fas fa-chart-line icon-spin" style="position: absolute; bottom: 10px; right: 10px; font-size: 1.3rem;"></i>
             </div>
-            <div class="footer">
-                &copy; 2024 桃聯區參考錄取分數邀請碼產成器
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="inviteCodeDisplay" class="form-label">
+                        <i class="fas fa-key" style="margin-right: 8px;"></i>您的專屬邀請碼
+                    </label>
+                    <div class="invite-code-container">
+                        <input type="text" id="inviteCodeDisplay" class="invite-code" readonly>
+                        <button class="copy-btn" onclick="copyInviteCode()" title="複製邀請碼">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="countdownDisplay" class="form-label">
+                        <i class="fas fa-hourglass-half" style="margin-right: 8px;"></i>邀請碼有效時間
+                    </label>
+                    <div id="countdownDisplay" class="countdown pulse"></div>
+                </div>
+                <button id="mainButton" class="btn-main" onclick="goToMainFunction()">
+                    <i class="fas fa-chart-bar" style="margin-right: 10px;"></i> 查看錄取分數
+                </button>
             </div>
         </div>
-        <div id="toast" class="toast">
-            <i class="fas fa-check-circle"></i> 邀請碼已成功複製！
+        <div class="footer">
+            <p>&copy; 2024 桃聯區參考錄取分數邀請碼生成器</p>
         </div>
-        <script>
-            function generateInviteCode() {
-                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-                return Array(8).fill().map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+    </div>
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i> 邀請碼已成功複製！
+    </div>
+    <script>
+        function generateInviteCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            return Array(8).fill().map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+        }
+
+        function setInviteCode() {
+            const inviteCode = generateInviteCode();
+            localStorage.setItem('inviteCode', inviteCode);
+            localStorage.setItem('inviteCodeTimestamp', Date.now().toString());
+            return inviteCode;
+        }
+
+        function refreshInviteCode() {
+            const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
+            if (!storedTimestamp || (Date.now() - parseInt(storedTimestamp) > 3600000)) {
+                return setInviteCode();
             }
-    
-            function setInviteCode() {
-                const inviteCode = generateInviteCode();
-                localStorage.setItem('inviteCode', inviteCode);
-                localStorage.setItem('inviteCodeTimestamp', Date.now().toString());
-                return inviteCode;
-            }
-    
-            function refreshInviteCode() {
-                const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
-                if (!storedTimestamp || (Date.now() - parseInt(storedTimestamp) > 3600000)) {
-                    return setInviteCode();
+            return localStorage.getItem('inviteCode');
+        }
+
+        function updateInviteCodeDisplay() {
+            document.getElementById('inviteCodeDisplay').value = refreshInviteCode();
+        }
+
+        function updateCountdownDisplay() {
+            const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
+            if (storedTimestamp) {
+                const timeElapsed = Date.now() - parseInt(storedTimestamp);
+                const timeRemaining = 3600000 - timeElapsed;
+                if (timeRemaining > 0) {
+                    const minutes = Math.floor(timeRemaining / 60000);
+                    const seconds = Math.floor((timeRemaining % 60000) / 1000);
+                    document.getElementById('countdownDisplay').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    setInviteCode();
+                    updateInviteCodeDisplay();
                 }
-                return localStorage.getItem('inviteCode');
             }
-    
-            function updateInviteCodeDisplay() {
-                document.getElementById('inviteCodeDisplay').value = refreshInviteCode();
-            }
-    
-            function updateCountdownDisplay() {
-                const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
-                if (storedTimestamp) {
-                    const timeElapsed = Date.now() - parseInt(storedTimestamp);
-                    const timeRemaining = 3600000 - timeElapsed;
-                    if (timeRemaining > 0) {
-                        const minutes = Math.floor(timeRemaining / 60000);
-                        const seconds = Math.floor((timeRemaining % 60000) / 1000);
-                        document.getElementById('countdownDisplay').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    } else {
-                        setInviteCode();
-                        updateInviteCodeDisplay();
-                    }
-                }
-            }
-    
-            function copyInviteCode() {
-                const inviteCode = document.getElementById('inviteCodeDisplay').value;
-                navigator.clipboard.writeText(inviteCode)
-                    .then(() => showToast())
-                    .catch(() => alert('複製失敗，請手動複製。'));
-            }
-    
-            function showToast() {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show-toast');
-                setTimeout(() => {
-                    toast.classList.remove('show-toast');
-                }, 3000);
-            }
-    
-            function goToMainFunction() {
-                alert('正在跳轉到錄取分數頁面...');
-                window.location.href = 'https://tyctw.github.io/Admission/';
-            }
-    
-            window.onload = function() {
-                updateInviteCodeDisplay();
-                setInterval(updateInviteCodeDisplay, 3600000);
-                setInterval(updateCountdownDisplay, 1000);
-                document.addEventListener('contextmenu', e => e.preventDefault());
-            }
-        </script>
-    </body>
-    </html>
-    
-    </body></html>
+        }
+
+        function copyInviteCode() {
+            const inviteCode = document.getElementById('inviteCodeDisplay').value;
+            navigator.clipboard.writeText(inviteCode)
+                .then(() => showToast())
+                .catch(() => alert('複製失敗，請手動複製。'));
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show-toast');
+            setTimeout(() => {
+                toast.classList.remove('show-toast');
+            }, 3000);
+        }
+
+        function goToMainFunction() {
+            alert('正在跳轉到錄取分數頁面...');
+            window.location.href = 'https://www.tccsd-reference.edu.tw/scores/index.html';
+        }
+
+        window.onload = function() {
+            updateInviteCodeDisplay();
+            setInterval(updateInviteCodeDisplay, 3600000);
+            setInterval(updateCountdownDisplay, 1000);
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        }
+    </script>
+</body>
+</html>
+
+</body></html>
