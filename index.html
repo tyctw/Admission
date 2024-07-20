@@ -1,641 +1,399 @@
-<html><head><title>桃聯區會考高中參考錄取分數 - 升學資訊平台</title>
-        <meta name="description" content="桃聯區會考落點分析，幫助使用者分析會考成績，提供學校落點參考。">
-    <meta name="keywords" content="桃聯區, 會考, 落點分析, 教育, 學校,武陵高中,中壢高中,內壢高中,平鎮高中,大園高中,永豐高中,南崁高中,振聲高中,楊梅高中,治平高中,新興高中,關西高中,大溪高中">
-    <meta name="author" content="桃聯區教育局"><style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃聯區會考高中參考錄取分數</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden-content {
+            display: none;
+        }
+        .form-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .form-control {
+            font-size: 1.2rem;
+            width: 300px;
+        }
+        .btn-primary {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ced4da;
+            padding: 8px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .school-item {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>桃聯區會考高中參考錄取分數</h1>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScNglq4K_T6mTk35DQokBYhDEYgxUiB7Nq8aY4vlZeiX7_qpw/viewform?usp=sf_link" target="_blank">如需查看更多各校錄取分數請幫我們填寫表單</a>
+        <div class="mb-3">
+            <label for="inviteCode" class="form-label">輸入邀請碼</label>
+            <input type="text" id="inviteCode" class="form-control">
+        </div>
+        <button class="btn btn-primary" onclick="checkInviteCode()">確認</button>
+        <div id="schoolList">
+            <table id="schoolTable" class="mt-5">
+                <thead>
+                    <tr>
+                        <th>學校</th>
+                        <th>科目</th>
+                        <th>成績要求</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>武陵高中</td>
+                        <td>普通科</td>
+                        <td>5A7+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高中</td>
+                        <td>普通科</td>
+                        <td>4A1B5+</td>
+                    </tr>
+                    <tr>
+                        <td>桃園高中</td>
+                        <td>普通科</td>
+                        <td>3A2B6+</td>
+                    </tr>
+                    <tr>
+                        <td>內壢高中</td>
+                        <td>普通科</td>
+                        <td>3A2B3+</td>
+                    </tr>
+                    <tr>
+                        <td>平鎮高中</td>
+                        <td>普通科</td>
+                        <td>2A3B2+</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --background-color: #ecf0f1;
-  --text-color: #34495e;
-  --header-bg: linear-gradient(135deg, #3498db, #2ecc71);
-}
-
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  line-height: 1.8;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
-
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-header {
-  background: var(--header-bg);
-  color: white;
-  text-align: center;
-  padding: 60px 0;
-  position: relative;
-  overflow: hidden;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
-  animation: rotate 20s infinite linear;
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-h1 {
-  font-size: 3em;
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-.subtitle {
-  font-size: 1.2em;
-  margin-top: 15px;
-  opacity: 0.9;
-  position: relative;
-}
-
-.content {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  padding: 40px;
-  margin-top: 40px;
-  transition: all 0.3s ease;
-}
-
-.content:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
-
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 30px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
-}
-
-th, td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-th {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
-tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-tr:hover {
-  background-color: #e3f2fd;
-}
-
-#inviteForm {
-  text-align: center;
-  margin: 40px 0;
-}
-
-#inviteCode {
-  padding: 12px 15px;
-  font-size: 16px;
-  border: 2px solid var(--primary-color);
-  border-radius: 25px;
-  width: 250px;
-  transition: all 0.3s ease;
-}
-
-#inviteCode:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.3);
-}
-
-#submitCode {
-  padding: 12px 25px;
-  font-size: 16px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-left: 10px;
-}
-
-#submitCode:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(52,152,219,0.4);
-}
-
-.note {
-  background-color: #e8f6f3;
-  border-left: 4px solid var(--secondary-color);
-  padding: 20px;
-  margin-top: 40px;
-  border-radius: 0 10px 10px 0;
-  transition: all 0.3s ease;
-}
-
-.note:hover {
-  background-color: #d1f2eb;
-  transform: translateX(5px);
-}
-
-footer {
-  margin-top: 60px;
-  text-align: center;
-  color: #7f8c8d;
-  padding: 30px 0;
-  background-color: #2c3e50;
-}
-
-.footer-links a {
-  color: #ecf0f1;
-  text-decoration: none;
-  margin: 0 15px;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: var(--secondary-color);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hidden {
-  display: none;
-}
-
-.fade-in {
-  animation: fadeIn 0.7s ease-out forwards;
-}
-
-#darkModeToggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1000;
-}
-
-#darkModeToggle:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(52,152,219,0.4);
-}
-
-body.dark-mode {
-  --background-color: #2c3e50;
-  --text-color: #ecf0f1;
-}
-
-body.dark-mode .content {
-  background-color: #34495e;
-  color: #ecf0f1;
-}
-
-body.dark-mode tr:nth-child(even) {
-  background-color: #2c3e50;
-}
-
-body.dark-mode tr:hover {
-  background-color: #3498db;
-  color: white;
-}
-
-body.dark-mode .note {
-  background-color: #2c3e50;
-  border-left-color: #2ecc71;
-}
-
-.get-invite-code {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--secondary-color);
-  color: white;
-  text-decoration: none;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
-
-.get-invite-code:hover {
-  background-color: #27ae60;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(46,204,113,0.4);
-}
-
-</style></head><body>
-
-<header>
-  <div class="container">
-    <h1>會考高中參考錄取分數</h1>
-    <p class="subtitle">桃園地區高中錄取分數資訊平台</p>
-  </div>
-</header>
-
-<div class="container">
-  <div class="content fade-in">
-    <p>歡迎使用桃聯區會考高中參考錄取分數查詢系統。我們提供桃園地區各高中錄取分數資訊，幫助學生和家長更好地規劃升學方向。</p>
-
-    <p>本系統採用動態邀請碼機制，每小時更新一次。請幫我們填寫表單獲取當前有效的邀請碼：</p>
-
-    <form id="inviteForm" method="GET" action="https://tyctwscore.websim/verify">
-      <input type="text" id="inviteCode" name="code" placeholder="請輸入邀請碼">
-      <input type="submit" id="submitCode" value="查看完整資訊">
-    </form>
-
-    <table>
-      <thead>
-        <tr>
-          <th>學校</th>
-          <th>科別</th>
-          <th>錄取分數</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>武陵高中</td>
-          <td>普通科</td>
-          <td>5A7+</td>
-        </tr>
-        <tr>
-          <td>中壢高中</td>
-          <td>普通科</td>
-          <td>4A1B5+</td>
-        </tr>
-        <tr>
-          <td>桃園高中</td>
-          <td>普通科</td>
-          <td>3A2B6+</td>
-        </tr>
-        <tr>
-          <td>內壢高中</td>
-          <td>普通科</td>
-          <td>3A2B3+</td>
-        </tr>
-        <tr>
-          <td>平鎮高中</td>
-          <td>普通科</td>
-          <td>2A3B2+</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div id="hiddenContent" class="hidden">
-      <table class="fade-in">
-        <thead>
-          <tr>
-            <th>學校</th>
-            <th>科別</th>
-            <th>錄取分數</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>南崁高中</td>
-            <td>普通科</td>
-            <td>5B8+</td>
-        </tr>
-        <tr>
-            <td>永豐高中</td>
-            <td>普通科</td>
-            <td>1A4B8+</td>
-        </tr>
-        <tr>
-            <td>大園高中</td>
-            <td>普通科</td>
-            <td>1A4B6+</td>
-        </tr>
-        <tr>
-            <td>陽明高中</td>
-            <td>普通科</td>
-            <td>2A 3B4+</td>
-        </tr>
-        <tr>
-            <td>壽山高中</td>
-            <td>普通科</td>
-            <td>1A4B2+</td>
-        </tr>
-        <tr>
-            <td>壽山高中</td>
-            <td>廣告設計科</td>
-            <td>5B4+</td>
-        </tr>
-        <tr>
-            <td>壽山高中</td>
-            <td>應用英語科</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>壽山高中</td>
-            <td>國際貿易科</td>
-            <td>5B6+</td>
-        </tr>
-        <tr>
-            <td>中壢高商</td>
-            <td>資料處理</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>中壢高商</td>
-            <td>國際貿易</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>中壢高商</td>
-            <td>綜合科</td>
-            <td>1A4B5+</td>
-        </tr>
-        <tr>
-            <td>中壢高商</td>
-            <td>商業經營</td>
-            <td>1A4B5+ 作文3級</td>
-        </tr>
-        <tr>
-            <td>中壢家商</td>
-            <td>流行服飾</td>
-            <td>5B2+</td>
-        </tr>
-        <tr>
-            <td>中壢家商</td>
-            <td>商業經營</td>
-            <td>5B4+</td>
-        </tr>
-        <tr>
-            <td>中壢家商</td>
-            <td>資料處理</td>
-            <td>5B4+</td>
-        </tr>
-        <tr>
-            <td>中壢家商</td>
-            <td>家政科</td>
-            <td>5B2+</td>
-        </tr>
-        <tr>
-            <td>中壢家商</td>
-            <td>應用英語</td>
-            <td>1A4B4+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>電機科</td>
-            <td>1A4B6+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>動力機械</td>
-            <td>5B4+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>汽車科</td>
-            <td>5B3+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>模具科</td>
-            <td>5B3+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>生物產業電機科</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>電子科</td>
-            <td>1A4B3+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>農業經營</td>
-            <td>5B4+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>園藝科</td>
-            <td>5B7+</td>
-        </tr>
-        <tr>
-            <td>北科附工</td>
-            <td>畜產保健科</td>
-            <td>5B7+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>普通科</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>園藝科</td>
-            <td>4B1C1+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>造園科</td>
-            <td>4B1C1+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>機械科</td>
-            <td>4B1C2+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>畜產保健</td>
-            <td>4B1C5+</td>
-        </tr>
-        <tr>
-            <td>龍潭高中</td>
-            <td>電子科</td>
-            <td>5B3+</td>
-        </tr>
-        <tr>
-            <td>楊梅高中</td>
-            <td>普通科</td>
-            <td>5B5+</td>
-        </tr>
-        <tr>
-            <td>楊梅高中</td>
-            <td>電子科</td>
-            <td>5B0+</td>
-        </tr>
-        <tr>
-            <td>楊梅高中</td>
-            <td>資訊科</td>
-            <td>5B0+</td>
-        </tr>
-        <tr>
-            <td>新屋高中</td>
-            <td>普通科</td>
-            <td>4B1C</td>
-        </tr>
-        <tr>
-            <td>觀音高中</td>
-            <td>普通科</td>
-            <td>4B1C</td>
-        </tr>
-        <tr>
-            <td>大溪高中</td>
-            <td>普通科</td>
-            <td>5B0+</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>電子商務</td>
-            <td>4B1C</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>多媒體設計</td>
-            <td>4B1C</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>觀光事業科</td>
-            <td>4B1C3+</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>商業經營科</td>
-            <td>5B0+</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>資訊科</td>
-            <td>5B1+</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>應用英語科</td>
-            <td>5B3+</td>
-        </tr>
-        <tr>
-            <td>振聲高中</td>
-            <td>普通科</td>
-            <td>5B3+</td>
-        </tr>
-        <tr>
-            <td>關西高中</td>
-            <td>園藝科</td>
-            <td>4B1C</td>
-        </tr>
-        <tr>
-            <td>關西高中</td>
-            <td>畜產保健科</td>
-            <td>3B2C</td>
-        </tr>
-        <tr>
-            <td>關西高中</td>
-            <td>家政科</td>
-            <td>4B1C1+</td>
-        </tr>
-    </tbody>
-</table>
-</div>
-</div>
-
-    <div class="note">
-      <p><strong>註：</strong>A 代表會考成績精熟，B 代表會考成績基礎，C 代表會考成績待加強。數字代表該等級的科目數量，"+"表示總積分需達到某個水平。</p>
-      <p>本網站資訊僅供參考，實際錄取分數可能因年度不同而有所變化。建議同學們根據自己的實際情況和興趣做出選擇。</p>
+        <div id="hiddenContent" class="hidden-content">
+            <table id="hiddenTable">
+                <tbody>
+                    <tr>
+                        <td>南崁高中</td>
+                        <td>普通科</td>
+                        <td>5B8+</td>
+                    </tr>
+                    <tr>
+                        <td>永豐高中</td>
+                        <td>普通科</td>
+                        <td>1A4B8+</td>
+                    </tr>
+                    <tr>
+                        <td>大園高中</td>
+                        <td>普通科</td>
+                        <td>1A4B6+</td>
+                    </tr>
+                    <tr>
+                        <td>陽明高中</td>
+                        <td>普通科</td>
+                        <td>2A 3B4+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>普通科</td>
+                        <td>1A4B2+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>廣告設計科</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>應用英語科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>壽山高中</td>
+                        <td>國際貿易科</td>
+                        <td>5B6+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>資料處理</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>國際貿易</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>綜合科</td>
+                        <td>1A4B5+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢高商</td>
+                        <td>商業經營</td>
+                        <td>1A4B5+ 作文3級</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>流行服飾</td>
+                        <td>5B2+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>商業經營</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>資料處理</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>家政科</td>
+                        <td>5B2+</td>
+                    </tr>
+                    <tr>
+                        <td>中壢家商</td>
+                        <td>應用英語</td>
+                        <td>1A4B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>電機科</td>
+                        <td>1A4B6+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>動力機械</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>汽車科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>模具科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>生物產業電機科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>電子科</td>
+                        <td>1A4B3+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>農業經營</td>
+                        <td>5B4+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>園藝科</td>
+                        <td>5B7+</td>
+                    </tr>
+                    <tr>
+                        <td>北科附工</td>
+                        <td>畜產保健科</td>
+                        <td>5B7+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>普通科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>園藝科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>造園科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>機械科</td>
+                        <td>4B1C2+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>畜產保健</td>
+                        <td>4B1C5+</td>
+                    </tr>
+                    <tr>
+                        <td>龍潭高中</td>
+                        <td>電子科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>普通科</td>
+                        <td>5B5+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>電子科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>楊梅高中</td>
+                        <td>資訊科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>新屋高中</td>
+                        <td>普通科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>觀音高中</td>
+                        <td>普通科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>大溪高中</td>
+                        <td>普通科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>電子商務</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>多媒體設計</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>觀光事業科</td>
+                        <td>4B1C3+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>商業經營科</td>
+                        <td>5B0+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>資訊科</td>
+                        <td>5B1+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>應用英語科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>振聲高中</td>
+                        <td>普通科</td>
+                        <td>5B3+</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>園藝科</td>
+                        <td>4B1C</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>畜產保健科</td>
+                        <td>3B2C</td>
+                    </tr>
+                    <tr>
+                        <td>關西高中</td>
+                        <td>家政科</td>
+                        <td>4B1C1+</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
-</div>
+    <!-- 頁尾版權聲明 -->
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">Copyright &copy; 2024 桃聯區會考高中參考錄取分數</span>
+        </div>
+    </footer>
+    <script>
+        // 檢查邀請碼並顯示隱藏內容
+        function checkInviteCode() {
+            const userCode = document.getElementById('inviteCode').value;
+            const storedCode = localStorage.getItem('inviteCode');
+            if (userCode === storedCode) {
+                document.getElementById('hiddenContent').style.display = 'block';
+                alert('邀請碼正確');
+                setInviteCode(); // 使用後自動更新邀請碼
+            } else {
+                alert('邀請碼錯誤');
+            }
+        }
 
-<footer>
-  <div class="container">
-    <p>© 2024 桃聯區會考高中參考錄取分數查詢系統</p>
-    <div class="footer-links">
-      <p>本站內容僅供參考，實際錄取分數以各校公告為準。</p>
-      <a href="https://tyctw.github.io/">落點分析系統</a>
-      <a href="https://sites.google.com/view/tyctw/">重要公告區</a>
-    </div>
-  </div>
-</footer>
+        function setInviteCode() {
+            const inviteCode = generateInviteCode();
+            localStorage.setItem('inviteCode', inviteCode);
+            localStorage.setItem('inviteCodeTimestamp', Date.now());
+            console.log(`New invite code generated: ${inviteCode}`);
+        }
 
-<button id="darkModeToggle">切換暗黑模式</button>
-
+        function generateInviteCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let inviteCode = '';
+            for (let i = 0; i < 8; i++) {
+                inviteCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return inviteCode;
+        }
+    </script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NJWFN7S6LZ"></script>
 <script>
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 'i' || e.key === 's')) {
+  gtag('config', 'G-NJWFN7S6LZ');
+</script>
+    <script>
+    // 防止右鍵菜單
+    window.addEventListener('contextmenu', function (e) {
         e.preventDefault();
-    }
-    if (e.key === 'F12') {
+    });
+
+
+
+
+
+    document.addEventListener('selectstart', function (e) {
         e.preventDefault();
-    }
-});
-
-document.getElementById('inviteForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var code = document.getElementById('inviteCode').value;
-  // In a real application, you would verify this code against the server
-  // For this example, we'll just check if it's not empty
-  if(code.trim() !== '') {
-    document.getElementById('hiddenContent').classList.remove('hidden');
-    document.getElementById('hiddenContent').classList.add('fade-in');
-    alert('邀請碼已驗證，顯示更多學校資訊');
-  } else {
-    alert('請輸入有效的邀請碼');
-  }
-});
-
-window.addEventListener('scroll', function() {
-  var elements = document.querySelectorAll('.fade-in');
-  elements.forEach(function(element) {
-    var position = element.getBoundingClientRect();
-    if(position.top < window.innerHeight && position.bottom >= 0) {
-      element.style.opacity = '1';
-      element.style.transform = 'translateY(0)';
-    }
-  });
-});
-
-document.getElementById('darkModeToggle').addEventListener('click', function() {
-  document.body.classList.toggle('dark-mode');
-});
-
+    });
 </script>
 
-</body></html>
+</body>
+</html>
