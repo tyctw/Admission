@@ -1,210 +1,328 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>桃聯區參考錄取分數邀請碼產成器</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-        .container {
-            margin-top: 50px;
-            max-width: 600px;
-            animation: fadeIn 1s ease-in-out;
-        }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: slideInUp 0.5s ease-out;
-        }
-        .card-header {
-            background: linear-gradient(135deg, #6d5dfc, #c477fc);
-            color: white;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            padding: 20px;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-        .card-body {
-            padding: 30px;
-        }
-        .form-label {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-            display: block;
-            color: #6c757d;
-        }
-        .invite-code, .countdown {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #343a40;
-            background-color: #e9ecef;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
-        }
-        .invite-code:hover {
-            background-color: #d1d8ff;
-            transform: scale(1.05);
-        }
-        .btn-main {
-            font-size: 1rem;
-            font-weight: bold;
-            padding: 10px 20px;
-            color: white;
-            background-color: #6d5dfc;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-top: 10px;
-            display: block;
-            width: 100%;
-        }
-        .btn-main:hover {
-            background-color: #c477fc;
-            transform: translateY(-3px);
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #ccc;
-            font-size: 0.9rem;
-            color: #6c757d;
-            animation: fadeInUp 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes slideInUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+<html><head><title>桃聯區會考高中參考錄取分數 - 邀請碼</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #34c759;
+    --background-color: #f0f5ff;
+    --text-color: #333333;
+    --container-bg: #ffffff;
+    --accent-color: #ff9500;
+}
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, var(--background-color), #e0e8f0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.invite-code-container {
+    background-color: var(--container-bg);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.invite-code-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(74,144,226,0.1) 0%, rgba(255,255,255,0) 70%);
+    animation: rotate 20s infinite linear;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+h1 {
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.invite-code {
+    font-size: 42px;
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 8px;
+    margin: 30px 0;
+    padding: 20px;
+    background-color: rgba(240,245,255,0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.invite-code::before {
+    content: '\f023';
+    font-family: 'Font Awesome 6 Free';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    font-size: 30px;
+    color: var(--accent-color);
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.timer {
+    font-size: 20px;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.note {
+    font-size: 16px;
+    color: #95a5a6;
+    margin-top: 25px;
+    line-height: 1.6;
+    padding: 15px;
+    background-color: rgba(240,245,255,0.5);
+    border-radius: 10px;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 25px;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.return-link {
+    background-color: var(--primary-color);
+}
+
+.return-link:hover {
+    background-color: #3a7bc8;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(74,144,226,0.4);
+}
+
+.copy-button {
+    background-color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.copy-button:hover {
+    background-color: #2db84d;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(52,199,89,0.4);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.invite-code {
+    animation: pulse 3s infinite;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(74,144,226,0.2);
+    border-radius: 50%;
+    animation: float 15s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+}
+
+/* 手機版樣式 */
+@media screen and (max-width: 600px) {
+    .invite-code-container {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .invite-code {
+        font-size: 32px;
+        letter-spacing: 6px;
+        padding: 15px;
+    }
+
+    .invite-code::before {
+        font-size: 24px;
+        top: -10px;
+        left: -10px;
+    }
+
+    .timer {
+        font-size: 18px;
+    }
+
+    .note {
+        font-size: 14px;
+    }
+
+    .button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* 電腦版樣式 */
+@media screen and (min-width: 601px) {
+    .invite-code-container {
+        padding: 50px;
+        border-radius: 40px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .invite-code {
+        font-size: 48px;
+        letter-spacing: 10px;
+        padding: 25px;
+    }
+
+    .invite-code::before {
+        font-size: 36px;
+        top: -20px;
+        left: -20px;
+    }
+
+    .timer {
+        font-size: 22px;
+    }
+
+    .note {
+        font-size: 18px;
+    }
+
+    .button {
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                桃聯區參考錄取分數邀請碼產成器
-            </div>
-            <div class="card-body">
-                <div class="mb-4">
-                    <label for="inviteCodeDisplay" class="form-label">當前邀請碼</label>
-                    <div id="inviteCodeDisplay" class="invite-code" onclick="copyInviteCode()">Loading...</div>
-                </div>
-                <div class="mb-4">
-                    <label for="countdownDisplay" class="form-label">邀請碼倒數時間</label>
-                    <div id="countdownDisplay" class="countdown"></div>
-                </div>
-                <button id="mainButton" class="btn-main" onclick="goToMainFunction()">進入錄取分數顯示頁面</button>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        &copy; 2024 桃聯區參考錄取分數邀請碼產成器. All rights reserved.
-    </div>
-    <script>
-        function generateInviteCode() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let inviteCode = '';
-            for (let i = 0; i < 8; i++) {
-                inviteCode += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return inviteCode;
-        }
+<div class="particles">
+    <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 10%; animation-delay: 8s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 10s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 14s;"></div>
+</div>
 
-        function setInviteCode() {
-            const inviteCode = generateInviteCode();
-            localStorage.setItem('inviteCode', inviteCode);
-            localStorage.setItem('inviteCodeTimestamp', Date.now());
-            return inviteCode;
-        }
+<div class="invite-code-container">
+    <h1><i class="fas fa-graduation-cap icon"></i>桃聯區會考高中錄取分數邀請碼</h1>
+    <p>您的專屬邀請碼是：</p>
+    <div class="invite-code" id="inviteCodeDisplay">KJ9X2M</div>
+    <button class="button copy-button" onclick="copyInviteCode()">
+        <i class="far fa-copy icon"></i>複製邀請碼
+    </button>
+    <div class="timer" id="timer"><i class="far fa-clock icon"></i>有效時間：59分59秒</div>
+    <p class="note"><i class="fas fa-exclamation-circle icon"></i>請注意：此邀請碼將在1小時後失效，請儘快使用。<br>邀請碼用於查看完整的高中錄取分數資訊。</p>
+    <a href="https://tyctw.github.io/Admission/" class="button return-link">
+        <i class="fas fa-home icon"></i>返回主頁
+    </a>
+</div>
 
-        function refreshInviteCode() {
-            const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
-            if (!storedTimestamp || (Date.now() - storedTimestamp > 3600000)) {
-                return setInviteCode();
-            } else {
-                return localStorage.getItem('inviteCode');
-            }
-        }
+<script>
+function generateInviteCode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = 0; i < 6; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
 
-        function updateInviteCodeDisplay() {
-            const inviteCode = refreshInviteCode();
-            document.getElementById('inviteCodeDisplay').innerText = inviteCode;
+function updateTimer() {
+    let minutes = 59;
+    let seconds = 59;
+    const timerElement = document.getElementById('timer');
+    
+    const interval = setInterval(() => {
+        if (seconds > 0) {
+            seconds--;
+        } else if (minutes > 0) {
+            minutes--;
+            seconds = 59;
+        } else {
+            clearInterval(interval);
+            location.reload(); // Refresh the page to generate a new code
         }
+        
+        timerElement.innerHTML = `<i class="far fa-clock icon"></i>有效時間：${minutes.toString().padStart(2, '0')}分${seconds.toString().padStart(2, '0')}秒`;
+    }, 1000);
+}
 
-        function updateCountdownDisplay() {
-            const storedTimestamp = localStorage.getItem('inviteCodeTimestamp');
-            if (storedTimestamp) {
-                const timeElapsed = Date.now() - storedTimestamp;
-                const timeRemaining = 3600000 - timeElapsed;
-                if (timeRemaining > 0) {
-                    const minutes = Math.floor(timeRemaining / 60000);
-                    const seconds = Math.floor((timeRemaining % 60000) / 1000);
-                    document.getElementById('countdownDisplay').innerText = `${minutes}分 ${seconds}秒`;
-                } else {
-                    setInviteCode();
-                    updateInviteCodeDisplay();
-                }
-            }
-        }
+function copyInviteCode() {
+    const inviteCode = document.getElementById('inviteCodeDisplay').textContent;
+    navigator.clipboard.writeText(inviteCode).then(() => {
+        alert('邀請碼已複製到剪貼簿');
+    });
+}
 
-        function copyInviteCode() {
-            const inviteCode = document.getElementById('inviteCodeDisplay').innerText;
-            navigator.clipboard.writeText(inviteCode).then(() => {
-                alert('邀請碼已複製到剪貼簿！');
-            }, () => {
-                alert('複製失敗，請重試。');
-            });
-        }
-
-        function goToMainFunction() {
-            alert('跳轉錄取分數頁面！');
-            window.location.href = 'index.html'; // 替換成您希望跳轉的頁面URL
-        }
-
-        window.onload = function() {
-            updateInviteCodeDisplay();
-            setInterval(updateInviteCodeDisplay, 3600000); // 每小時檢查一次
-            setInterval(updateCountdownDisplay, 1000); // 每秒更新倒數計時
-
-            // 防止按右鍵
-            document.addEventListener('contextmenu', function(event) {
-                event.preventDefault();
-            });
-        }
-    </script>
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', () => {
+    const inviteCode = generateInviteCode();
+    document.getElementById('inviteCodeDisplay').textContent = inviteCode;
+    updateTimer();
+});
+</script>
+</body></html>
