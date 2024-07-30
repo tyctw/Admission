@@ -205,37 +205,73 @@
                 }
             }
 
-                    /* 新增頁首樣式 */
-        .page-header {
+  /* 修改頁首樣式為菜單式 */
+  .page-header {
+        background-color: #1a202c;
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .header-nav {
+        display: flex;
+    }
+
+    .header-nav a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .header-nav a:hover {
+        background-color: #2d3748;
+    }
+
+    .menu-toggle {
+        display: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        .header-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
             background-color: #1a202c;
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            flex-direction: column;
         }
 
-        .header-content {
+        .header-nav.active {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
         }
 
         .header-nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1rem;
-            transition: color 0.3s ease;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .header-nav a:hover {
-            color: #667eea;
-        }
+    }
         </style>
     </head>
 
@@ -246,7 +282,10 @@
                     <div class="header-logo">
                         <i class="fas fa-graduation-cap mr-2"></i>桃聯區會考高中錄取分數
                     </div>
-                    <nav class="header-nav">
+                    <div class="menu-toggle" onclick="toggleMenu()">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <nav class="header-nav" id="headerNav">
                         <a href="https://sites.google.com/view/tyctw/">回到主網頁</a>
                         <a href="https://tyctw.github.io/">落點分析系統</a>
                         <a href="https://tyctw.github.io/Navigation/">更多資訊</a>
@@ -465,6 +504,12 @@
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-NJWFN7S6LZ');
+
+
+            function toggleMenu() {
+        const nav = document.getElementById('headerNav');
+        nav.classList.toggle('active');
+    }
         </script>
     </body>
     </html></body></html>
