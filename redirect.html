@@ -1,98 +1,242 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>重定向邀請碼</title>
+<html><head></head>
+
+<body>
+    <div id="particles-js"></div>
+    <div id="redirect-container">
+        <h1>正在重定向至您的專屬邀請頁面</h1>
+        <div id="loading-animation"></div>
+        <p id="redirect-message">請稍候，系統正在處理您的請求。</p>
+        <a id="manual-redirect" href="indsvqvite">如未自動跳轉，請點擊此處</a>
+    </div>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
 
-        .container {
-            background-color: #fff;
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #redirect-container {
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             padding: 40px;
             text-align: center;
             width: 90%;
             max-width: 450px;
             position: relative;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeInUp 0.8s ease-out, float 6s ease-in-out infinite;
         }
 
         h1 {
-            color: #333;
+            color: #4a4a4a;
             font-size: 28px;
-            margin-bottom: 30px;
-            animation: slideIn 1s ease-in-out;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        p {
+        #loading-animation {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #9d50bb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        #redirect-message {
             color: #666;
             font-size: 18px;
-            margin-bottom: 20px;
-            animation: slideIn 1s ease-in-out;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        .redirect-link {
-            display: block;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
+        #manual-redirect {
+            display: inline-block;
+            background-color: #9d50bb;
+            color: white;
+            padding: 12px 24px;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin-top: 20px;
-            animation: slideIn 1s ease-in-out;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .redirect-link:hover {
-            background-color: #0056b3;
+        #manual-redirect:hover {
+            background-color: #6e48aa;
             transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
 
-        footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #999;
-            animation: fadeIn 3s ease-in-out;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(-20px); }
-            to { transform: translateY(0); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // 當文檔載入完成後立即重定向
-        window.onload = function() {
-            window.location.href = "https://tyctw.github.io/Admission/indsvqvite";
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const redirectDelay = 5000; // 5 seconds
+            const redirectUrl = 'indsvqvite';
+            
+            setTimeout(function() {
+                window.location.href = redirectUrl;
+            }, redirectDelay);
+
+            let countdown = redirectDelay / 1000;
+            const messageElement = document.getElementById('redirect-message');
+            
+            const countdownInterval = setInterval(function() {
+                countdown--;
+                if (countdown > 0) {
+                    messageElement.textContent = `請稍候，系統正在處理您的請求。將在 ${countdown} 秒後自動跳轉...`;
+                } else {
+                    clearInterval(countdownInterval);
+                    messageElement.textContent = '正在跳轉...';
+                }
+            }, 1000);
+
+            // Particles.js configuration
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1>正在為您重定向...</h1>
-        <p>請稍候，您即將前往指定的頁面。</p>
-        <a href="https://tyctw.github.io/Admission/indsvqvite" class="redirect-link">如果未自動重定向，請點擊這裡。</a>
-        <footer>&copy; 2024 桃聯區會考落點分析系統. All rights reserved.</footer>
-    </div>
 </body>
 </html>
