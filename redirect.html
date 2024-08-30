@@ -1,4 +1,4 @@
-<html><head></head>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>專屬邀請頁面重定向</title></head>
 
 <body>
     <div id="particles-js"></div>
@@ -6,7 +6,7 @@
         <h1>正在重定向至您的專屬邀請頁面</h1>
         <div id="loading-animation"></div>
         <p id="redirect-message">請稍候，系統正在處理您的請求。</p>
-        <a id="manual-redirect" href="indsvqvite">如未自動跳轉，請點擊此處</a>
+        <a id="manual-redirect" href="https://tyctw.github.io/Admission/indsvqvite">如未自動跳轉，請點擊此處</a>
     </div>
 
     <style>
@@ -105,13 +105,39 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
+        /* Mobile-specific styles */
+        @media (max-width: 480px) {
+            #redirect-container {
+                padding: 30px;
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #redirect-message {
+                font-size: 16px;
+            }
+
+            #manual-redirect {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            #loading-animation {
+                width: 50px;
+                height: 50px;
+            }
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const redirectDelay = 5000; // 5 seconds
-            const redirectUrl = 'indsvqvite';
+            const redirectUrl = 'https://tyctw.github.io/Admission/indsvqvite';
             
             setTimeout(function() {
                 window.location.href = redirectUrl;
@@ -236,6 +262,20 @@
                 },
                 "retina_detect": true
             });
+
+            // Mobile optimization
+            if (window.innerWidth <= 480) {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: {
+                            value: 40
+                        },
+                        size: {
+                            value: 2
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
