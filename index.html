@@ -347,6 +347,18 @@
                     <i class="fas fa-home mr-2"></i>進入主網頁
                 </button>
             </div>
+
+            <div class="mt-8">
+                <label for="searchInput" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
+                    <i class="fas fa-search mr-2 text-blue-500"></i>搜尋學校或科系
+                </label>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="searchInput" class="flex-grow px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="輸入學校或科系名稱">
+                    <button onclick="searchSchools()" class="btn bg-blue-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-blue-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
+                        <i class="fas fa-search mr-2"></i>搜尋
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div id="schoolList" class="card p-6 sm:p-12 fade-in overflow-x-auto">
@@ -395,53 +407,71 @@
     </footer>
 
     <script>
-        // 從 Google Apps Script 獲取學校資料
+        let visibleSchools = [];
+        let hiddenSchools = [];
+
         function fetchSchoolData() {
-            // 顯示加載動畫
             document.getElementById('loadingSpinner').style.display = 'flex';
             document.getElementById('hiddenLoadingSpinner').style.display = 'flex';
             
             fetch('https://script.google.com/macros/s/AKfycbxPYKlbLVjHQttsxWN1ZGC9w5YPRvaT8Ae5DFmhdhbfRdatEomuZ1HYt5Z98OJiXlUX/exec')
                 .then(response => response.json())
                 .then(data => {
-                    // 隱藏加載動畫
                     document.getElementById('loadingSpinner').style.display = 'none';
                     document.getElementById('hiddenLoadingSpinner').style.display = 'none';
                     
-                    // 顯示表格
                     document.querySelector('#schoolList table').style.display = 'table';
                     document.querySelector('#hiddenContent table').style.display = 'table';
                     
-                    populateSchoolTable(data.visibleSchools, 'schoolTableBody');
-                    populateSchoolTable(data.hiddenSchools, 'hiddenSchoolTableBody');
+                    visibleSchools = data.visibleSchools;
+                    hiddenSchools = data.hiddenSchools;
+                    populateSchoolTable(visibleSchools, 'schoolTableBody');
+                    populateSchoolTable(hiddenSchools, 'hiddenSchoolTableBody');
                     animateFadeIn();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // 隱藏加載動畫，顯示錯誤信息
                     document.getElementById('loadingSpinner').style.display = 'none';
                     document.getElementById('hiddenLoadingSpinner').style.display = 'none';
                     document.getElementById('schoolList').innerHTML += '<p class="text-red-500 text-center">加載數據時出錯，請稍後再試。</p>';
                 });
         }
 
-        // 填充學校表格
-        function populateSchoolTable(schools, tableId) {
-            const tableBody = document.getElementById(tableId);
-            tableBody.innerHTML = ''; // 清空現有內容
-            schools.forEach((school, index) => {
-                const row = `
-                    <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
-                        <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.name}</td>
-                        <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.department}</td>
-                        <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">${school.score}</td>
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
+        function searchSchools() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filteredVisible = visibleSchools.filter(school => 
+                school.name.toLowerCase().includes(searchQuery) || 
+                school.department.toLowerCase().includes(searchQuery)
+            );
+            const filteredHidden = hiddenSchools.filter(school => 
+                school.name.toLowerCase().includes(searchQuery) || 
+                school.department.toLowerCase().includes(searchQuery)
+            );
+
+            populateSchoolTable(filteredVisible, 'schoolTableBody');
+            populateSchoolTable(filteredHidden, 'hiddenSchoolTableBody');
         }
 
-        // 動畫效果
+        function populateSchoolTable(schools, tableId) {
+            const tableBody = document.getElementById(tableId);
+            tableBody.innerHTML = '';
+            if (schools.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="3" class="px-3 sm:px-8 py-4 sm:py-6 text-center text-gray-500">沒有找到匹配的結果</td></tr>';
+            } else {
+                schools.forEach((school, index) => {
+                    const row = `
+                        <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
+                            <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.name}</td>
+                            <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.department}</td>
+                            <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">${school.score}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            }
+            animateFadeIn();
+        }
+
         function animateFadeIn() {
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach((element, index) => {
@@ -451,7 +481,6 @@
             });
         }
 
-        // 頁面加載時獲取學校資料
         window.onload = fetchSchoolData;
 
         function checkInviteCode() {
@@ -490,7 +519,6 @@
             window.location.href = 'https://sites.google.com/view/tyctw/';
         }
 
-        // 防止右鍵菜單
         window.addEventListener('contextmenu', function (e) {
             e.preventDefault();
         });
@@ -523,7 +551,6 @@
             }
         }
 
-        // 觸發初始動畫
         window.addEventListener('load', () => {
             animateFadeIn();
         });
