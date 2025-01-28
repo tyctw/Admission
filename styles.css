@@ -98,3 +98,16 @@ footer {
 footer:hover {
   opacity: 1;
 }
+
+.group:hover svg {
+  transform: translateX(-4px);
+}
+
+@media (max-width: 640px) {
+  .fixed.top-4.left-4 {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 1rem;
+  }
+}
