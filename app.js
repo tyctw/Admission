@@ -30,13 +30,6 @@ class InviteCodeForm {
     this.responseMessage.textContent = message;
     this.responseMessage.classList.remove("text-gray-600", "text-green-500", "text-red-500");
     this.responseMessage.classList.add(`text-${type}-500`);
-    
-    if (type === 'red') {
-      this.responseMessage.classList.add('shake');
-      setTimeout(() => {
-        this.responseMessage.classList.remove('shake');
-      }, 500);
-    }
   }
 
   async handleSubmit(event) {
