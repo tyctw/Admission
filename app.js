@@ -42,13 +42,21 @@ class InviteCodeForm {
   async handleSubmit(event) {
     event.preventDefault();
     const email = this.emailInput.value;
+    
+    // Get hCaptcha response
+    const captchaResponse = hcaptcha.getResponse();
+    
+    if (!captchaResponse) {
+      this.showMessage("請完成驗證碼確認", "red");
+      return;
+    }
 
     this.setLoading(true);
     this.showMessage("正在處理，請稍候...", "gray");
 
     try {
       const response = await fetch(
-        `${SCRIPT_URL}?action=generate&email=${encodeURIComponent(email)}`,
+        `${SCRIPT_URL}?action=generate&email=${encodeURIComponent(email)}&captcha=${encodeURIComponent(captchaResponse)}`,
         { method: "GET" }
       );
 
@@ -57,12 +65,15 @@ class InviteCodeForm {
       if (result.valid) {
         this.showMessage(`邀請碼已發送至您的電子郵件：${email}`, "green");
         this.form.reset();
+        hcaptcha.reset();
       } else {
         this.showMessage(`錯誤：${result.message}`, "red");
+        hcaptcha.reset();
       }
     } catch (error) {
       console.error("Error:", error);
       this.showMessage("無法申請邀請碼，請稍後再試！", "red");
+      hcaptcha.reset();
     } finally {
       this.setLoading(false);
     }
