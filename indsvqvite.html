@@ -23,6 +23,9 @@
       </svg>
       <h1 class="text-3xl font-bold mb-2 text-gray-800 glow">桃聯區邀請碼申請</h1>
       <p class="text-gray-600 text-sm">請輸入您的電子郵件以獲取邀請碼</p>
+      <div id="cooldownTimer" class="mt-2 text-sm text-blue-600 hidden">
+        下次可申請時間：<span id="cooldownTime"></span>
+      </div>
     </div>
     
     <div class="mb-8 bg-blue-50 p-4 rounded-lg border border-blue-100">
@@ -70,6 +73,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
           </svg>
         </div>
+        <div id="emailValidation" class="text-xs mt-1"></div>
       </div>
 
       <div class="h-captcha flex justify-center" data-sitekey="7980a26c-782e-4362-a492-9de013544ec2"></div>
@@ -83,10 +87,15 @@
     </form>
     
     <p id="responseMessage" class="mt-6 text-center text-sm text-gray-600"></p>
+
+    <div id="requestCount" class="mt-4 text-center text-sm text-gray-500">
+      今日剩餘申請次數：<span id="remainingRequests">5</span>
+    </div>
   </div>
 
   <footer class="mt-8 text-center text-gray-500 text-sm">
     <p>&copy; <span id="copyright-year"></span> TYCTW會考落點分析版權所有</p>
+    <p class="mt-1">最後更新時間：<span id="lastUpdate"></span></p>
   </footer>
 
   <script type="module" src="app.js"></script>

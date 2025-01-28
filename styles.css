@@ -111,3 +111,68 @@ footer:hover {
     margin-bottom: 1rem;
   }
 }
+
+/* Email validation indicators */
+.email-valid {
+  color: #10B981;
+}
+
+.email-invalid {
+  color: #EF4444;
+}
+
+#emailValidation {
+  height: 1.5em;
+  transition: all 0.3s ease;
+}
+
+/* Cooldown timer pulse animation */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+#cooldownTimer {
+  animation: pulse 2s infinite;
+}
+
+/* Request count warning states */
+.requests-low {
+  color: #DC2626;
+  font-weight: 500;
+}
+
+.requests-medium {
+  color: #F59E0B;
+}
+
+/* Last update time fade in */
+#lastUpdate {
+  opacity: 0.8;
+}
+
+/* Enhanced form input styles */
+.form-group input {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-group input:hover {
+  background: #ffffff;
+}
+
+/* Progress bar for cooldown */
+.cooldown-progress {
+  width: 100%;
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.cooldown-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #60A5FA, #3B82F6);
+  transition: width 1s linear;
+}
