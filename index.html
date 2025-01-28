@@ -518,6 +518,44 @@ function goToMainFunction() {
 window.addEventListener('load', fetchSchoolData);
 window.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('selectstart', e => e.preventDefault());
+
+function toggleMenu() {
+            const menu = document.getElementById('fullscreenMenu');
+            menu.classList.toggle('active');
+            const menuToggle = document.querySelector('.menu-toggle i');
+            menuToggle.classList.toggle('fa-bars');
+            menuToggle.classList.toggle('fa-times');
+
+            if (menu.classList.contains('active')) {
+                const links = menu.querySelectorAll('a');
+                links.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.style.opacity = '1';
+                        link.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            } else {
+                const links = menu.querySelectorAll('a');
+                links.forEach((link) => {
+                    link.style.opacity = '0';
+                    link.style.transform = 'translateY(20px)';
+                });
+            }
+        }
+
+        window.addEventListener('load', () => {
+            animateFadeIn();
+        });
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NJWFN7S6LZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-NJWFN7S6LZ');
+    </script>
       </script>
   </body>
   </html></body></html>
