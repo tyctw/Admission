@@ -1,0 +1,523 @@
+<html><head></head><body><!DOCTYPE html>
+  <html lang="zh-Hant">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="桃聯區會考高中參考錄取分數，提供最新高中錄取分數資料">
+      <meta name="keywords" content="桃聯區, 會考,桃園, 落點分析, 教育, 學校, 高中, 武陵高中, 中壢高中, 內壢高中, 大園高中, 壽山高中">
+      <meta name="author" content="桃園教育局">
+      <title>桃聯區會考高中錄取分數</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+          @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+          
+          body {
+              font-family: 'Noto Sans TC', sans-serif;
+              background-color: #f0f4f8;
+          }
+          
+          .gradient-bg {
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          }
+          
+          .card {
+              background-color: white;
+              border-radius: 1rem;
+              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+              transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+          }
+          
+          .card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          }
+          
+          .btn {
+              transition: all 0.3s ease;
+          }
+          
+          .btn:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          }
+          
+          table {
+              border-collapse: separate;
+              border-spacing: 0 0.5rem;
+          }
+          
+          tr {
+              transition: all 0.3s ease;
+          }
+          
+          tr:hover {
+              transform: scale(1.02);
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          }
+          
+          .animate-fade-in {
+              animation: fadeIn 0.5s ease-out;
+          }
+          
+          @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+          }
+          
+          .custom-shape-divider-bottom-1623679568 {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              overflow: hidden;
+              line-height: 0;
+              transform: rotate(180deg);
+          }
+  
+          .custom-shape-divider-bottom-1623679568 svg {
+              position: relative;
+              display: block;
+              width: calc(100% + 1.3px);
+              height: 150px;
+          }
+  
+          .custom-shape-divider-bottom-1623679568 .shape-fill {
+              fill: #FFFFFF;
+          }
+  
+          .glass-effect {
+              background: rgba(255, 255, 255, 0.25);
+              box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+              backdrop-filter: blur(4px);
+              -webkit-backdrop-filter: blur(4px);
+              border-radius: 10px;
+              border: 1px solid rgba(255, 255, 255, 0.18);
+          }
+  
+          .gradient-text {
+              background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+          }
+  
+          .rotate-on-hover:hover {
+              animation: rotate 0.5s ease-in-out;
+          }
+  
+          @keyframes rotate {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+          }
+  
+          .floating {
+              animation: floating 3s ease-in-out infinite;
+          }
+  
+          @keyframes floating {
+              0% { transform: translate(0,  0px); }
+              50%  { transform: translate(0, 15px); }
+              100%   { transform: translate(0, -0px); }   
+          }
+  
+          .title-container {
+              position: relative;
+              overflow: hidden;
+              padding: 2rem;
+              border-radius: 1rem;
+              background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+          }
+  
+          .title-text {
+              position: relative;
+              z-index: 1;
+              font-size: 3rem;
+              font-weight: 700;
+              color: #fff;
+              text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+          }
+  
+          .title-background {
+              position: absolute;
+              top: -50%;
+              left: -50%;
+              width: 200%;
+              height: 200%;
+              background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+              animation: rotate 20s linear infinite;
+          }
+  
+          @keyframes rotate {
+              from {
+                  transform: rotate(0deg);
+              }
+              to {
+                  transform: rotate(360deg);
+              }
+          }
+  
+          .title-icon {
+              display: inline-block;
+              margin-right: 0.5rem;
+              animation: bounce 2s infinite;
+          }
+  
+          @keyframes bounce {
+              0%, 100% {
+                  transform: translateY(0);
+              }
+              50% {
+                  transform: translateY(-10px);
+              }
+          }
+  
+          .fullscreen-menu {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(26, 32, 44, 0.95);
+              z-index: 1000;
+              overflow-y: auto;
+              opacity: 0;
+              transition: opacity 0.3s ease-in-out;
+          }
+  
+          .fullscreen-menu.active {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              opacity: 1;
+          }
+  
+          .fullscreen-menu a {
+              color: white;
+              text-decoration: none;
+              font-size: 2rem;
+              margin: 1rem 0;
+              padding: 0.5rem 1rem;
+              transition: all 0.3s ease;
+              opacity: 0;
+              transform: translateY(20px);
+          }
+  
+          .fullscreen-menu.active a {
+              opacity: 1;
+              transform: translateY(0);
+          }
+  
+          .fullscreen-menu a:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+              transform: scale(1.1);
+          }
+  
+          .menu-toggle {
+              position: fixed;
+              top: 1rem;
+              right: 1rem;
+              color: white;
+              font-size: 2rem;
+              cursor: pointer;
+              z-index: 1001;
+              transition: transform 0.3s ease-in-out;
+          }
+  
+          .menu-toggle:hover {
+              transform: rotate(90deg);
+          }
+  
+          .fade-in {
+              opacity: 0;
+              transform: translateY(20px);
+              transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+          }
+  
+          .fade-in.active {
+              opacity: 1;
+              transform: translateY(0);
+          }
+  
+          /* 新增加載動畫 */
+          .loading {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100px;
+          }
+  
+          .loading-spinner {
+              border: 5px solid #f3f3f3;
+              border-top: 5px solid #3498db;
+              border-radius: 50%;
+              width: 50px;
+              height: 50px;
+              animation: spin 1s linear infinite;
+          }
+  
+          @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+          }
+  
+          /* 手機版樣式 */
+          @media (max-width: 640px) {
+              .container {
+                  padding-left: 1rem;
+                  padding-right: 1rem;
+              }
+  
+              h1 {
+                  font-size: 2.5rem !important;
+              }
+  
+              .card {
+                  padding: 1.5rem !important;
+              }
+  
+              table {
+                  font-size: 0.9rem;
+              }
+  
+              th, td {
+                  padding: 0.5rem !important;
+              }
+  
+              .btn {
+                  width: 100%;
+                  margin-bottom: 1rem;
+              }
+  
+              .fullscreen-menu a {
+                  font-size: 1.5rem;
+              }
+          }
+      </style>
+  </head>
+  
+  <body class="min-h-screen relative">
+      <div class="menu-toggle" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+      </div>
+  
+      <div class="fullscreen-menu" id="fullscreenMenu">
+          <a href="https://sites.google.com/view/tyctw/">回到主網頁</a>
+          <a href="https://tyctw.github.io/">落點分析</a>
+          <a href="https://tyctw.github.io/Navigation/">更多資訊</a>
+      </div>
+  
+      <header class="gradient-bg text-white py-20 relative overflow-hidden">
+          <div class="container mx-auto px-4 relative z-10">
+              <div class="title-container mb-8 animate-fade-in">
+                  <div class="title-background"></div>
+                  <h1 class="title-text text-center">
+                      <span class="title-icon"><i class="fas fa-graduation-cap"></i></span>
+                      桃聯區會考高中錄取分數
+                  </h1>
+              </div>
+              <p class="text-xl sm:text-2xl text-center animate-fade-in glass-effect p-4 sm:p-6 mx-auto max-w-3xl rounded-lg">為您提供高中錄取分數資訊</p>
+          </div>
+          <div class="custom-shape-divider-bottom-1623679568">
+              <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+              </svg>
+          </div>
+      </header>
+  
+      <main class="container mx-auto px-4 py-12 sm:py-20">
+        <div class="card p-6 sm:p-12 mb-12 sm:mb-20 fade-in">
+            <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="block text-center text-indigo-600 hover:text-indigo-800 mb-6 sm:mb-10 text-xl sm:text-2xl transition-all duration-300 hover:scale-105">
+                <i class="fas fa-clipboard-list mr-2"></i>填寫表單以查看更多各校錄取分數
+            </a>
+            
+            <div class="mb-6 sm:mb-10">
+                <label for="inviteCode" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
+                    <i class="fas fa-key mr-2 text-purple-500"></i>邀請碼
+                </label>
+                <input type="text" id="inviteCode" class="w-full px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg sm:text-2xl transition-all duration-300" placeholder="請輸入邀請碼">
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+                <button onclick="checkInviteCode()" class="btn bg-indigo-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-indigo-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
+                    <i class="fas fa-check mr-2"></i>確認邀請碼
+                </button>
+                <button onclick="goToMainFunction()" class="btn bg-purple-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-purple-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
+                    <i class="fas fa-home mr-2"></i>進入主網頁
+                </button>
+            </div>
+              <div class="mt-8">
+                  <label for="searchInput" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
+                      <i class="fas fa-search mr-2 text-blue-500"></i>搜尋學校或科系
+                  </label>
+                  <div class="flex flex-col sm:flex-row gap-4">
+                      <input type="text" id="searchInput" class="flex-grow px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="輸入學校或科系名稱">
+                      <button onclick="searchSchools()" class="btn bg-blue-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-blue-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
+                          <i class="fas fa-search mr-2"></i>搜尋
+                      </button>
+                  </div>
+              </div>
+          </div>
+  
+          <div id="schoolList" class="card p-6 sm:p-12 fade-in overflow-x-auto">
+              <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center gradient-text">高中錄取分數一覽</h2>
+              <div id="loadingSpinner" class="loading">
+                  <div class="loading-spinner"></div>
+              </div>
+              <table class="w-full" style="display: none;">
+                  <thead>
+                      <tr class="bg-gray-100 text-gray-700">
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-school mr-2 text-indigo-500"></i>學校</th>
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-book mr-2 text-green-500"></i>科系</th>
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-chart-line mr-2 text-red-500"></i>成績要求</th>
+                      </tr>
+                  </thead>
+                  <tbody id="schoolTableBody">
+                      <!-- 學校資料將通過 JavaScript 動態插入 -->
+                  </tbody>
+              </table>
+          </div>
+  
+          <div id="hiddenContent" class="card p-6 sm:p-12 mt-12 sm:mt-20 fade-in overflow-x-auto" style="display: none;">
+              <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center gradient-text">更多學校資訊</h2>
+              <div id="hiddenLoadingSpinner" class="loading">
+                  <div class="loading-spinner"></div>
+              </div>
+              <table class="w-full" style="display: none;">
+                  <thead>
+                      <tr class="bg-gray-100 text-gray-700">
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-school mr-2 text-indigo-500"></i>學校</th>
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-book mr-2 text-green-500"></i>科系</th>
+                          <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold"><i class="fas fa-chart-line mr-2 text-red-500"></i>成績要求</th>
+                      </tr>
+                  </thead>
+                  <tbody id="hiddenSchoolTableBody">
+                      <!-- 隱藏的學校資料將通過 JavaScript 動態插入 -->
+                  </tbody>
+              </table>
+          </div>
+      </main>
+       
+      <footer class="bg-gray-800 text-white py-12 sm:py-16 mt-12 sm:mt-20">
+          <div class="container mx-auto px-4 text-center">
+              <p class="text-xl sm:text-2xl mb-4 sm:mb-6"><i class="far fa-copyright mr-2"></i>2025 桃聯區會考高中參考錄取分數</p>
+          </div>
+      </footer>
+  
+      <script>
+let visibleSchools = [];
+let hiddenSchools = [];
+
+// API endpoints
+const SCHOOL_DATA_API = 'https://script.google.com/macros/s/AKfycbxPYKlbLVjHQttsxWN1ZGC9w5YPRvaT8Ae5DFmhdhbfRdatEomuZ1HYt5Z98OJiXlUX/exec';
+const INVITE_CODE_API = 'https://script.google.com/macros/s/AKfycbwkdCnCyYt3HZexrPX_VfhvNmNvxPihafj2-NxVFZL1X9HgYU0kNgcElMF8YZ_ZIPpIkg/exec'; // Replace with your actual Apps Script URL
+
+async function fetchSchoolData() {
+    try {
+        document.getElementById('loadingSpinner').style.display = 'flex';
+        document.getElementById('hiddenLoadingSpinner').style.display = 'flex';
+        
+        const response = await fetch(SCHOOL_DATA_API);
+        const data = await response.json();
+        
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('hiddenLoadingSpinner').style.display = 'none';
+        
+        document.querySelector('#schoolList table').style.display = 'table';
+        document.querySelector('#hiddenContent table').style.display = 'table';
+        
+        visibleSchools = data.visibleSchools;
+        hiddenSchools = data.hiddenSchools;
+        populateSchoolTable(visibleSchools, 'schoolTableBody');
+        populateSchoolTable(hiddenSchools, 'hiddenSchoolTableBody');
+        animateFadeIn();
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('hiddenLoadingSpinner').style.display = 'none';
+        document.getElementById('schoolList').innerHTML += '<p class="text-red-500 text-center">加載數據時出錯，請稍後再試。</p>';
+    }
+}
+
+async function checkInviteCode() {
+    const userCode = document.getElementById('inviteCode').value;
+    if (!userCode) {
+        alert('請輸入邀請碼');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${INVITE_CODE_API}?code=${userCode}&action=verify`);
+        const data = await response.json();
+        
+        if (data.valid) {
+            document.getElementById('hiddenContent').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('hiddenContent').classList.add('active');
+            }, 50);
+            alert('邀請碼正確');
+        } else {
+            alert('邀請碼錯誤或已過期');
+        }
+    } catch (error) {
+        console.error('Error verifying invite code:', error);
+        alert('驗證邀請碼時發生錯誤，請稍後再試');
+    }
+}
+
+function populateSchoolTable(schools, tableId) {
+    const tableBody = document.getElementById(tableId);
+    tableBody.innerHTML = '';
+    if (schools.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="3" class="px-3 sm:px-8 py-4 sm:py-6 text-center text-gray-500">沒有找到匹配的結果</td></tr>';
+    } else {
+        schools.forEach((school, index) => {
+            const row = `
+                <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
+                    <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.name}</td>
+                    <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.department}</td>
+                    <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">${school.score}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+    animateFadeIn();
+}
+
+function searchSchools() {
+    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    const filteredVisible = visibleSchools.filter(school => 
+        school.name.toLowerCase().includes(searchQuery) || 
+        school.department.toLowerCase().includes(searchQuery)
+    );
+    const filteredHidden = hiddenSchools.filter(school => 
+        school.name.toLowerCase().includes(searchQuery) || 
+        school.department.toLowerCase().includes(searchQuery)
+    );
+
+    populateSchoolTable(filteredVisible, 'schoolTableBody');
+    populateSchoolTable(filteredHidden, 'hiddenSchoolTableBody');
+}
+
+function animateFadeIn() {
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.add('active');
+        }, index * 100);
+    });
+}
+
+function goToMainFunction() {
+    window.location.href = 'https://sites.google.com/view/tyctw/';
+}
+
+// Event listeners
+window.addEventListener('load', fetchSchoolData);
+window.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+      </script>
+  </body>
+  </html></body></html>
