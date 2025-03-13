@@ -1,12 +1,12 @@
-let visibleSchools = [];
-let hiddenSchools = [];
-let instructionModalShown = false;
-
 // API endpoints
 const SCHOOL_DATA_API =
   "https://script.google.com/macros/s/AKfycbxPYKlbLVjHQttsxWN1ZGC9w5YPRvaT8Ae5DFmhdhbfRdatEomuZ1HYt5Z98OJiXlUX/exec";
 const INVITE_CODE_API =
-  "https://script.google.com/macros/s/AKfycbwkdCnCyYt3HZexrPX_VfhvNmNvxPihafj2-NxVFZL1X9HgYU0kNgcElMF8YZ_ZIPpIkg/exec"; // Replace with your actual Apps Script URL
+  "https://script.google.com/macros/s/AKfycbwkdCnCyYt3HZexrPX_VfhvNmNvxPihafj2-NxVFZL1X9HgYU0kNgcElMF8YZ_ZIPpIkg/exec"; 
+
+let visibleSchools = [];
+let hiddenSchools = [];
+let instructionModalShown = false;
 
 async function fetchSchoolData() {
   try {
@@ -43,7 +43,6 @@ async function checkInviteCode() {
     return;
   }
 
-  // 顯示加載動畫
   document.getElementById("loadingAnimation").classList.remove("hidden");
   document.getElementById("successAnimation").classList.add("hidden");
   document.getElementById("errorAnimation").classList.add("hidden");
@@ -54,28 +53,22 @@ async function checkInviteCode() {
     );
     const data = await response.json();
 
-    // 隱藏加載動畫
     document.getElementById("loadingAnimation").classList.add("hidden");
 
     if (data.valid) {
-      // 顯示成功動畫
       document.getElementById("successAnimation").classList.remove("hidden");
       document.getElementById("successAnimation").classList.add("show");
-      // 顯示隱藏內容
       document.getElementById("hiddenContent").style.display = "block";
       setTimeout(() => {
         document.getElementById("hiddenContent").classList.add("active");
       }, 50);
     } else {
-      // 顯示失敗動畫
       document.getElementById("errorAnimation").classList.remove("hidden");
       document.getElementById("errorAnimation").classList.add("show");
     }
   } catch (error) {
     console.error("Error verifying invite code:", error);
-    // 隱藏加載動畫
     document.getElementById("loadingAnimation").classList.add("hidden");
-    // 顯示失敗動畫
     document.getElementById("errorAnimation").classList.remove("hidden");
     document.getElementById("errorAnimation").classList.add("show");
     alert("驗證邀請碼時發生錯誤，請稍後再試");
@@ -92,9 +85,9 @@ function populateSchoolTable(schools, tableId) {
     schools.forEach((school, index) => {
       const row = `
         <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
-          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.name}</td>
-          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.department}</td>
-          <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">${school.score}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-school text-indigo-500 mr-2"></i>${school.name}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-book-open text-green-500 mr-2"></i>${school.department}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl"><div class="inline-block px-3 py-1 rounded-full bg-indigo-100">${school.score}</div></td>
         </tr>
       `;
       tableBody.innerHTML += row;
@@ -181,12 +174,10 @@ function toggleInstructionModal() {
 function checkAndShowInstructions() {
   const hasSeenInstructions = localStorage.getItem('instructionModalShown');
   if (!hasSeenInstructions) {
-    // Show instructions after a short delay for better UX
     setTimeout(showInstructionModal, 800);
   }
 }
 
-// Event listeners
 window.addEventListener("load", fetchSchoolData);
 window.addEventListener("load", checkAndShowInstructions);
 window.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -196,7 +187,6 @@ window.addEventListener("load", () => {
   animateFadeIn();
 });
 
-// 禁用快捷鍵
 document.addEventListener("keydown", function (e) {
   if (
     e.ctrlKey &&
@@ -206,7 +196,6 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-// 檢測開發者工具
 setInterval(function () {
   const devToolsOpened = function () {
     const widthThreshold = window.outerWidth - window.innerWidth > 160;
