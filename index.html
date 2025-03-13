@@ -8,7 +8,7 @@
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -103,6 +103,10 @@
 
       <div id="schoolList" class="card p-6 sm:p-12 fade-in overflow-x-auto">
         <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center gradient-text">高中錄取分數一覽</h2>
+        <div class="disclaimer-box mb-6 p-4 border border-yellow-400 bg-yellow-50 rounded-lg text-gray-700 dark:bg-yellow-900 dark:text-gray-200 dark:border-yellow-700">
+          <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>免責聲明</h3>
+          <p>本網站所提供的高中錄取分數資訊僅供參考，不代表官方立場。實際錄取標準可能因各校政策、年度變化或其他因素而有所調整。使用者應自行核實資訊的準確性，本站不對因使用此資訊而產生的任何損失負責。</p>
+        </div>
         <div id="loadingSpinner" class="loading">
           <div class="loading-spinner"></div>
         </div>
