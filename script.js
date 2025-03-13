@@ -48,6 +48,8 @@ async function checkInviteCode() {
   }
 
   document.getElementById("loadingAnimation").classList.remove("hidden");
+  document.getElementById("successAnimation").classList.remove("show");
+  document.getElementById("errorAnimation").classList.remove("show");
   document.getElementById("successAnimation").classList.add("hidden");
   document.getElementById("errorAnimation").classList.add("hidden");
 
@@ -57,24 +59,36 @@ async function checkInviteCode() {
     );
     const data = await response.json();
 
-    document.getElementById("loadingAnimation").classList.add("hidden");
+    setTimeout(() => {
+      document.getElementById("loadingAnimation").classList.add("hidden");
 
-    if (data.valid) {
-      document.getElementById("successAnimation").classList.remove("hidden");
-      document.getElementById("successAnimation").classList.add("show");
-      document.getElementById("hiddenContent").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("hiddenContent").classList.add("active");
-      }, 50);
-    } else {
-      document.getElementById("errorAnimation").classList.remove("hidden");
-      document.getElementById("errorAnimation").classList.add("show");
-    }
+      if (data.valid) {
+        document.getElementById("successAnimation").classList.remove("hidden");
+        setTimeout(() => {
+          document.getElementById("successAnimation").classList.add("show");
+          setTimeout(() => {
+            document.getElementById("hiddenContent").style.display = "block";
+            setTimeout(() => {
+              document.getElementById("hiddenContent").classList.add("active");
+            }, 50);
+          }, 1000);
+        }, 100);
+      } else {
+        document.getElementById("errorAnimation").classList.remove("hidden");
+        setTimeout(() => {
+          document.getElementById("errorAnimation").classList.add("show");
+        }, 100);
+      }
+    }, 1500);
   } catch (error) {
     console.error("Error verifying invite code:", error);
-    document.getElementById("loadingAnimation").classList.add("hidden");
-    document.getElementById("errorAnimation").classList.remove("hidden");
-    document.getElementById("errorAnimation").classList.add("show");
+    setTimeout(() => {
+      document.getElementById("loadingAnimation").classList.add("hidden");
+      document.getElementById("errorAnimation").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("errorAnimation").classList.add("show");
+      }, 100);
+    }, 1500);
     alert("驗證邀請碼時發生錯誤，請稍後再試");
   }
 }
@@ -295,10 +309,6 @@ function changeFontSize(size) {
   localStorage.setItem('fontSize', size);
 }
 
-function goToMainFunction() {
-  window.location.href = 'https://sites.google.com/view/tyctw/';
-}
-
 function toggleMenu() {
   const menu = document.getElementById('fullscreenMenu');
   menu.classList.toggle('active');
@@ -321,6 +331,10 @@ function toggleMenu() {
       link.style.transform = 'translateY(20px)';
     });
   }
+}
+
+function goToMainFunction() {
+  window.location.href = 'https://sites.google.com/view/tyctw/';
 }
 
 window.addEventListener("load", fetchSchoolData);

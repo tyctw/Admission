@@ -5,10 +5,16 @@
     <meta name="description" content="桃聯區會考高中參考錄取分數，提供最新高中錄取分數資料">
     <meta name="keywords" content="桃聯區, 會考,桃園, 落點分析, 教育, 學校, 高中, 武陵高中, 中壢高中, 內壢高中, 大園高中, 壽山高中">
     <meta name="author" content="桃園教育局">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="桃聯區會考高中錄取分數">
+    <meta property="og:description" content="桃聯區會考高中參考錄取分數，提供最新高中錄取分數資料">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_TW">
+    <link rel="canonical" href="https://tyctw.github.io/">
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -54,19 +60,21 @@
           <input type="text" id="inviteCode" class="w-full px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg sm:text-2xl transition-all duration-300" placeholder="請輸入邀請碼">
         </div>
 
-        <div id="loadingAnimation" class="hidden mt-4">
+        <div id="loadingAnimation" class="hidden mt-4 text-center">
           <div class="loading-spinner"></div>
-          <p class="text-center text-gray-600 mt-2">驗證中，請稍候...</p>
+          <p class="text-center text-gray-600 mt-4 font-medium">驗證中，請稍候...</p>
         </div>
 
         <div id="successAnimation" class="hidden mt-4 text-center">
-          <i class="fas fa-check-circle text-4xl text-green-500"></i>
-          <p class="text-green-600 mt-2">邀請碼驗證成功！</p>
+          <i class="fas fa-check-circle verification-icon text-green-500"></i>
+          <p class="text-green-600 mt-2 font-medium text-xl">邀請碼驗證成功！</p>
+          <p class="text-green-500 mt-1">正在載入更多內容...</p>
         </div>
 
         <div id="errorAnimation" class="hidden mt-4 text-center">
-          <i class="fas fa-times-circle text-4xl text-red-500"></i>
-          <p class="text-red-600 mt-2">邀請碼錯誤或已過期！</p>
+          <i class="fas fa-times-circle verification-icon text-red-500"></i>
+          <p class="text-red-600 mt-2 font-medium text-xl">邀請碼錯誤或已過期！</p>
+          <p class="text-red-500 mt-1">請確認後重試</p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
@@ -79,7 +87,7 @@
         </div>
         <div class="feature-buttons-container mt-6">
           <button onclick="toggleDarkMode()" class="feature-button">
-            <i class="fas fa-moon mr-2"></i>深色模式
+            <i class="fas fa-moon mr-2"></i>切換暗黑模式
           </button>
           <button onclick="showBookmarks()" class="feature-button">
             <i class="fas fa-bookmark mr-2"></i>收藏列表
