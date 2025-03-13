@@ -227,7 +227,7 @@ function showBookmarks() {
   const modalContent = document.getElementById('bookmarkModalContent');
   
   if (bookmarks.length === 0) {
-    modalContent.innerHTML = '<p class="text-center py-4">您還沒有收藏任何學校</p>';
+    modalContent.innerHTML = '<p class="text-center py-4">您還 沒有收藏任何學校</p>';
   } else {
     let html = '<ul class="bookmark-list bookmark-modal">';
     
@@ -337,9 +337,22 @@ function goToMainFunction() {
   window.location.href = 'https://sites.google.com/view/tyctw/';
 }
 
+function updateYearDisplay() {
+  // Calculate ROC year (Taiwan calendar: Western year - 1911)
+  const westernYear = new Date().getFullYear();
+  const rocYear = westernYear - 1911;
+  
+  // Update year in title (current year)
+  document.getElementById("currentYear").textContent = rocYear;
+  
+  // Update year in footer (western year)
+  document.getElementById("footerYear").textContent = westernYear;
+}
+
 window.addEventListener("load", fetchSchoolData);
 window.addEventListener("load", checkAndShowInstructions);
 window.addEventListener("load", checkDarkModePreference);
+window.addEventListener("load", updateYearDisplay);
 window.addEventListener("scroll", toggleScrollToTopButton);
 window.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("selectstart", (e) => e.preventDefault());

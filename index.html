@@ -14,7 +14,7 @@
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -33,7 +33,7 @@
           <div class="title-background"></div>
           <h1 class="title-text text-center">
             <span class="title-icon"><i class="fas fa-graduation-cap"></i></span>
-            桃聯區會考高中錄取分數
+            <span id="currentYear"></span>年桃聯區會考高中錄取分數
           </h1>
         </div>
         <p class="text-xl sm:text-2xl text-center animate-fade-in glass-effect p-4 sm:p-6 mx-auto max-w-3xl rounded-lg">
@@ -157,7 +157,7 @@
     <footer class="bg-gray-800 text-white py-12 sm:py-16 mt-12 sm:mt-20">
       <div class="container mx-auto px-4 text-center">
         <p class="text-xl sm:text-2xl mb-4 sm:mb-6">
-          <i class="far fa-copyright mr-2"></i>2025 桃聯區會考高中參考錄取分數
+          <i class="far fa-copyright mr-2"></i><span id="footerYear"></span> 桃聯區會考高中參考錄取分數
         </p>
         <div class="flex justify-center gap-4 flex-wrap">
           <button onclick="toggleInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 text-lg font-semibold mt-4">
