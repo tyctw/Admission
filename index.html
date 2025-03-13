@@ -8,7 +8,7 @@
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -146,8 +146,41 @@
         <p class="text-xl sm:text-2xl mb-4 sm:mb-6">
           <i class="far fa-copyright mr-2"></i>2025 桃聯區會考高中參考錄取分數
         </p>
+        <button onclick="toggleInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 text-lg font-semibold mt-4">
+          <i class="fas fa-info-circle mr-2"></i>使用說明
+        </button>
       </div>
     </footer>
+
+    <div class="modal-overlay" id="instructionModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-2xl font-bold gradient-text"><i class="fas fa-info-circle mr-2"></i>使用說明</h2>
+          <div class="modal-close" onclick="hideInstructionModal()"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="modal-body">
+          <div class="instruction-step">
+            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-search"></i></span>基本查詢</div>
+            <p>可直接在搜尋欄輸入學校或科系名稱進行查詢，系統會自動過濾並顯示符合條件的結果。</p>
+          </div>
+          <div class="instruction-step">
+            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-key"></i></span>邀請碼驗證</div>
+            <p>若您有邀請碼，請在邀請碼輸入框中輸入並點擊「確認邀請碼」按鈕，驗證成功後將顯示更多學校的詳細資訊。</p>
+          </div>
+          <div class="instruction-step">
+            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-clipboard-list"></i></span>獲取邀請碼</div>
+            <p>點擊頁面上的「填寫表單以查看更多各校錄取分數」，完成表單後將獲得邀請碼。</p>
+          </div>
+          <div class="instruction-step">
+            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-exclamation-triangle"></i></span>注意事項</div>
+            <p>此處提供的資料僅供參考，實際錄取標準可能因年度及政策調整而有所變化。</p>
+          </div>
+          <button onclick="hideInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 w-full font-semibold mt-4">
+            <i class="fas fa-check mr-2"></i>我已了解
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
     <!-- Google tag (gtag.js) -->

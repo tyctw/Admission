@@ -1,5 +1,6 @@
 let visibleSchools = [];
 let hiddenSchools = [];
+let instructionModalShown = false;
 
 // API endpoints
 const SCHOOL_DATA_API =
@@ -156,8 +157,38 @@ function toggleMenu() {
   }
 }
 
+function showInstructionModal() {
+  const modal = document.getElementById('instructionModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function hideInstructionModal() {
+  const modal = document.getElementById('instructionModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function toggleInstructionModal() {
+  const modal = document.getElementById('instructionModal');
+  if (modal.classList.contains('active')) {
+    hideInstructionModal();
+  } else {
+    showInstructionModal();
+  }
+}
+
+function checkAndShowInstructions() {
+  const hasSeenInstructions = localStorage.getItem('instructionModalShown');
+  if (!hasSeenInstructions) {
+    // Show instructions after a short delay for better UX
+    setTimeout(showInstructionModal, 800);
+  }
+}
+
 // Event listeners
 window.addEventListener("load", fetchSchoolData);
+window.addEventListener("load", checkAndShowInstructions);
 window.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("selectstart", (e) => e.preventDefault());
 
