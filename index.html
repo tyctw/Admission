@@ -8,7 +8,7 @@
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -107,6 +107,14 @@
           <div class="loading-spinner"></div>
         </div>
         <table class="w-full" style="display: none;">
+          <thead>
+            <tr>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-school text-indigo-500 mr-2"></i>學校</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-book-open text-green-500 mr-2"></i>科系</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-chart-line text-red-500 mr-2"></i>成績要求</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-center"><i class="far fa-bookmark text-yellow-500 mr-2"></i>收藏</th>
+            </tr>
+          </thead>
           <tbody id="schoolTableBody">
             <!-- 學校資料將通過 JavaScript 動態插入 -->
           </tbody>
@@ -119,6 +127,14 @@
           <div class="loading-spinner"></div>
         </div>
         <table class="w-full" style="display: none;">
+          <thead>
+            <tr>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-school text-indigo-500 mr-2"></i>學校</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-book-open text-green-500 mr-2"></i>科系</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-chart-line text-red-500 mr-2"></i>成績要求</th>
+              <th class="px-3 sm:px-8 py-4 sm:py-6 text-center"><i class="far fa-bookmark text-yellow-500 mr-2"></i>收藏</th>
+            </tr>
+          </thead>
           <tbody id="hiddenSchoolTableBody">
             <!-- 隱藏的學校資料將通過 JavaScript 動態插入 -->
           </tbody>
