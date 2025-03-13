@@ -183,6 +183,11 @@ function toggleBookmark(name, department, score) {
   
   // Update UI
   applyBookmarks();
+  
+  // Refresh bookmark modal if it's open
+  if (document.getElementById('bookmarkModal').classList.contains('active')) {
+    showBookmarks();
+  }
 }
 
 function applyBookmarks() {
