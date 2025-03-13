@@ -8,7 +8,7 @@
     <title>桃聯區會考高中錄取分數</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styless.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body class="min-h-screen relative">
     <div class="menu-toggle" onclick="toggleMenu()">
@@ -77,6 +77,17 @@
             <i class="fas fa-home mr-2"></i>進入主網頁
           </button>
         </div>
+        <div class="feature-buttons-container mt-6">
+          <button onclick="toggleDarkMode()" class="feature-button">
+            <i class="fas fa-moon mr-2"></i>切換暗黑模式
+          </button>
+          <button onclick="showBookmarks()" class="feature-button">
+            <i class="fas fa-bookmark mr-2"></i>收藏列表
+          </button>
+          <button onclick="showSettingsModal()" class="feature-button">
+            <i class="fas fa-cog mr-2"></i>設置
+          </button>
+        </div>
         <div class="mt-8">
           <label for="searchInput" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
             <i class="fas fa-search mr-2 text-blue-500"></i>搜尋學校或科系
@@ -96,19 +107,6 @@
           <div class="loading-spinner"></div>
         </div>
         <table class="w-full" style="display: none;">
-          <thead>
-            <tr class="bg-gray-100 text-gray-700">
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-school mr-2 text-indigo-500"></i>學校
-              </th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-book mr-2 text-green-500"></i>科系
-              </th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-chart-line mr-2 text-red-500"></i>成績要求
-              </th>
-            </tr>
-          </thead>
           <tbody id="schoolTableBody">
             <!-- 學校資料將通過 JavaScript 動態插入 -->
           </tbody>
@@ -121,19 +119,6 @@
           <div class="loading-spinner"></div>
         </div>
         <table class="w-full" style="display: none;">
-          <thead>
-            <tr class="bg-gray-100 text-gray-700">
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-school mr-2 text-indigo-500"></i>學校
-              </th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-book mr-2 text-green-500"></i>科系
-              </th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left text-lg sm:text-2xl font-semibold">
-                <i class="fas fa-chart-line mr-2 text-red-500"></i>成績要求
-              </th>
-            </tr>
-          </thead>
           <tbody id="hiddenSchoolTableBody">
             <!-- 隱藏的學校資料將通過 JavaScript 動態插入 -->
           </tbody>
@@ -146,11 +131,67 @@
         <p class="text-xl sm:text-2xl mb-4 sm:mb-6">
           <i class="far fa-copyright mr-2"></i>2025 桃聯區會考高中參考錄取分數
         </p>
-        <button onclick="toggleInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 text-lg font-semibold mt-4">
-          <i class="fas fa-info-circle mr-2"></i>使用說明
-        </button>
+        <div class="flex justify-center gap-4 flex-wrap">
+          <button onclick="toggleInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 text-lg font-semibold mt-4">
+            <i class="fas fa-info-circle mr-2"></i>使用說明
+          </button>
+          <button onclick="showSettingsModal()" class="btn bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 text-lg font-semibold mt-4">
+            <i class="fas fa-cog mr-2"></i>網站設置
+          </button>
+        </div>
       </div>
     </footer>
+
+    <div id="scrollToTopBtn" class="scroll-to-top" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <div class="modal-overlay" id="bookmarkModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-2xl font-bold gradient-text"><i class="fas fa-bookmark mr-2"></i>收藏列表</h2>
+          <div class="modal-close" onclick="hideModal('bookmarkModal')"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="modal-body" id="bookmarkModalContent">
+          <!-- Bookmark content will be inserted here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="settingsModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-2xl font-bold gradient-text"><i class="fas fa-cog mr-2"></i>網站設置</h2>
+          <div class="modal-close" onclick="hideModal('settingsModal')"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="modal-body">
+          <div class="settings-container">
+            <div class="setting-item">
+              <div>
+                <i class="fas fa-moon mr-2"></i>
+                暗黑模式
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            
+            <div class="setting-item">
+              <div>
+                <i class="fas fa-font mr-2"></i>
+                字體大小
+              </div>
+              <select id="fontSizeSelect" class="px-3 py-2 rounded-lg border" onchange="changeFontSize(this.value)">
+                <option value="small">小</option>
+                <option value="medium" selected>中</option>
+                <option value="large">大</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal-overlay" id="instructionModal">
       <div class="modal-content">

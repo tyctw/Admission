@@ -7,6 +7,7 @@ const INVITE_CODE_API =
 let visibleSchools = [];
 let hiddenSchools = [];
 let instructionModalShown = false;
+let bookmarks = JSON.parse(localStorage.getItem('schoolBookmarks') || '[]');
 
 async function fetchSchoolData() {
   try {
@@ -27,6 +28,9 @@ async function fetchSchoolData() {
     populateSchoolTable(visibleSchools, "schoolTableBody");
     populateSchoolTable(hiddenSchools, "hiddenSchoolTableBody");
     animateFadeIn();
+    
+    // Apply bookmarks after populating tables
+    applyBookmarks();
   } catch (error) {
     console.error("Error:", error);
     document.getElementById("loadingSpinner").style.display = "none";
@@ -80,14 +84,22 @@ function populateSchoolTable(schools, tableId) {
   tableBody.innerHTML = "";
   if (schools.length === 0) {
     tableBody.innerHTML =
-      '<tr><td colspan="3" class="px-3 sm:px-8 py-4 sm:py-6 text-center text-gray-500">沒有找到匹配的結果</td></tr>';
+      '<tr><td colspan="4" class="px-3 sm:px-8 py-4 sm:py-6 text-center text-gray-500">沒有找到匹配的結果</td></tr>';
   } else {
     schools.forEach((school, index) => {
+      const isBookmarked = bookmarks.some(b => b.name === school.name && b.department === school.department);
+      const bookmarkIcon = isBookmarked ? 'fas fa-bookmark bookmarked' : 'far fa-bookmark';
+      
       const row = `
-        <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
+        <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;" data-school-name="${school.name}" data-department="${school.department}">
           <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-school text-indigo-500 mr-2"></i>${school.name}</td>
           <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-book-open text-green-500 mr-2"></i>${school.department}</td>
           <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl"><div class="inline-block px-3 py-1 rounded-full bg-indigo-100">${school.score}</div></td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-center">
+            <button onclick="toggleBookmark('${school.name}', '${school.department}', '${school.score}')" class="bookmark-btn">
+              <i class="${bookmarkIcon} text-xl"></i>
+            </button>
+          </td>
         </tr>
       `;
       tableBody.innerHTML += row;
@@ -122,32 +134,104 @@ function animateFadeIn() {
   });
 }
 
-function goToMainFunction() {
-  window.location.href = "https://sites.google.com/view/tyctw/";
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDarkMode);
+  
+  // Update toggle state
+  document.getElementById('darkModeToggle').checked = isDarkMode;
 }
 
-function toggleMenu() {
-  const menu = document.getElementById("fullscreenMenu");
-  menu.classList.toggle("active");
-  const menuToggle = document.querySelector(".menu-toggle i");
-  menuToggle.classList.toggle("fa-bars");
-  menuToggle.classList.toggle("fa-times");
-
-  if (menu.classList.contains("active")) {
-    const links = menu.querySelectorAll("a");
-    links.forEach((link, index) => {
-      setTimeout(() => {
-        link.style.opacity = "1";
-        link.style.transform = "translateY(0)";
-      }, index * 100);
-    });
-  } else {
-    const links = menu.querySelectorAll("a");
-    links.forEach((link) => {
-      link.style.opacity = "0";
-      link.style.transform = "translateY(20px)";
-    });
+function checkDarkModePreference() {
+  const darkModePreference = localStorage.getItem('darkMode');
+  if (darkModePreference === 'true') {
+    document.body.classList.add('dark-mode');
+    document.getElementById('darkModeToggle').checked = true;
   }
+}
+
+function toggleScrollToTopButton() {
+  const scrollButton = document.getElementById('scrollToTopBtn');
+  if (window.pageYOffset > 300) {
+    scrollButton.classList.add('visible');
+  } else {
+    scrollButton.classList.remove('visible');
+  }
+}
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+function toggleBookmark(name, department, score) {
+  const bookmarkIndex = bookmarks.findIndex(b => b.name === name && b.department === department);
+  
+  if (bookmarkIndex !== -1) {
+    // Remove bookmark
+    bookmarks.splice(bookmarkIndex, 1);
+  } else {
+    // Add bookmark
+    bookmarks.push({ name, department, score });
+  }
+  
+  // Save to localStorage
+  localStorage.setItem('schoolBookmarks', JSON.stringify(bookmarks));
+  
+  // Update UI
+  applyBookmarks();
+}
+
+function applyBookmarks() {
+  // Update bookmark icons
+  document.querySelectorAll('tr[data-school-name]').forEach(row => {
+    const name = row.getAttribute('data-school-name');
+    const department = row.getAttribute('data-department');
+    const isBookmarked = bookmarks.some(b => b.name === name && b.department === department);
+    
+    const bookmarkBtn = row.querySelector('.bookmark-btn i');
+    if (bookmarkBtn) {
+      if (isBookmarked) {
+        bookmarkBtn.className = 'fas fa-bookmark bookmarked text-xl';
+      } else {
+        bookmarkBtn.className = 'far fa-bookmark text-xl';
+      }
+    }
+  });
+}
+
+function showBookmarks() {
+  const modal = document.getElementById('bookmarkModal');
+  const modalContent = document.getElementById('bookmarkModalContent');
+  
+  if (bookmarks.length === 0) {
+    modalContent.innerHTML = '<p class="text-center py-4">您還沒有收藏任何學校</p>';
+  } else {
+    let html = '<ul class="bookmark-list bookmark-modal">';
+    
+    bookmarks.forEach(bookmark => {
+      html += `
+        <li>
+          <div>
+            <strong>${bookmark.name}</strong> - ${bookmark.department}
+            <div class="text-indigo-600 font-semibold">${bookmark.score}</div>
+          </div>
+          <button onclick="toggleBookmark('${bookmark.name}', '${bookmark.department}')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </li>
+      `;
+    });
+    
+    html += '</ul>';
+    modalContent.innerHTML = html;
+  }
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
 function showInstructionModal() {
@@ -178,8 +262,66 @@ function checkAndShowInstructions() {
   }
 }
 
+function showSettingsModal() {
+  const modal = document.getElementById('settingsModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function hideModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function changeFontSize(size) {
+  const rootElement = document.documentElement;
+  switch(size) {
+    case 'small':
+      rootElement.style.fontSize = '14px';
+      break;
+    case 'medium':
+      rootElement.style.fontSize = '16px';
+      break;
+    case 'large':
+      rootElement.style.fontSize = '18px';
+      break;
+  }
+  localStorage.setItem('fontSize', size);
+}
+
+function goToMainFunction() {
+  window.location.href = 'https://sites.google.com/view/tyctw/';
+}
+
+function toggleMenu() {
+  const menu = document.getElementById('fullscreenMenu');
+  menu.classList.toggle('active');
+  const menuToggle = document.querySelector('.menu-toggle i');
+  menuToggle.classList.toggle('fa-bars');
+  menuToggle.classList.toggle('fa-times');
+
+  if (menu.classList.contains('active')) {
+    const links = menu.querySelectorAll('a');
+    links.forEach((link, index) => {
+      setTimeout(() => {
+        link.style.opacity = '1';
+        link.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  } else {
+    const links = menu.querySelectorAll('a');
+    links.forEach((link) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateY(20px)';
+    });
+  }
+}
+
 window.addEventListener("load", fetchSchoolData);
 window.addEventListener("load", checkAndShowInstructions);
+window.addEventListener("load", checkDarkModePreference);
+window.addEventListener("scroll", toggleScrollToTopButton);
 window.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("selectstart", (e) => e.preventDefault());
 
