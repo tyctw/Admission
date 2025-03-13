@@ -91,9 +91,9 @@ function populateSchoolTable(schools, tableId) {
     schools.forEach((school, index) => {
       const row = `
         <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;">
-          <td class="px-3 sm:px-8 py-3 sm:py-6 text-sm sm:text-xl">${school.name}</td>
-          <td class="px-3 sm:px-8 py-3 sm:py-6 text-sm sm:text-xl">${school.department}</td>
-          <td class="px-3 sm:px-8 py-3 sm:py-6 font-semibold text-indigo-600 text-sm sm:text-xl">${school.score}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.name}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl">${school.department}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">${school.score}</td>
         </tr>
       `;
       tableBody.innerHTML += row;
@@ -156,67 +156,14 @@ function toggleMenu() {
   }
 }
 
-function showHelpModal() {
-  document.getElementById('helpModal').classList.remove('hidden');
-  setTimeout(() => {
-    document.getElementById('helpModal').classList.add('modal-active');
-    
-    // Add sequential fade-in effect for help items
-    const helpItems = document.querySelectorAll('.help-item');
-    helpItems.forEach((item, index) => {
-      setTimeout(() => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        
-        setTimeout(() => {
-          item.style.opacity = '1';
-          item.style.transform = 'translateY(0)';
-        }, 50);
-      }, index * 150);
-    });
-  }, 10);
-}
-
-function closeHelpModal() {
-  const modal = document.getElementById('helpModal');
-  modal.classList.remove('modal-active');
-  
-  // Reset help items for next opening
-  const helpItems = document.querySelectorAll('.help-item');
-  helpItems.forEach(item => {
-    item.style.opacity = '';
-    item.style.transform = '';
-  });
-  
-  setTimeout(() => {
-    modal.classList.add('hidden');
-  }, 300);
-}
-
-function handleOrientationChange() {
-  if (window.innerWidth <= 640) {
-    // Force table redraw when device orientation changes
-    setTimeout(() => {
-      if (visibleSchools.length > 0) {
-        populateSchoolTable(visibleSchools, "schoolTableBody");
-      }
-      if (hiddenSchools.length > 0) {
-        populateSchoolTable(hiddenSchools, "hiddenSchoolTableBody");
-      }
-    }, 100);
-  }
-}
-
 // Event listeners
 window.addEventListener("load", fetchSchoolData);
+window.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener("selectstart", (e) => e.preventDefault());
+
 window.addEventListener("load", () => {
   animateFadeIn();
 });
-window.addEventListener("contextmenu", (e) => e.preventDefault());
-window.addEventListener("orientationchange", handleOrientationChange);
-window.addEventListener("resize", handleOrientationChange);
-document.addEventListener("selectstart", (e) => e.preventDefault());
 
 // 禁用快捷鍵
 document.addEventListener("keydown", function (e) {
