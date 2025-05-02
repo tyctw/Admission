@@ -311,24 +311,38 @@ function changeFontSize(size) {
 
 function toggleMenu() {
   const menu = document.getElementById('fullscreenMenu');
+  const menuToggle = document.querySelector('.menu-toggle');
+  
   menu.classList.toggle('active');
-  const menuToggle = document.querySelector('.menu-toggle i');
-  menuToggle.classList.toggle('fa-bars');
-  menuToggle.classList.toggle('fa-times');
+  menuToggle.classList.toggle('active');
+  
+  const menuIcon = menuToggle.querySelector('i');
+  menuIcon.classList.toggle('fa-bars');
+  menuIcon.classList.toggle('fa-times');
+
+  // 設置菜單年份
+  document.getElementById("menuYear").textContent = new Date().getFullYear();
 
   if (menu.classList.contains('active')) {
+    document.body.style.overflow = 'hidden'; // 防止背景滾動
+    
+    // 連結動畫，使用設定的延遲變數
     const links = menu.querySelectorAll('a');
     links.forEach((link, index) => {
+      // 使用設定在HTML中的--index變數
       setTimeout(() => {
         link.style.opacity = '1';
-        link.style.transform = 'translateY(0)';
-      }, index * 100);
+        link.style.transform = 'translateX(0)';
+      }, 50 * parseInt(link.style.getPropertyValue('--index') || index));
     });
   } else {
+    document.body.style.overflow = ''; // 恢復背景滾動
+    
+    // 重置連結樣式
     const links = menu.querySelectorAll('a');
     links.forEach((link) => {
       link.style.opacity = '0';
-      link.style.transform = 'translateY(20px)';
+      link.style.transform = 'translateX(20px)';
     });
   }
 }
@@ -348,101 +362,6 @@ function updateYearDisplay() {
   // Update year in footer (western year)
   document.getElementById("footerYear").textContent = westernYear;
 }
-
-// 新菜單功能
-function toggleMobileMenu() {
-  const menuToggle = document.getElementById('menuToggle');
-  const menuNav = document.getElementById('menuNav');
-  
-  menuToggle.classList.toggle('active');
-  menuNav.classList.toggle('active');
-  
-  // 如果下拉菜單是打開的，關閉它
-  const menuDropdown = document.getElementById('menuDropdown');
-  if (menuDropdown.classList.contains('active')) {
-    menuDropdown.classList.remove('active');
-  }
-}
-
-function toggleDropdown() {
-  const menuDropdown = document.getElementById('menuDropdown');
-  menuDropdown.classList.toggle('active');
-}
-
-// 處理菜單滾動效果
-function handleMenuScroll() {
-  const menuContainer = document.getElementById('menuContainer');
-  if (window.scrollY > 50) {
-    menuContainer.classList.add('scrolled');
-  } else {
-    menuContainer.classList.remove('scrolled');
-  }
-}
-
-// 初始化菜單相關事件
-function initMenuEvents() {
-  // 為下拉菜單按鈕添加點擊事件
-  const menuDropdownButton = document.createElement('button');
-  menuDropdownButton.className = 'menu-link';
-  menuDropdownButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
-  menuDropdownButton.addEventListener('click', toggleDropdown);
-  
-  // 在設定按鈕前插入下拉菜單按鈕
-  const menuNav = document.getElementById('menuNav');
-  const settingsButton = menuNav.querySelector('.menu-button');
-  menuNav.insertBefore(menuDropdownButton, settingsButton);
-  
-  // 添加滾動事件
-  window.addEventListener('scroll', handleMenuScroll);
-  
-  // 點擊其他地方時關閉下拉菜單
-  document.addEventListener('click', function(event) {
-    const menuDropdown = document.getElementById('menuDropdown');
-    const menuDropdownButton = menuNav.querySelector('.menu-link:nth-last-child(2)');
-    
-    if (menuDropdown.classList.contains('active') && 
-        !menuDropdown.contains(event.target) && 
-        event.target !== menuDropdownButton && 
-        !menuDropdownButton.contains(event.target)) {
-      menuDropdown.classList.remove('active');
-    }
-  });
-  
-  // 設置活動菜單項
-  setActiveMenuItem();
-}
-
-// 設置當前活動的菜單項
-function setActiveMenuItem() {
-  const currentPath = window.location.pathname;
-  const menuLinks = document.querySelectorAll('.menu-link');
-  
-  menuLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && currentPath.includes(href.split('/').pop())) {
-      link.classList.add('active');
-    } else if (link !== document.querySelector('.menu-link:nth-last-child(2)')) { // 排除下拉菜單按鈕
-      link.classList.remove('active');
-    }
-  });
-}
-
-// 添加到現有的初始化函數
-window.addEventListener('DOMContentLoaded', function() {
-  updateYearDisplay();
-  checkDarkModePreference();
-  fetchSchoolData();
-  toggleScrollToTopButton();
-  
-  // 初始化新菜單功能
-  initMenuEvents();
-  
-  // 滾動事件
-  window.addEventListener('scroll', toggleScrollToTopButton);
-  
-  // 檢查並顯示說明
-  checkAndShowInstructions();
-});
 
 window.addEventListener("load", fetchSchoolData);
 window.addEventListener("load", checkAndShowInstructions);
@@ -477,3 +396,16 @@ setInterval(function () {
     window.location.reload();
   }
 }, 1000);
+
+// 點擊外部區域關閉菜單
+document.addEventListener('click', function(event) {
+  const menu = document.getElementById('fullscreenMenu');
+  const menuToggle = document.querySelector('.menu-toggle');
+  
+  // 如果菜單是打開的，且點擊不在菜單內，也不是菜單切換按鈕
+  if (menu.classList.contains('active') && 
+      !menu.contains(event.target) && 
+      !menuToggle.contains(event.target)) {
+    toggleMenu();
+  }
+}, false);
