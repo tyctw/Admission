@@ -17,14 +17,53 @@
     <link rel="stylesheet" href="styless.css">
   </head>
   <body class="min-h-screen relative">
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="fullscreen-menu" id="fullscreenMenu">
-      <a href="https://sites.google.com/view/tyctw/">回到主網頁</a>
-      <a href="https://tyctw.github.io/">落點分析</a>
-      <a href="https://tyctw.github.io/Navigation/">更多資訊</a>
+    <!-- 新菜單 -->
+    <div class="menu-container" id="menuContainer">
+      <div class="menu-header">
+        <a href="https://sites.google.com/view/tyctw/" class="menu-logo">
+          <i class="fas fa-graduation-cap"></i>
+          <span>桃聯區會考</span>
+        </a>
+        
+        <nav class="menu-nav" id="menuNav">
+          <a href="https://sites.google.com/view/tyctw/" class="menu-link">
+            <i class="fas fa-home"></i> 主頁
+          </a>
+          <a href="https://tyctw.github.io/" class="menu-link active">
+            <i class="fas fa-chart-line"></i> 落點分析
+          </a>
+          <a href="https://tyctw.github.io/Navigation/" class="menu-link">
+            <i class="fas fa-info-circle"></i> 更多資訊
+          </a>
+          <button class="menu-button" onclick="showSettingsModal()">
+            <i class="fas fa-cog"></i> 設定
+          </button>
+        </nav>
+        
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      
+      <div class="menu-dropdown" id="menuDropdown">
+        <span class="menu-dropdown-group">功能</span>
+        <a href="#" class="menu-dropdown-link" onclick="toggleDarkMode(); return false;">
+          <i class="fas fa-moon"></i> 切換暗黑模式
+        </a>
+        <a href="#" class="menu-dropdown-link" onclick="showBookmarks(); return false;">
+          <i class="fas fa-bookmark"></i> 收藏列表
+        </a>
+        <div class="menu-dropdown-divider"></div>
+        <span class="menu-dropdown-group">資源</span>
+        <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="menu-dropdown-link">
+          <i class="fas fa-clipboard-list"></i> 填寫表單
+        </a>
+        <a href="#" class="menu-dropdown-link" onclick="toggleInstructionModal(); return false;">
+          <i class="fas fa-info-circle"></i> 使用說明
+        </a>
+      </div>
     </div>
 
     <header class="gradient-bg text-white py-20 relative overflow-hidden">

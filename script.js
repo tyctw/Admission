@@ -349,6 +349,101 @@ function updateYearDisplay() {
   document.getElementById("footerYear").textContent = westernYear;
 }
 
+// 新菜單功能
+function toggleMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const menuNav = document.getElementById('menuNav');
+  
+  menuToggle.classList.toggle('active');
+  menuNav.classList.toggle('active');
+  
+  // 如果下拉菜單是打開的，關閉它
+  const menuDropdown = document.getElementById('menuDropdown');
+  if (menuDropdown.classList.contains('active')) {
+    menuDropdown.classList.remove('active');
+  }
+}
+
+function toggleDropdown() {
+  const menuDropdown = document.getElementById('menuDropdown');
+  menuDropdown.classList.toggle('active');
+}
+
+// 處理菜單滾動效果
+function handleMenuScroll() {
+  const menuContainer = document.getElementById('menuContainer');
+  if (window.scrollY > 50) {
+    menuContainer.classList.add('scrolled');
+  } else {
+    menuContainer.classList.remove('scrolled');
+  }
+}
+
+// 初始化菜單相關事件
+function initMenuEvents() {
+  // 為下拉菜單按鈕添加點擊事件
+  const menuDropdownButton = document.createElement('button');
+  menuDropdownButton.className = 'menu-link';
+  menuDropdownButton.innerHTML = '<i class="fas fa-ellipsis-v"></i>';
+  menuDropdownButton.addEventListener('click', toggleDropdown);
+  
+  // 在設定按鈕前插入下拉菜單按鈕
+  const menuNav = document.getElementById('menuNav');
+  const settingsButton = menuNav.querySelector('.menu-button');
+  menuNav.insertBefore(menuDropdownButton, settingsButton);
+  
+  // 添加滾動事件
+  window.addEventListener('scroll', handleMenuScroll);
+  
+  // 點擊其他地方時關閉下拉菜單
+  document.addEventListener('click', function(event) {
+    const menuDropdown = document.getElementById('menuDropdown');
+    const menuDropdownButton = menuNav.querySelector('.menu-link:nth-last-child(2)');
+    
+    if (menuDropdown.classList.contains('active') && 
+        !menuDropdown.contains(event.target) && 
+        event.target !== menuDropdownButton && 
+        !menuDropdownButton.contains(event.target)) {
+      menuDropdown.classList.remove('active');
+    }
+  });
+  
+  // 設置活動菜單項
+  setActiveMenuItem();
+}
+
+// 設置當前活動的菜單項
+function setActiveMenuItem() {
+  const currentPath = window.location.pathname;
+  const menuLinks = document.querySelectorAll('.menu-link');
+  
+  menuLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && currentPath.includes(href.split('/').pop())) {
+      link.classList.add('active');
+    } else if (link !== document.querySelector('.menu-link:nth-last-child(2)')) { // 排除下拉菜單按鈕
+      link.classList.remove('active');
+    }
+  });
+}
+
+// 添加到現有的初始化函數
+window.addEventListener('DOMContentLoaded', function() {
+  updateYearDisplay();
+  checkDarkModePreference();
+  fetchSchoolData();
+  toggleScrollToTopButton();
+  
+  // 初始化新菜單功能
+  initMenuEvents();
+  
+  // 滾動事件
+  window.addEventListener('scroll', toggleScrollToTopButton);
+  
+  // 檢查並顯示說明
+  checkAndShowInstructions();
+});
+
 window.addEventListener("load", fetchSchoolData);
 window.addEventListener("load", checkAndShowInstructions);
 window.addEventListener("load", checkDarkModePreference);
