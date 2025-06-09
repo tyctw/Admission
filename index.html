@@ -27,15 +27,19 @@
         <span>桃連區會考</span>
       </div>
       
-      <div class="menu-category">主要選項</div>
-      <a href="https://sites.google.com/view/tyctw/" style="--index: 0"><i class="fas fa-home mr-3"></i>回到主網頁</a>
-      <a href="https://tyctw.github.io/" style="--index: 1"><i class="fas fa-chart-line mr-3"></i>落點分析</a>
-      <a href="https://tyctw.github.io/Navigation/" style="--index: 2"><i class="fas fa-compass mr-3"></i>更多資訊</a>
-      
-      <div class="menu-category">功能選項</div>
-      <a href="#" onclick="toggleDarkMode(); return false;" style="--index: 3"><i class="fas fa-moon mr-3"></i>暗黑模式</a>
-      <a href="#" onclick="showBookmarks(); return false;" style="--index: 4"><i class="fas fa-bookmark mr-3"></i>收藏列表</a>
-      <a href="#" onclick="showSettingsModal(); return false;" style="--index: 5"><i class="fas fa-cog mr-3"></i>設置</a>
+      <div class="menu-content">
+        <div class="menu-items-container">
+          <div class="menu-category">主要選項</div>
+          <a href="https://sites.google.com/view/tyctw/" style="--index: 0"><i class="fas fa-home mr-3"></i>回到主網頁</a>
+          <a href="https://tyctw.github.io/" style="--index: 1"><i class="fas fa-chart-line mr-3"></i>落點分析</a>
+          <a href="https://tyctw.github.io/Navigation/" style="--index: 2"><i class="fas fa-compass mr-3"></i>更多資訊</a>
+          
+          <div class="menu-category">功能選項</div>
+          <a href="#" onclick="toggleDarkMode(); return false;" style="--index: 3"><i class="fas fa-moon mr-3"></i>暗黑模式</a>
+          <a href="#" onclick="showBookmarks(); return false;" style="--index: 4"><i class="fas fa-bookmark mr-3"></i>收藏列表</a>
+          <a href="#" onclick="showSettingsModal(); return false;" style="--index: 5"><i class="fas fa-cog mr-3"></i>設置</a>
+        </div>
+      </div>
       
       <div class="menu-footer">
         © <span id="menuYear"></span> 桃連區會考高中參考錄取分數
@@ -64,9 +68,12 @@
 
     <main class="container mx-auto px-4 py-12 sm:py-20">
       <div class="card p-6 sm:p-12 mb-12 sm:mb-20 fade-in">
-        <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="block text-center text-indigo-600 hover:text-indigo-800 mb-6 sm:mb-10 text-xl sm:text-2xl transition-all duration-300 hover:scale-105">
-          <i class="fas fa-clipboard-list mr-2"></i>填寫表單以查看更多各校錄取分數
-        </a>
+        <div class="form-button-container">
+          <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="form-button">
+            <i class="fas fa-clipboard-list"></i>
+            <span>填寫表單以查看更多各校錄取分數</span>
+          </a>
+        </div>
 
         <div class="mb-6 sm:mb-10">
           <label for="inviteCode" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
