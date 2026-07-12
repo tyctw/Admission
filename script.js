@@ -1,116 +1,129 @@
 // API endpoints
 const SCHOOL_DATA_API =
   "https://script.google.com/macros/s/AKfycbxPYKlbLVjHQttsxWN1ZGC9w5YPRvaT8Ae5DFmhdhbfRdatEomuZ1HYt5Z98OJiXlUX/exec";
-const INVITE_CODE_API =
-  "https://script.google.com/macros/s/AKfycbwkdCnCyYt3HZexrPX_VfhvNmNvxPihafj2-NxVFZL1X9HgYU0kNgcElMF8YZ_ZIPpIkg/exec"; 
 
 let visibleSchools = [];
 let hiddenSchools = [];
+let allSchools = [];
 let instructionModalShown = false;
 let bookmarks = JSON.parse(localStorage.getItem('schoolBookmarks') || '[]');
+const schoolDetails = new Map();
+let subjectRequirementNote = "如果積分、積點都超過該校錄取要求，就不需再看單科標示；單科標準主要供積分或積點接近門檻時參考。";
 
 async function fetchSchoolData() {
   try {
     document.getElementById("loadingSpinner").style.display = "flex";
-    document.getElementById("hiddenLoadingSpinner").style.display = "flex";
 
     const response = await fetch(SCHOOL_DATA_API);
     const data = await response.json();
 
     document.getElementById("loadingSpinner").style.display = "none";
-    document.getElementById("hiddenLoadingSpinner").style.display = "none";
 
     document.querySelector("#schoolList table").style.display = "table";
-    document.querySelector("#hiddenContent table").style.display = "table";
 
-    visibleSchools = data.visibleSchools;
-    hiddenSchools = data.hiddenSchools;
-    populateSchoolTable(visibleSchools, "schoolTableBody");
-    populateSchoolTable(hiddenSchools, "hiddenSchoolTableBody");
-    animateFadeIn();
+    subjectRequirementNote = data.subjectRequirementNote || subjectRequirementNote;
+    updateSubjectRequirementNotes();
+    visibleSchools = normalizeSchools(data.visibleSchools, "visible");
+    hiddenSchools = normalizeSchools(data.hiddenSchools, "hidden");
+    allSchools = [...visibleSchools, ...hiddenSchools];
+    populateSchoolTable(allSchools, "schoolTableBody");
     
     // Apply bookmarks after populating tables
     applyBookmarks();
   } catch (error) {
     console.error("Error:", error);
     document.getElementById("loadingSpinner").style.display = "none";
-    document.getElementById("hiddenLoadingSpinner").style.display = "none";
     document.getElementById("schoolList").innerHTML +=
       '<p class="text-red-500 text-center">加載數據時出錯，請稍後再試。</p>';
   }
 }
 
-async function checkInviteCode() {
-  const userCode = document.getElementById("inviteCode").value;
-  if (!userCode) {
-    alert("請輸入邀請碼");
-    return;
+function normalizeSchools(schools, source) {
+  return (Array.isArray(schools) ? schools : []).map((school) => ({
+    ...school,
+    subjectRequirements: normalizeSubjectRequirements(school),
+    ownership: getSchoolOwnership(school),
+    source
+  }));
+}
+
+function getSchoolOwnership(school) {
+  const rawValue = [
+    school.公私立,
+    school.公立私立,
+    school.學校類型,
+    school.schoolType,
+    school.ownership,
+    school.type
+  ].find((value) => value !== "" && value != null);
+  const value = String(rawValue || school.name || "").toLowerCase();
+
+  if (value.includes("私")) return "private";
+  if (value.includes("公") || value.includes("國立") || value.includes("市立") || value.includes("縣立")) {
+    return "public";
   }
 
-  document.getElementById("loadingAnimation").classList.remove("hidden");
-  document.getElementById("successAnimation").classList.remove("show");
-  document.getElementById("errorAnimation").classList.remove("show");
-  document.getElementById("successAnimation").classList.add("hidden");
-  document.getElementById("errorAnimation").classList.add("hidden");
+  return "";
+}
 
-  try {
-    const response = await fetch(
-      `${INVITE_CODE_API}?code=${userCode}&action=verify`
-    );
-    const data = await response.json();
-
-    setTimeout(() => {
-      document.getElementById("loadingAnimation").classList.add("hidden");
-
-      if (data.valid) {
-        document.getElementById("successAnimation").classList.remove("hidden");
-        setTimeout(() => {
-          document.getElementById("successAnimation").classList.add("show");
-          setTimeout(() => {
-            document.getElementById("hiddenContent").style.display = "block";
-            setTimeout(() => {
-              document.getElementById("hiddenContent").classList.add("active");
-            }, 50);
-          }, 1000);
-        }, 100);
-      } else {
-        document.getElementById("errorAnimation").classList.remove("hidden");
-        setTimeout(() => {
-          document.getElementById("errorAnimation").classList.add("show");
-        }, 100);
-      }
-    }, 1500);
-  } catch (error) {
-    console.error("Error verifying invite code:", error);
-    setTimeout(() => {
-      document.getElementById("loadingAnimation").classList.add("hidden");
-      document.getElementById("errorAnimation").classList.remove("hidden");
-      setTimeout(() => {
-        document.getElementById("errorAnimation").classList.add("show");
-      }, 100);
-    }, 1500);
-    alert("驗證邀請碼時發生錯誤，請稍後再試");
+function normalizeSubjectRequirements(school) {
+  if (school.subjectRequirements && Object.keys(school.subjectRequirements).length > 0) {
+    return school.subjectRequirements;
   }
+
+  const subjectNames = ["國文", "英語", "數學", "社會", "自然", "寫作測驗"];
+  return subjectNames.reduce((requirements, subject) => {
+    if (school[subject] !== "" && school[subject] != null) {
+      requirements[subject] = school[subject];
+    }
+    return requirements;
+  }, {});
+}
+
+function updateSubjectRequirementNotes() {
+  document.querySelectorAll("[data-subject-note]").forEach((element) => {
+    element.textContent = subjectRequirementNote;
+  });
 }
 
 function populateSchoolTable(schools, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
+  schoolDetails.clear();
   if (schools.length === 0) {
     tableBody.innerHTML =
       '<tr><td colspan="4" class="px-3 sm:px-8 py-4 sm:py-6 text-center text-gray-500">沒有找到匹配的結果</td></tr>';
   } else {
     schools.forEach((school, index) => {
+      const schoolId = `${tableId}-${index}`;
+      schoolDetails.set(schoolId, school);
+      const schoolName = escapeHtml(school.name || '');
+      const department = escapeHtml(school.department || '');
+      const score = escapeHtml(school.score == null ? '' : school.score);
+      const rawScore = school.score == null ? '' : String(school.score);
+      const scoreClass = getScoreClass(school.score);
       const isBookmarked = bookmarks.some(b => b.name === school.name && b.department === school.department);
       const bookmarkIcon = isBookmarked ? 'fas fa-bookmark bookmarked' : 'far fa-bookmark';
       
       const row = `
-        <tr class="bg-white fade-in" style="transition-delay: ${index * 50}ms;" data-school-name="${school.name}" data-department="${school.department}">
-          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-school text-indigo-500 mr-2"></i>${school.name}</td>
-          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-book-open text-green-500 mr-2"></i>${school.department}</td>
-          <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl"><div class="inline-block px-3 py-1 rounded-full bg-indigo-100">${school.score}</div></td>
+        <tr class="bg-white detail-row" data-school-id="${schoolId}" data-school-name="${schoolName}" data-department="${department}" onclick="showRequirementDetails('${schoolId}')" onkeydown="handleRequirementRowKey(event, '${schoolId}')" tabindex="0" role="button" aria-label="查看${schoolName}${department}各科錄取要求">
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-school text-indigo-500 mr-2"></i>${schoolName}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 text-base sm:text-xl"><i class="fas fa-book-open text-green-500 mr-2"></i>${department}</td>
+          <td class="px-3 sm:px-8 py-4 sm:py-6 font-semibold text-indigo-600 text-base sm:text-xl">
+            <div class="requirement-cell">
+              <div class="score-card ${scoreClass}">
+                <span class="score-label">錄取門檻</span>
+                <span class="score-value">${score || '未提供'}</span>
+                <span class="score-meta">${parseScore(rawScore) === null ? '參考條件' : '參考分數'}</span>
+              </div>
+              <button type="button" class="requirement-detail-btn" onclick="event.stopPropagation(); showRequirementDetails('${schoolId}')">
+                <i class="fas fa-list-check"></i>
+                <span>查看</span>
+              </button>
+            </div>
+          </td>
           <td class="px-3 sm:px-8 py-4 sm:py-6 text-center">
-            <button onclick="toggleBookmark('${school.name}', '${school.department}', '${school.score}')" class="bookmark-btn">
+            <button onclick="event.stopPropagation(); toggleBookmarkById('${schoolId}')" class="bookmark-btn">
               <i class="${bookmarkIcon} text-xl"></i>
             </button>
           </td>
@@ -119,24 +132,131 @@ function populateSchoolTable(schools, tableId) {
       tableBody.innerHTML += row;
     });
   }
-  animateFadeIn();
+}
+
+function handleRequirementRowKey(event, schoolId) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    showRequirementDetails(schoolId);
+  }
+}
+
+function showRequirementDetails(schoolId) {
+  const school = schoolDetails.get(schoolId);
+  if (!school) return;
+
+  const modal = document.getElementById('requirementModal');
+  const modalContent = document.getElementById('requirementModalContent');
+  const requirements = getRequirementItems(school);
+
+  modalContent.innerHTML = `
+    <div class="requirement-summary">
+      <div class="requirement-school">${escapeHtml(school.name || '未命名學校')}</div>
+      <div class="requirement-department">${escapeHtml(school.department || '未命名科別')}</div>
+    </div>
+    <p class="subject-rule-note">${escapeHtml(subjectRequirementNote)}</p>
+    <div class="requirement-list">
+      ${requirements.map(item => `
+        <div class="requirement-item">
+          <span>${escapeHtml(item.label)}</span>
+          <strong>${escapeHtml(item.value)}</strong>
+        </div>
+      `).join('')}
+    </div>
+    ${school.note ? `<p class="requirement-note">${escapeHtml(school.note)}</p>` : ''}
+  `;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function getRequirementItems(school) {
+  const detailFields = [
+    school.subjectRequirements,
+    school.requirements,
+    school.subjects,
+    school.details
+  ];
+
+  for (const field of detailFields) {
+    if (Array.isArray(field) && field.length > 0) {
+      return field.map((item, index) => {
+        if (typeof item === 'string' || typeof item === 'number') {
+          return { label: `項目 ${index + 1}`, value: String(item) };
+        }
+        return {
+          label: item.subject || item.name || item.label || `項目 ${index + 1}`,
+          value: item.requirement || item.score || item.value || item.description || ''
+        };
+      });
+    }
+
+    if (field && typeof field === 'object') {
+      return Object.entries(field).map(([label, value]) => ({
+        label,
+        value: typeof value === 'object' ? JSON.stringify(value) : String(value)
+      }));
+    }
+  }
+
+  return [
+    { label: '總成績要求', value: school.score == null ? '尚未提供' : String(school.score) }
+  ];
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 function searchSchools() {
-  const searchQuery = document.getElementById("searchInput").value.toLowerCase();
-  const filteredVisible = visibleSchools.filter(
-    (school) =>
-      school.name.toLowerCase().includes(searchQuery) ||
-      school.department.toLowerCase().includes(searchQuery)
-  );
-  const filteredHidden = hiddenSchools.filter(
-    (school) =>
-      school.name.toLowerCase().includes(searchQuery) ||
-      school.department.toLowerCase().includes(searchQuery)
-  );
+  const searchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+  const ownershipFilter = document.getElementById("ownershipFilter").value;
+  const minScoreValue = document.getElementById("minScoreFilter").value;
+  const minScore = minScoreValue === "" ? null : Number(minScoreValue);
 
-  populateSchoolTable(filteredVisible, "schoolTableBody");
-  populateSchoolTable(filteredHidden, "hiddenSchoolTableBody");
+  const filteredSchools = allSchools.filter((school) => {
+    const name = String(school.name || "").toLowerCase();
+    const department = String(school.department || "").toLowerCase();
+    const score = parseScore(school.score);
+    const matchesText =
+      searchQuery === "" ||
+      name.includes(searchQuery) ||
+      department.includes(searchQuery);
+    const matchesOwnership = ownershipFilter === "all" || school.ownership === ownershipFilter;
+    const matchesScore = minScore === null || Number.isNaN(minScore) || score === null || score >= minScore;
+
+    return matchesText && matchesOwnership && matchesScore;
+  });
+
+  populateSchoolTable(filteredSchools, "schoolTableBody");
+  applyBookmarks();
+}
+
+function resetFilters() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("ownershipFilter").value = "all";
+  document.getElementById("minScoreFilter").value = "";
+  populateSchoolTable(allSchools, "schoolTableBody");
+  applyBookmarks();
+}
+
+function parseScore(score) {
+  if (score == null) return null;
+  const parsed = Number.parseFloat(String(score).replace(/[^\d.-]/g, ""));
+  return Number.isNaN(parsed) ? null : parsed;
+}
+
+function getScoreClass(score) {
+  const numericScore = parseScore(score);
+  if (numericScore === null) return "score-card-neutral";
+  if (numericScore >= 90) return "score-card-high";
+  if (numericScore >= 80) return "score-card-mid";
+  return "score-card-standard";
 }
 
 function animateFadeIn() {
@@ -181,6 +301,12 @@ function scrollToTop() {
   });
 }
 
+function toggleBookmarkById(schoolId) {
+  const school = schoolDetails.get(schoolId);
+  if (!school) return;
+  toggleBookmark(school.name, school.department, school.score);
+}
+
 function toggleBookmark(name, department, score) {
   const bookmarkIndex = bookmarks.findIndex(b => b.name === name && b.department === department);
   
@@ -206,10 +332,10 @@ function toggleBookmark(name, department, score) {
 
 function applyBookmarks() {
   // Update bookmark icons
-  document.querySelectorAll('tr[data-school-name]').forEach(row => {
-    const name = row.getAttribute('data-school-name');
-    const department = row.getAttribute('data-department');
-    const isBookmarked = bookmarks.some(b => b.name === name && b.department === department);
+  document.querySelectorAll('tr[data-school-id]').forEach(row => {
+    const school = schoolDetails.get(row.getAttribute('data-school-id'));
+    if (!school) return;
+    const isBookmarked = bookmarks.some(b => b.name === school.name && b.department === school.department);
     
     const bookmarkBtn = row.querySelector('.bookmark-btn i');
     if (bookmarkBtn) {
@@ -348,7 +474,7 @@ function toggleMenu() {
 }
 
 function goToMainFunction() {
-  window.location.href = 'https://sites.google.com/view/tyctw/';
+  window.location.href = 'https://tyctw.github.io/official/';
 }
 
 function updateYearDisplay() {

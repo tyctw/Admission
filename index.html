@@ -30,7 +30,7 @@
       <div class="menu-content">
         <div class="menu-items-container">
           <div class="menu-category">主要選項</div>
-          <a href="https://sites.google.com/view/tyctw/" style="--index: 0"><i class="fas fa-home mr-3"></i>回到主網頁</a>
+          <a href="https://tyctw.github.io/official/" style="--index: 0"><i class="fas fa-home mr-3"></i>首頁</a>
           <a href="https://tyctw.github.io/" style="--index: 1"><i class="fas fa-chart-line mr-3"></i>落點分析</a>
           <a href="https://tyctw.github.io/Navigation/" style="--index: 2"><i class="fas fa-compass mr-3"></i>更多資訊</a>
           
@@ -68,43 +68,9 @@
 
     <main class="container mx-auto px-4 py-12 sm:py-20">
       <div class="card p-6 sm:p-12 mb-12 sm:mb-20 fade-in">
-        <div class="form-button-container">
-          <a href="https://forms.gle/GQatqQ5NDEbNz7NS8" class="form-button">
-            <i class="fas fa-clipboard-list"></i>
-            <span>填寫表單以查看更多各校錄取分數</span>
-          </a>
-        </div>
-
-        <div class="mb-6 sm:mb-10">
-          <label for="inviteCode" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
-            <i class="fas fa-key mr-2 text-purple-500"></i>邀請碼
-          </label>
-          <input type="text" id="inviteCode" class="w-full px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg sm:text-2xl transition-all duration-300" placeholder="請輸入邀請碼">
-        </div>
-
-        <div id="loadingAnimation" class="hidden mt-4 text-center">
-          <div class="loading-spinner"></div>
-          <p class="text-center text-gray-600 mt-4 font-medium">驗證中，請稍候...</p>
-        </div>
-
-        <div id="successAnimation" class="hidden mt-4 text-center">
-          <i class="fas fa-check-circle verification-icon text-green-500"></i>
-          <p class="text-green-600 mt-2 font-medium text-xl">邀請碼驗證成功！</p>
-          <p class="text-green-500 mt-1">正在載入更多內容...</p>
-        </div>
-
-        <div id="errorAnimation" class="hidden mt-4 text-center">
-          <i class="fas fa-times-circle verification-icon text-red-500"></i>
-          <p class="text-red-600 mt-2 font-medium text-xl">邀請碼錯誤或已過期！</p>
-          <p class="text-red-500 mt-1">請確認後重試</p>
-        </div>
-
         <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
-          <button onclick="checkInviteCode()" class="btn bg-indigo-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-indigo-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
-            <i class="fas fa-check mr-2"></i>確認邀請碼
-          </button>
           <button onclick="goToMainFunction()" class="btn bg-purple-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-purple-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
-            <i class="fas fa-home mr-2"></i>進入主網頁
+            <i class="fas fa-home mr-2"></i>首頁
           </button>
         </div>
         <div class="feature-buttons-container mt-6">
@@ -122,10 +88,19 @@
           <label for="searchInput" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
             <i class="fas fa-search mr-2 text-blue-500"></i>搜尋學校或科系
           </label>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <input type="text" id="searchInput" class="flex-grow px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="輸入學校或科系名稱">
+          <div class="filter-panel">
+            <input type="text" id="searchInput" oninput="searchSchools()" class="filter-control flex-grow px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="輸入學校或科系名稱">
+            <select id="ownershipFilter" onchange="searchSchools()" class="filter-control px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300">
+              <option value="all">公私立不限</option>
+              <option value="public">公立</option>
+              <option value="private">私立</option>
+            </select>
+            <input type="number" id="minScoreFilter" oninput="searchSchools()" class="filter-control score-filter px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="最低成績">
             <button onclick="searchSchools()" class="btn bg-blue-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-blue-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
               <i class="fas fa-search mr-2"></i>搜尋
+            </button>
+            <button onclick="resetFilters()" class="btn bg-gray-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-gray-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
+              <i class="fas fa-filter-circle-xmark mr-2"></i>清除
             </button>
           </div>
         </div>
@@ -136,6 +111,10 @@
         <div class="disclaimer-box mb-6 p-4 border border-yellow-400 bg-yellow-50 rounded-lg text-gray-700 dark:bg-yellow-900 dark:text-gray-200 dark:border-yellow-700">
           <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>免責聲明</h3>
           <p>本網站所提供的高中錄取分數資訊僅供參考，不代表官方立場。實際錄取標準可能因各校政策、年度變化或其他因素而有所調整。使用者應自行核實資訊的準確性，本站不對因使用此資訊而產生的任何損失負責。</p>
+        </div>
+        <div class="subject-rule-box mb-6 p-4 border border-indigo-200 bg-indigo-50 rounded-lg text-indigo-900 dark:bg-indigo-950 dark:text-indigo-100 dark:border-indigo-700">
+          <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-circle-info text-indigo-500 mr-2"></i>單科標準說明</h3>
+          <p data-subject-note>如果積分、積點都超過該校錄取要求，就不需再看單科標示；單科標準主要供積分或積點接近門檻時參考。</p>
         </div>
         <div id="loadingSpinner" class="loading">
           <div class="loading-spinner"></div>
@@ -151,26 +130,6 @@
           </thead>
           <tbody id="schoolTableBody">
             <!-- 學校資料將通過 JavaScript 動態插入 -->
-          </tbody>
-        </table>
-      </div>
-
-      <div id="hiddenContent" class="card p-6 sm:p-12 mt-12 sm:mt-20 fade-in overflow-x-auto" style="display: none;">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center gradient-text">更多學校資訊</h2>
-        <div id="hiddenLoadingSpinner" class="loading">
-          <div class="loading-spinner"></div>
-        </div>
-        <table class="w-full" style="display: none;">
-          <thead>
-            <tr>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-school text-indigo-500 mr-2"></i>學校</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-book-open text-green-500 mr-2"></i>科系</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-chart-line text-red-500 mr-2"></i>成績要求</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-center"><i class="far fa-bookmark text-yellow-500 mr-2"></i>收藏</th>
-            </tr>
-          </thead>
-          <tbody id="hiddenSchoolTableBody">
-            <!-- 隱藏的學校資料將通過 JavaScript 動態插入 -->
           </tbody>
         </table>
       </div>
@@ -204,6 +163,18 @@
         </div>
         <div class="modal-body" id="bookmarkModalContent">
           <!-- Bookmark content will be inserted here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="requirementModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="text-2xl font-bold gradient-text"><i class="fas fa-list-check mr-2"></i>各科錄取要求</h2>
+          <div class="modal-close" onclick="hideModal('requirementModal')"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="modal-body" id="requirementModalContent">
+          <!-- Requirement details will be inserted here dynamically -->
         </div>
       </div>
     </div>
@@ -253,14 +224,6 @@
           <div class="instruction-step">
             <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-search"></i></span>基本查詢</div>
             <p>可直接在搜尋欄輸入學校或科系名稱進行查詢，系統會自動過濾並顯示符合條件的結果。</p>
-          </div>
-          <div class="instruction-step">
-            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-key"></i></span>邀請碼驗證</div>
-            <p>若您有邀請碼，請在邀請碼輸入框中輸入並點擊「確認邀請碼」按鈕，驗證成功後將顯示更多學校的詳細資訊。</p>
-          </div>
-          <div class="instruction-step">
-            <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-clipboard-list"></i></span>獲取邀請碼</div>
-            <p>點擊頁面上的「填寫表單以查看更多各校錄取分數」，完成表單後將獲得邀請碼。</p>
           </div>
           <div class="instruction-step">
             <div class="instruction-title"><span class="instruction-icon"><i class="fas fa-exclamation-triangle"></i></span>注意事項</div>

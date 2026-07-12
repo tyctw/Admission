@@ -1,85 +1,114 @@
 /*
-  Google Apps Script backend for 桃聯區會考高中錄取分數
-  
-  Endpoints:
-  • GET ?action=fetchSchools 
-      Returns school data (dummy data here; replace with real data source as needed)
-  • GET ?action=verify&code=... 
-      Verifies an invite code (valid code is "ABC123")
-  • POST 
-      Records complete usage log information. Expects a JSON payload.
-  
-  To deploy:
-  1. Create a new Apps Script project.
-  2. Replace the code in Code.gs with the code below.
-  3. (Optional) Set up a Google Sheet and update the spreadsheet ID in the commented-out section if you wish to record logs.
-  4. Publish the project as a Web App.
+  Google Apps Script backend for school admission data.
+
+  Spreadsheet columns can include:
+  name, department, score, isVisible,
+  國文, 英語, 數學, 社會, 自然, 寫作測驗
 */
 
-function doGet(e) {
-  var action = e.parameter.action;
-  
-  if (action === "fetchSchools") {
-    return fetchSchoolData();
-  } else if (action === "verify") {
-    return verifyInviteCode(e);
+function doGet() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+
+  if (data.length === 0) {
+    return jsonResponse({
+      visibleSchools: [],
+      hiddenSchools: [],
+      subjectRequirementNote: getSubjectRequirementNote()
+    });
   }
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({ error: "Invalid action." }))
-    .setMimeType(ContentService.MimeType.JSON);
+
+  var headers = data[0];
+  var jsonData = [];
+
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var record = {};
+
+    for (var j = 0; j < headers.length; j++) {
+      record[headers[j]] = row[j];
+    }
+
+    record.subjectRequirements = buildSubjectRequirements(record);
+    record.ownership = getSchoolOwnership(record);
+    jsonData.push(record);
+  }
+
+  var visibleSchools = jsonData.filter(function(school) {
+    return isVisibleValue(school.isVisible);
+  });
+
+  var hiddenSchools = jsonData.filter(function(school) {
+    return !isVisibleValue(school.isVisible);
+  });
+
+  return jsonResponse({
+    visibleSchools: visibleSchools,
+    hiddenSchools: hiddenSchools,
+    subjectRequirementNote: getSubjectRequirementNote()
+  });
 }
 
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
     Logger.log("Received usage log: " + JSON.stringify(data));
-    
-    // Uncomment and update the following lines to write usage logs to a Google Sheet
-    // var ss = SpreadsheetApp.openById("YOUR_SPREADSHEET_ID");
-    // var sheet = ss.getSheetByName("Usage");
-    // sheet.appendRow([
-    //   data.timestamp,
-    //   data.eventType,
-    //   JSON.stringify(data.details),
-    //   data.url,
-    //   data.userAgent
-    // ]);
-    
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: "success", message: "Usage log recorded." }))
-      .setMimeType(ContentService.MimeType.JSON);
+
+    return jsonResponse({
+      status: "success",
+      message: "Usage log recorded."
+    });
   } catch (error) {
     Logger.log("Error processing POST: " + error.toString());
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: "error", message: error.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonResponse({
+      status: "error",
+      message: error.toString()
+    });
   }
 }
 
-function fetchSchoolData() {
-  // Dummy data; replace with actual data retrieval logic if needed.
-  var data = {
-    visibleSchools: [
-      { name: "桃園高中", department: "文科", score: 85 },
-      { name: "中壢高中", department: "理科", score: 90 }
-    ],
-    hiddenSchools: [
-      { name: "內壢高中", department: "綜合", score: 88 }
-    ]
-  };
-  
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
+function buildSubjectRequirements(record) {
+  var subjects = ["國文", "英語", "數學", "社會", "自然", "寫作測驗"];
+  var requirements = {};
+
+  subjects.forEach(function(subject) {
+    if (record[subject] !== "" && record[subject] != null) {
+      requirements[subject] = record[subject];
+    }
+  });
+
+  return requirements;
 }
 
-function verifyInviteCode(e) {
-  // Expected parameter: code
-  var code = e.parameter.code || "";
-  // For demonstration, a valid invite code is "ABC123"
-  var valid = (code === "ABC123");
+function getSchoolOwnership(record) {
+  var rawValue = record["公私立"] || record["公立私立"] || record["學校類型"] ||
+    record.schoolType || record.ownership || record.type || record.name || "";
+  var value = String(rawValue).toLowerCase();
+
+  if (value.indexOf("私") !== -1) {
+    return "private";
+  }
+  if (
+    value.indexOf("公") !== -1 ||
+    value.indexOf("國立") !== -1 ||
+    value.indexOf("市立") !== -1 ||
+    value.indexOf("縣立") !== -1
+  ) {
+    return "public";
+  }
+  return "";
+}
+
+function isVisibleValue(value) {
+  return value === true || value === "TRUE" || value === "true" || value === 1 || value === "1";
+}
+
+function getSubjectRequirementNote() {
+  return "如果積分、積點都超過該校錄取要求，就不需再看單科標示；單科標準主要供積分或積點接近門檻時參考。";
+}
+
+function jsonResponse(payload) {
   return ContentService
-    .createTextOutput(JSON.stringify({ valid: valid }))
+    .createTextOutput(JSON.stringify(payload))
     .setMimeType(ContentService.MimeType.JSON);
 }
