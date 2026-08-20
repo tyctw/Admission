@@ -68,11 +68,84 @@
 
     <main class="container mx-auto px-4 py-12 sm:py-20">
       <div class="card p-6 sm:p-12 mb-12 sm:mb-20 fade-in">
-        <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
-          <button onclick="goToMainFunction()" class="btn bg-purple-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-purple-700 flex-grow text-lg sm:text-2xl font-semibold transition-all duration-300">
-            <i class="fas fa-home mr-2"></i>首頁
-          </button>
-        </div>
+        <!-- 廣告橫幅 -->
+        <a href="https://tyctw.github.io/spare/" target="_blank" class="block w-full no-underline" style="text-decoration:none;">
+          <div id="adBanner" style="
+            background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #eff6ff 100%);
+            border-radius: 16px;
+            padding: 28px 32px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(109,40,217,0.12), 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1.5px solid rgba(139,92,246,0.25);
+          "
+          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 36px rgba(109,40,217,0.2), 0 4px 12px rgba(0,0,0,0.08)';"
+          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(109,40,217,0.12), 0 2px 8px rgba(0,0,0,0.06)';">
+
+            <!-- 背景裝飾光暈 -->
+            <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(167,139,250,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+            <div style="position:absolute;bottom:-30px;left:60px;width:140px;height:140px;background:radial-gradient(circle,rgba(56,189,248,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+
+            <!-- 頂部標籤列 -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+              <span id="adFlashTag" style="
+                background: linear-gradient(90deg,#f59e0b,#ef4444);
+                color:#fff;font-size:0.75rem;font-weight:800;
+                padding:3px 10px;border-radius:20px;letter-spacing:0.05em;
+                animation: adPulse 1.2s infinite;
+              ">🔥 限時推薦</span>
+              <span style="background:#ede9fe;color:#7c3aed;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #c4b5fd;">✦ 完全免費</span>
+              <span style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #7dd3fc;">📊 智慧分析</span>
+            </div>
+
+            <!-- 主標題 -->
+            <div style="margin-bottom:10px;">
+              <div style="color:#1e1b4b;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:900;line-height:1.2;letter-spacing:0.01em;">
+                🎓 還在手動查分數？<span style="color:#dc2626;">太慢了！</span>
+              </div>
+              <div style="color:#3730a3;font-size:clamp(1rem,2.5vw,1.35rem);font-weight:700;margin-top:4px;">
+                立即使用<span style="background:linear-gradient(90deg,#7c3aed,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">會考落點分析系統</span>，一鍵看出你能上哪間！
+              </div>
+            </div>
+
+            <!-- 賣點列表 -->
+            <div style="display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px;">
+              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>輸入成績秒出結果</span>
+              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>桃連區志願全覆蓋</span>
+              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>錄取機率即時呈現</span>
+              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>不用註冊，直接用</span>
+            </div>
+
+            <!-- CTA 按鈕 -->
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div id="adCta" style="
+                display:inline-flex;align-items:center;gap:8px;
+                background:linear-gradient(90deg,#7c3aed,#2563eb);
+                color:#fff;font-size:clamp(0.95rem,2.5vw,1.15rem);font-weight:800;
+                padding:12px 28px;border-radius:50px;
+                box-shadow:0 4px 18px rgba(124,58,237,0.35);
+                animation: adBounce 2s ease-in-out infinite;
+                letter-spacing:0.03em;
+              ">
+                <i class="fas fa-rocket"></i> 免費立即體驗 <i class="fas fa-arrow-right" style="font-size:0.85em;"></i>
+              </div>
+              <div style="color:#9ca3af;font-size:0.78rem;text-align:right;">tyctw.github.io/spare</div>
+            </div>
+          </div>
+        </a>
+
+        <style>
+          @keyframes adPulse {
+            0%,100%{opacity:1;transform:scale(1);}
+            50%{opacity:0.8;transform:scale(1.05);}
+          }
+          @keyframes adBounce {
+            0%,100%{transform:translateY(0);}
+            50%{transform:translateY(-4px);}
+          }
+        </style>
         <div class="feature-buttons-container mt-6">
           <button onclick="toggleDarkMode()" class="feature-button">
             <i class="fas fa-moon mr-2"></i>切換暗黑模式
