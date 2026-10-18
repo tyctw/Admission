@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8">
@@ -16,218 +17,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styless.css">
   </head>
-  <body class="min-h-screen relative">
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="fullscreen-menu" id="fullscreenMenu">
-      <div class="menu-logo">
-        <i class="fas fa-graduation-cap"></i>
-        <span>桃連區會考</span>
-      </div>
-      
-      <div class="menu-content">
-        <div class="menu-items-container">
-          <div class="menu-category">主要選項</div>
-          <a href="https://tyctw.github.io/official/" style="--index: 0"><i class="fas fa-home mr-3"></i>首頁</a>
-          <a href="https://tyctw.github.io/" style="--index: 1"><i class="fas fa-chart-line mr-3"></i>落點分析</a>
-          <a href="https://tyctw.github.io/Navigation/" style="--index: 2"><i class="fas fa-compass mr-3"></i>更多資訊</a>
-          
-          <div class="menu-category">功能選項</div>
-          <a href="#" onclick="toggleDarkMode(); return false;" style="--index: 3"><i class="fas fa-moon mr-3"></i>暗黑模式</a>
-          <a href="#" onclick="showBookmarks(); return false;" style="--index: 4"><i class="fas fa-bookmark mr-3"></i>收藏列表</a>
-          <a href="#" onclick="showSettingsModal(); return false;" style="--index: 5"><i class="fas fa-cog mr-3"></i>設置</a>
-        </div>
-      </div>
-      
-      <div class="menu-footer">
-        © <span id="menuYear"></span> 桃連區會考高中參考錄取分數
-      </div>
-    </div>
-
-    <header class="gradient-bg text-white py-20 relative overflow-hidden">
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="title-container mb-8 animate-fade-in">
-          <div class="title-background"></div>
-          <h1 class="title-text text-center">
-            <span class="title-icon"><i class="fas fa-graduation-cap"></i></span>
-            <span id="currentYear"></span>年桃連區會考高中錄取分數
-          </h1>
-        </div>
-        <p class="text-xl sm:text-2xl text-center animate-fade-in glass-effect p-4 sm:p-6 mx-auto max-w-3xl rounded-lg">
-          為您提供高中錄取分數資訊
-        </p>
-      </div>
-      <div class="custom-shape-divider-bottom-1623679568">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-        </svg>
-      </div>
-    </header>
-
-    <main class="container mx-auto px-4 py-12 sm:py-20">
-      <div class="card p-6 sm:p-12 mb-12 sm:mb-20 fade-in">
-        <!-- 廣告橫幅 -->
-        <a href="https://tyctw.github.io/spare/" target="_blank" class="block w-full no-underline" style="text-decoration:none;">
-          <div id="adBanner" style="
-            background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #eff6ff 100%);
-            border-radius: 16px;
-            padding: 28px 32px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 6px 24px rgba(109,40,217,0.12), 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1.5px solid rgba(139,92,246,0.25);
-          "
-          onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 14px 36px rgba(109,40,217,0.2), 0 4px 12px rgba(0,0,0,0.08)';"
-          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(109,40,217,0.12), 0 2px 8px rgba(0,0,0,0.06)';">
-
-            <!-- 背景裝飾光暈 -->
-            <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(167,139,250,0.15) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-            <div style="position:absolute;bottom:-30px;left:60px;width:140px;height:140px;background:radial-gradient(circle,rgba(56,189,248,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
-
-            <!-- 頂部標籤列 -->
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
-              <span id="adFlashTag" style="
-                background: linear-gradient(90deg,#f59e0b,#ef4444);
-                color:#fff;font-size:0.75rem;font-weight:800;
-                padding:3px 10px;border-radius:20px;letter-spacing:0.05em;
-                animation: adPulse 1.2s infinite;
-              ">🔥 限時推薦</span>
-              <span style="background:#ede9fe;color:#7c3aed;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #c4b5fd;">✦ 完全免費</span>
-              <span style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid #7dd3fc;">📊 智慧分析</span>
-            </div>
-
-            <!-- 主標題 -->
-            <div style="margin-bottom:10px;">
-              <div style="color:#1e1b4b;font-size:clamp(1.1rem,3vw,1.6rem);font-weight:900;line-height:1.2;letter-spacing:0.01em;">
-                🎓 還在手動查分數？<span style="color:#dc2626;">太慢了！</span>
-              </div>
-              <div style="color:#3730a3;font-size:clamp(1rem,2.5vw,1.35rem);font-weight:700;margin-top:4px;">
-                立即使用<span style="background:linear-gradient(90deg,#7c3aed,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">會考落點分析系統</span>，一鍵看出你能上哪間！
-              </div>
-            </div>
-
-            <!-- 賣點列表 -->
-            <div style="display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px;">
-              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>輸入成績秒出結果</span>
-              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>桃連區志願全覆蓋</span>
-              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>錄取機率即時呈現</span>
-              <span style="color:#4b5563;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:#16a34a;margin-right:5px;"></i>不用註冊，直接用</span>
-            </div>
-
-            <!-- CTA 按鈕 -->
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-              <div id="adCta" style="
-                display:inline-flex;align-items:center;gap:8px;
-                background:linear-gradient(90deg,#7c3aed,#2563eb);
-                color:#fff;font-size:clamp(0.95rem,2.5vw,1.15rem);font-weight:800;
-                padding:12px 28px;border-radius:50px;
-                box-shadow:0 4px 18px rgba(124,58,237,0.35);
-                animation: adBounce 2s ease-in-out infinite;
-                letter-spacing:0.03em;
-              ">
-                <i class="fas fa-rocket"></i> 免費立即體驗 <i class="fas fa-arrow-right" style="font-size:0.85em;"></i>
-              </div>
-              <div style="color:#9ca3af;font-size:0.78rem;text-align:right;">tyctw.github.io/spare</div>
-            </div>
-          </div>
-        </a>
-
-        <style>
-          @keyframes adPulse {
-            0%,100%{opacity:1;transform:scale(1);}
-            50%{opacity:0.8;transform:scale(1.05);}
-          }
-          @keyframes adBounce {
-            0%,100%{transform:translateY(0);}
-            50%{transform:translateY(-4px);}
-          }
-        </style>
-        <div class="feature-buttons-container mt-6">
-          <button onclick="toggleDarkMode()" class="feature-button">
-            <i class="fas fa-moon mr-2"></i>切換暗黑模式
-          </button>
-          <button onclick="showBookmarks()" class="feature-button">
-            <i class="fas fa-bookmark mr-2"></i>收藏列表
-          </button>
-          <button onclick="showSettingsModal()" class="feature-button">
-            <i class="fas fa-cog mr-2"></i>設置
-          </button>
-        </div>
-        <div class="mt-8">
-          <label for="searchInput" class="block text-gray-700 font-semibold mb-3 sm:mb-4 text-xl sm:text-2xl">
-            <i class="fas fa-search mr-2 text-blue-500"></i>搜尋學校或科系
-          </label>
-          <div class="filter-panel">
-            <input type="text" id="searchInput" oninput="searchSchools()" class="filter-control flex-grow px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="輸入學校或科系名稱">
-            <select id="ownershipFilter" onchange="searchSchools()" class="filter-control px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300">
-              <option value="all">公私立不限</option>
-              <option value="public">公立</option>
-              <option value="private">私立</option>
-            </select>
-            <input type="number" id="minScoreFilter" oninput="searchSchools()" class="filter-control score-filter px-4 sm:px-6 py-3 sm:py-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg sm:text-2xl transition-all duration-300" placeholder="最低成績">
-            <button onclick="searchSchools()" class="btn bg-blue-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-blue-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
-              <i class="fas fa-search mr-2"></i>搜尋
-            </button>
-            <button onclick="resetFilters()" class="btn bg-gray-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-lg hover:bg-gray-700 text-lg sm:text-2xl font-semibold transition-all duration-300">
-              <i class="fas fa-filter-circle-xmark mr-2"></i>清除
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div id="schoolList" class="card p-6 sm:p-12 fade-in overflow-x-auto">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center gradient-text">高中錄取分數一覽</h2>
-        <div class="disclaimer-box mb-6 p-4 border border-yellow-400 bg-yellow-50 rounded-lg text-gray-700 dark:bg-yellow-900 dark:text-gray-200 dark:border-yellow-700">
-          <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>免責聲明</h3>
-          <p>本網站所提供的高中錄取分數資訊僅供參考，不代表官方立場。實際錄取標準可能因各校政策、年度變化或其他因素而有所調整。使用者應自行核實資訊的準確性，本站不對因使用此資訊而產生的任何損失負責。</p>
-        </div>
-        <div class="subject-rule-box mb-6 p-4 border border-indigo-200 bg-indigo-50 rounded-lg text-indigo-900 dark:bg-indigo-950 dark:text-indigo-100 dark:border-indigo-700">
-          <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-circle-info text-indigo-500 mr-2"></i>單科標準說明</h3>
-          <p data-subject-note>如果積分、積點都超過該校錄取要求，就不需再看單科標示；單科標準主要供積分或積點接近門檻時參考。</p>
-        </div>
-        <div id="loadingSpinner" class="loading">
-          <div class="loading-spinner"></div>
-        </div>
-        <table class="w-full" style="display: none;">
-          <thead>
-            <tr>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-school text-indigo-500 mr-2"></i>學校</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-book-open text-green-500 mr-2"></i>科系</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-left"><i class="fas fa-chart-line text-red-500 mr-2"></i>成績要求</th>
-              <th class="px-3 sm:px-8 py-4 sm:py-6 text-center"><i class="far fa-bookmark text-yellow-500 mr-2"></i>收藏</th>
-            </tr>
-          </thead>
-          <tbody id="schoolTableBody">
-            <!-- 學校資料將通過 JavaScript 動態插入 -->
-          </tbody>
-        </table>
-      </div>
+  <body>
+    <a class="skip-link" href="#searchInput">跳至學校搜尋</a>
+    <nav class="topbar" aria-label="主要導覽">
+      <a class="brand" href="./"><span class="brand-icon"><i class="fas fa-graduation-cap"></i></span><span>桃連升學指南<small>TAOYUAN · LIENCHIANG</small></span></a>
+      <div class="desktop-nav"><a class="nav-active" href="#schoolList">錄取分數</a><a href="https://tyctw.github.io/">落點分析 <i class="fas fa-arrow-up-right-from-square"></i></a><a href="https://tyctw.github.io/Navigation/">升學資源</a></div>
+      <div class="nav-tools"><button class="icon-button" onclick="toggleDarkMode()" aria-label="切換深色模式"><i class="far fa-moon"></i></button><button class="saved-button" onclick="showBookmarks()"><i class="far fa-bookmark"></i><span>我的收藏</span><b id="bookmarkCount">0</b></button><button class="menu-toggle icon-button" onclick="toggleMenu()" aria-label="開啟選單" aria-expanded="false" aria-controls="fullscreenMenu"><i class="fas fa-bars"></i></button></div>
+    </nav>
+    <div class="fullscreen-menu" id="fullscreenMenu"><div class="menu-logo">探索升學方向</div><div class="menu-content"><div class="menu-items-container"><a href="#schoolList" onclick="toggleMenu()">錄取分數</a><a href="https://tyctw.github.io/">落點分析</a><a href="https://tyctw.github.io/Navigation/">升學資源</a><a href="#" onclick="toggleMenu(); showBookmarks(); return false;">我的收藏</a><a href="#" onclick="toggleMenu(); showSettingsModal(); return false;">網站設定</a></div></div><div class="menu-footer">© <span id="menuYear"></span> 桃連升學指南</div></div>
+    <main class="page-shell">
+      <header class="hero">
+        <div class="hero-copy"><div class="eyebrow"><span></span>給每一個正在選擇未來的你</div><h1>下一站，<br>找到你的<span class="accent-word">理想高中<svg viewBox="0 0 300 14" aria-hidden="true"><path d="M3 10 Q150 -3 297 7"/></svg></span>。</h1><p>從分數出發，探索更多可能。<br>一次查詢桃連區高中與科系，讓志願選擇更有方向。</p><a class="hero-link" href="#searchPanel">開始探索學校 <i class="fas fa-arrow-down"></i></a></div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><span class="art-spark spark-one">✦</span><span class="art-spark spark-two">✧</span><div class="year-stamp"><span>ADMISSION GUIDE</span><strong id="currentYear"></strong><small>學年度升學參考</small></div><div class="school-drawing"><div class="school-roof"><i class="fas fa-graduation-cap"></i></div><div class="school-building"><span></span><span></span><span></span><span></span><div class="school-door"></div></div><div class="school-ground"></div></div><div class="art-note"><span><i class="fas fa-check"></i></span> 每一份努力，都有自己的方向</div></div>
+      </header>
+      <a class="analysis-banner" href="https://tyctw.github.io/spare/" target="_blank" rel="noopener noreferrer">
+        <span class="banner-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></span>
+        <div class="banner-copy"><span class="banner-kicker">讓選擇更有把握</span><h2>有了成績，探索你的志願方向。</h2><p>試試會考落點分析，找到適合你的學校。</p></div>
+        <span class="banner-cta">免費落點分析 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+      </a>
+      <section class="search-card" id="searchPanel" aria-labelledby="searchTitle">
+        <div class="section-top"><div><span class="section-kicker">FIND YOUR SCHOOL</span><h2 id="searchTitle">你的理想學校，從這裡開始</h2></div><button class="text-button" onclick="toggleInstructionModal()"><i class="far fa-circle-question"></i> 如何使用</button></div>
+        <form class="filter-panel" onsubmit="event.preventDefault(); searchSchools()"><div class="field search-field"><label for="searchInput">學校或科系</label><div class="input-wrap"><i class="fas fa-search"></i><input type="search" id="searchInput" oninput="searchSchools()" placeholder="搜尋學校、科系名稱…" autocomplete="off"></div></div><div class="field"><label for="ownershipFilter">學校類型</label><select id="ownershipFilter" onchange="searchSchools()"><option value="all">全部公私立</option><option value="public">公立學校</option><option value="private">私立學校</option></select></div><div class="field"><label for="minScoreFilter">最低參考分數</label><input type="number" id="minScoreFilter" oninput="searchSchools()" placeholder="不限分數" min="0" step="any"></div><button type="submit" class="primary-button"><i class="fas fa-search"></i> 查詢學校</button></form>
+        <div class="search-bottom"><div class="quick-search"><span>快速搜尋</span><button onclick="quickSearch('武陵')">武陵高中</button><button onclick="quickSearch('中壢')">中壢高中</button><button onclick="quickSearch('內壢')">內壢高中</button><button onclick="quickSearch('普通科')">普通科</button></div><button class="text-button reset-button" onclick="resetFilters()"><i class="fas fa-rotate-right"></i> 重設篩選</button></div>
+      </section>
+      <div class="content-grid"><section id="schoolList" aria-labelledby="resultsTitle"><div class="results-heading"><div><span class="section-kicker">EXPLORE POSSIBILITIES</span><h2 id="resultsTitle">高中錄取分數一覽 <span id="resultCount" aria-live="polite">載入中</span></h2></div><span class="reference-label"><span></span> 升學參考資料</span></div><div class="table-container"><div id="loadingSpinner" class="loading"><div class="loading-spinner"></div><p>正在取得學校資料…</p></div><table style="display:none"><thead><tr><th>學校名稱</th><th>招生科系</th><th>參考成績 <span>／ 單科標準</span></th><th class="bookmark-heading">收藏</th></tr></thead><tbody id="schoolTableBody"></tbody></table></div><p class="table-footnote"><i class="far fa-hand-pointer"></i> 點選學校，查看完整單科錄取要求。</p></section>
+      <aside class="sidebar"><div class="subject-rule-box"><span class="info-icon"><i class="fas fa-lightbulb"></i></span><h3>分數怎麼看？</h3><p data-subject-note>如果積分、積點都超過該校錄取要求，就不需再看單科標示；單科標準主要供積分或積點接近門檻時參考。</p><button class="text-button" onclick="toggleInstructionModal()">查看使用說明 <i class="fas fa-arrow-right"></i></button></div><div class="disclaimer-box"><h3><i class="fas fa-circle-info"></i> 資料使用提醒</h3><p>本網站資訊僅供升學參考，不代表官方錄取標準。實際門檻可能因年度與招生政策調整，請以各校及官方公告為準。</p><button class="disclaimer-analysis-link" onclick="showDisclaimerModal()">查看免責聲明 <i class="fas fa-arrow-right" aria-hidden="true"></i></button></div></aside></div>
+      <section class="closing-note"><span>YOUR FUTURE, YOUR PATH.</span><p>分數是起點，你的可能不只一種。</p><i class="fas fa-asterisk" aria-hidden="true"></i></section>
     </main>
-
-    <footer class="bg-gray-800 text-white py-12 sm:py-16 mt-12 sm:mt-20">
-      <div class="container mx-auto px-4 text-center">
-        <p class="text-xl sm:text-2xl mb-4 sm:mb-6">
-          <i class="far fa-copyright mr-2"></i><span id="footerYear"></span> 桃連區會考高中參考錄取分數
-        </p>
-        <div class="flex justify-center gap-4 flex-wrap">
-          <button onclick="toggleInstructionModal()" class="btn bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 text-lg font-semibold mt-4">
-            <i class="fas fa-info-circle mr-2"></i>使用說明
-          </button>
-          <button onclick="showSettingsModal()" class="btn bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 text-lg font-semibold mt-4">
-            <i class="fas fa-cog mr-2"></i>網站設置
-          </button>
+    <footer><a class="footer-brand" href="./"><i class="fas fa-graduation-cap"></i> 桃連升學指南</a><span>© <span id="footerYear"></span> 桃連區會考高中參考錄取分數</span><div><button onclick="toggleInstructionModal()">使用說明</button><button onclick="showSettingsModal()">網站設定</button></div></footer>
+    <button id="scrollToTopBtn" class="scroll-to-top" onclick="scrollToTop()" aria-label="回到頁首"><i class="fas fa-arrow-up"></i></button>
+    <div class="modal-overlay" id="disclaimerModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="font-bold"><i class="fas fa-circle-info mr-2" aria-hidden="true"></i>免責聲明</h2>
+          <div class="modal-close" onclick="hideModal('disclaimerModal')"><i class="fas fa-times" aria-hidden="true"></i></div>
+        </div>
+        <div class="modal-body">
+          <p>本網站所提供的高中錄取分數資訊僅供參考，不代表官方立場。實際錄取標準可能因各校政策、年度變化或其他因素而有所調整。</p>
+          <p class="mt-4">使用者應自行核實資訊的準確性，並以各校及官方公告為準。本站不對因使用此資訊而產生的任何損失負責。</p>
+          <a class="disclaimer-modal-cta" href="https://tyctw.github.io/spare/" target="_blank" rel="noopener noreferrer">免費落點分析 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+          <a class="disclaimer-rules-link" href="https://tyctw.github.io/spare/scoring-rules/taoyuan/" target="_blank" rel="noopener noreferrer">桃連區計分方式 <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+          <button class="text-button disclaimer-dismiss" onclick="hideModal('disclaimerModal')">我已了解</button>
         </div>
       </div>
-    </footer>
-
-    <div id="scrollToTopBtn" class="scroll-to-top" onclick="scrollToTop()">
-      <i class="fas fa-arrow-up"></i>
     </div>
-
     <div class="modal-overlay" id="bookmarkModal">
       <div class="modal-content">
         <div class="modal-header">

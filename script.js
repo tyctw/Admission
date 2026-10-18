@@ -15,6 +15,7 @@ async function fetchSchoolData() {
     document.getElementById("loadingSpinner").style.display = "flex";
 
     const response = await fetch(SCHOOL_DATA_API);
+    if (!response.ok) throw new Error("School data request failed");
     const data = await response.json();
 
     document.getElementById("loadingSpinner").style.display = "none";
@@ -33,8 +34,9 @@ async function fetchSchoolData() {
   } catch (error) {
     console.error("Error:", error);
     document.getElementById("loadingSpinner").style.display = "none";
-    document.getElementById("schoolList").innerHTML +=
-      '<p class="text-red-500 text-center">加載數據時出錯，請稍後再試。</p>';
+    document.getElementById('resultCount').textContent = '暫時無法載入';
+    document.getElementById('loadingSpinner').style.display = 'flex';
+    document.getElementById('loadingSpinner').innerHTML = '<p>目前無法取得學校資料，請稍後再試。</p><button class="text-button" onclick="location.reload()">重新載入 <i class="fas fa-rotate-right"></i></button>';
   }
 }
 
@@ -89,6 +91,8 @@ function updateSubjectRequirementNotes() {
 function populateSchoolTable(schools, tableId) {
   const tableBody = document.getElementById(tableId);
   tableBody.innerHTML = "";
+  const count = document.getElementById("resultCount");
+  if (count) count.textContent = `${schools.length} 筆結果`;
   schoolDetails.clear();
   if (schools.length === 0) {
     tableBody.innerHTML =
@@ -123,7 +127,7 @@ function populateSchoolTable(schools, tableId) {
             </div>
           </td>
           <td class="px-3 sm:px-8 py-4 sm:py-6 text-center">
-            <button onclick="event.stopPropagation(); toggleBookmarkById('${schoolId}')" class="bookmark-btn">
+            <button onclick="event.stopPropagation(); toggleBookmarkById('${schoolId}')" class="bookmark-btn" aria-label="收藏${schoolName} ${department}" aria-pressed="${isBookmarked}">
               <i class="${bookmarkIcon} text-xl"></i>
             </button>
           </td>
@@ -331,12 +335,15 @@ function toggleBookmark(name, department, score) {
 }
 
 function applyBookmarks() {
+  const count = document.getElementById('bookmarkCount');
+  if (count) count.textContent = bookmarks.length;
   // Update bookmark icons
   document.querySelectorAll('tr[data-school-id]').forEach(row => {
     const school = schoolDetails.get(row.getAttribute('data-school-id'));
     if (!school) return;
     const isBookmarked = bookmarks.some(b => b.name === school.name && b.department === school.department);
     
+    row.querySelector('.bookmark-btn')?.setAttribute('aria-pressed', String(isBookmarked));
     const bookmarkBtn = row.querySelector('.bookmark-btn i');
     if (bookmarkBtn) {
       if (isBookmarked) {
@@ -389,6 +396,7 @@ function hideInstructionModal() {
   const modal = document.getElementById('instructionModal');
   modal.classList.remove('active');
   document.body.style.overflow = '';
+  localStorage.setItem('instructionModalShown', 'true');
 }
 
 function toggleInstructionModal() {
@@ -414,6 +422,9 @@ function showSettingsModal() {
 }
 
 function hideModal(modalId) {
+  if (modalId === 'disclaimerModal') {
+    localStorage.setItem('admissionDisclaimerSeen', 'true');
+  }
   const modal = document.getElementById(modalId);
   modal.classList.remove('active');
   document.body.style.overflow = '';
@@ -441,6 +452,7 @@ function toggleMenu() {
   
   menu.classList.toggle('active');
   menuToggle.classList.toggle('active');
+  menuToggle.setAttribute('aria-expanded', String(menu.classList.contains('active')));
   
   const menuIcon = menuToggle.querySelector('i');
   menuIcon.classList.toggle('fa-bars');
@@ -490,38 +502,40 @@ function updateYearDisplay() {
 }
 
 window.addEventListener("load", fetchSchoolData);
-window.addEventListener("load", checkAndShowInstructions);
+
 window.addEventListener("load", checkDarkModePreference);
 window.addEventListener("load", updateYearDisplay);
 window.addEventListener("scroll", toggleScrollToTopButton);
-window.addEventListener("contextmenu", (e) => e.preventDefault());
-document.addEventListener("selectstart", (e) => e.preventDefault());
-
 window.addEventListener("load", () => {
   animateFadeIn();
+  applyBookmarks();
+  const size = localStorage.getItem('fontSize') || 'medium';
+  changeFontSize(size);
+  document.getElementById('fontSizeSelect').value = size;
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', modal.querySelector('h2').textContent.trim());
+    const close = modal.querySelector('.modal-close');
+    close.setAttribute('role', 'button');
+    close.setAttribute('tabindex', '0');
+    close.setAttribute('aria-label', '關閉視窗');
+    close.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close.click(); }
+    });
+    modal.addEventListener('click', e => { if (e.target === modal) hideModal(modal.id); });
+  });
 });
-
-document.addEventListener("keydown", function (e) {
-  if (
-    e.ctrlKey &&
-    (e.key === "c" || e.key === "C" || e.key === "a" || e.key === "A" || e.key === "x" || e.key === "X")
-  ) {
-    e.preventDefault();
+function quickSearch(query) {
+  document.getElementById('searchInput').value = query;
+  searchSchools();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(modal => hideModal(modal.id));
+    if (document.getElementById('fullscreenMenu').classList.contains('active')) toggleMenu();
   }
 });
-
-setInterval(function () {
-  const devToolsOpened = function () {
-    const widthThreshold = window.outerWidth - window.innerWidth > 160;
-    const heightThreshold = window.outerHeight - window.innerHeight > 160;
-    return widthThreshold || heightThreshold;
-  };
-
-  if (devToolsOpened()) {
-    document.body.innerHTML = "<h1>請勿使用開發者工具！</h1>";
-    window.location.reload();
-  }
-}, 1000);
 
 // 點擊外部區域關閉菜單
 document.addEventListener('click', function(event) {
@@ -535,3 +549,15 @@ document.addEventListener('click', function(event) {
     toggleMenu();
   }
 }, false);
+
+function showDisclaimerModal() {
+  document.getElementById('disclaimerModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('#disclaimerModal .modal-close').focus();
+}
+
+window.addEventListener('load', () => {
+  if (localStorage.getItem('admissionDisclaimerSeen') !== 'true') {
+    showDisclaimerModal();
+  }
+});
